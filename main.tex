@@ -1,0 +1,290 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage{ModernTeX}
+
+
+
+
+\begin{document}
+\sloppy
+
+\title{Optimering 1}
+
+\author{Trym Sæther}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Introduksjon til optimering}
+
+\subsection{Optimeringsproblemet}
+La $f: \Omega \to \R$ være en (objekt)funksjon som vi ønsker å maksimere eller minimere, der $\Omega \subset \R^d$ er en ikke-tom mengde (feasible set).
+
+\begin{definition}{Optimeringsproblemet \((P)\)}{}
+    \[
+        \min_{x \in \Omega} f(x) \quad \text{eller} \quad \max_{x \in \Omega} f(x).
+    \]\label{def:optimization_problem}
+\end{definition}
+
+
+\section{Fri optimalisering}
+
+Fri optimalisering refererer til problemer uten eksplisitte restriksjoner på variablene. Målet er å minimere en glatt objektiv funksjon \( f : \mathbb{R}^n \to \mathbb{R} \) over hele rommet \( \mathbb{R}^n \). Problemformuleringen er:
+
+\[
+    \min_{x \in \mathbb{R}^n} f(x),
+\]
+der løsningen \( x^* \) tilfredsstiller:
+\[
+    f(x^*) \leq f(x), \quad \forall x \in \mathbb{R}^n.
+\]
+
+\subsection*{Egenskaper}
+
+\begin{itemize}
+    \item \textbf{Ingen restriksjoner}: Den tillatte mengden (feasible set) er hele \( \mathbb{R}^n \), uten likhets- eller ulikhetsbetingelser.
+    \item \textbf{Enklere oppsett}: Det er ikke behov for å håndtere restriksjoner som sikrer at løsningen er gyldig.
+    \item \textbf{Fokuserer kun på målfunksjonen}: Algoritmer søker etter punkter \( x \) som reduserer \( f(x) \) direkte, uten å ta hensyn til andre forhold.
+\end{itemize}
+
+\subsection*{Konvergens}
+For å sikre konvergens til en stasjonær løsning \( x^* \), må følgende betingelser oppfylles:
+\begin{enumerate}
+    \item \( f(x) \) er kontinuerlig deriverbar (\( C^1 \)), og dens gradient \( \nabla f(x) \) eksisterer og er Lipschitz-kontinuerlig.
+    \item Nivåsettene \( \{x \in \mathbb{R}^n : f(x) \leq c\} \) er kompakte.
+\end{enumerate}
+
+Under disse betingelsene sikres:
+\[
+    \lim_{k \to \infty} \|\nabla f(x_k)\| = 0,
+\]
+
+der \( x_k \) er iteratene generert av en optimaliseringsalgoritme. Akkumuleringspunkter \( x^* \) tilfredsstiller førsteordens nødvendige betingelser:
+\[
+    \nabla f(x^*) = 0.
+\]
+
+\section{Begreper og definisjoner}
+
+\subsection{Nivåsett}
+
+$f: \Omega \to \overline{\R}$ er en funksjon. Vi definerer nivåsettet til $f$ i punktet $y \in \R$ som:
+
+\begin{definition}{Nivåsett}{level_set}
+    \[
+        \mathcal{L}_f(y) = \{x \in \Omega | f(x) = y\}.
+    \]
+\end{definition}
+
+\begin{definition}{Nedre semi-kontinuerlig funksjoner}{lsc}
+
+    $f: \Omega (\subset \R^d) \to \overline{\R}$ være en funksjon. Vi sier at $f$ er nedre semi-kontinuerlig (lsc) i punktet $x_0$ hvis for alle $\varepsilon > 0$ finnes det en $\delta > 0$ slik at
+
+    \[
+        f(x) > f(x_0) - \varepsilon \quad \text{for alle} \quad x \in B(x_0, \delta).
+    \]
+
+    \begin{enumerate}
+        \item $f$ er (lsc) i $x_0$ hvis det for alle $\alpha \in \R$ er mengden $\mathcal{L}_f(\alpha) = \{x | f(x) < \alpha \} \text{ er åpen i } \R^d$
+        \item $f$ er (lsc) i $x_0 \in X$ hvis og bare hvis: $\liminf_{x \to x_0} f(x) \geq f(x_0)$.
+    \end{enumerate}
+
+\end{definition}
+
+\begin{example}{(lsc)}{}
+    \begin{figure}[H]
+        \includegraphics[scale=0.7]{figures/example_lsc.png}
+        \caption{Eksempel på en nedre semi-kontinuerlig funksjon.}
+        \label{fig:lsc}
+    \end{figure}
+\end{example}
+
+\begin{definition}{Koersivitet}{}
+    $f: \Omega \to \overline{\R}$ er en koersiv funksjon hvis for alle $y \in \R$ er nivåmengden $f^{-1}(y)$ kompakt i $\Omega$.
+\end{definition} \label{def:coercive}
+
+\subsection{Konveksitet}
+
+\begin{definition}{Konveks funksjon}{convex_function}
+    En funksjon $f: \R^n \to \R$ er konveks hvis for alle $x, y \in \R^n$ og $\lambda \in [0, 1]$ har vi:
+
+    \begin{align*}
+        f(\lambda x + (1 - \lambda)y) & \leq \lambda f(x) + (1 - \lambda)f(y) \tag{Konveks} \\
+    \end{align*}
+
+    \begin{filingbox}[colback=red!20!white][Strengt konveks]{Strengt konveks funksjon}
+        En funksjon $f: \R^n \to \R$ er strengt konveks hvis for alle $x, y \in \R^n$ og $\lambda \in (0, 1)$ har vi:
+        \[
+            f(\lambda x + (1 - \lambda)y) < \lambda f(x) + (1 - \lambda)f(y)
+        \]\label{def:strictly_convex}
+    \end{filingbox}
+    \begin{filingbox}(ul)[red!20!white]{Kvasi-konveks}
+        En funksjon $f: \R^d \to \R$ er kvasi-konveks hvis for alle $x, y \in \R^n$ og $\lambda \in (0, 1)$ har vi:
+
+        \[
+            f(\lambda x + (1 - \lambda)y) \leq \max\{f(x), f(y)\}
+        \]
+
+        En alternativ definisjon er at en funksjon er kvasi-konveks hvis alle nivåsettene er konvekse.
+
+        \[
+            \mathcal{L}_f(y) = \{x \in \R^n | f(x) \leq y\} \quad \text{er konveks for alle} \quad y \in \R
+        \]
+
+        \[
+            \boxed{\underbrace{\forall \alpha \in \mathbb{R}, \mathcal{L}_f(\alpha) \text{ er konveks}}_{f \text{ er kvasi-konveks }}\Longleftrightarrow \forall x, y \in \mathbb{R}^d,\lambda \text{ s.a. } f(\lambda x + (1-\lambda)y) \leq \max \{ f(x), f(y) \}}
+        \]
+    \end{filingbox}\label{def:quasi_convex}
+
+\end{definition}
+
+En mengde $C \subset \R^n$ er (strengt) konveks når:
+
+\begin{definition}{Konveks sett}{convex_set}
+
+    \begin{align*}
+        \lambda x + (1 - \lambda)y & \in C \quad \forall \; x, y \in C, \lambda \in [0, 1] \tag{Konveks}                   \\
+        \lambda x + (1 - \lambda)y & \in C \quad \forall \; x, y \in C, \lambda \in (0, 1), x \neq y \tag{Strengt konveks}
+    \end{align*}
+
+\end{definition}
+
+
+\subsection{Globale og lokale løsninger}
+
+La $f: \Omega \to \R$ være en funksjon. Vi sier at $x^* \in \Omega$ er en global løsning av minimeringsproblemet \((P)\) hvis
+
+\begin{definition}{Global løsning}{}
+    \begin{align*}
+        f(x^*) & \leq f(x) \quad \text{for alle} \quad x \in \Omega, \tag{Global løsning}                 \\
+        f(x^*) & < f(x) \quad \text{for alle} \quad x \in \Omega, x \neq x^*. \tag{Streng global løsning}
+    \end{align*}
+\end{definition}
+
+La $f: \Omega \to \R$ være en funksjon. Vi sier at $x^* \in \Omega$ er en lokal løsning av optimeringsproblemet hvis
+
+\begin{definition}{Lokal løsning}{}
+    \begin{align*}
+        f(x^*) & \leq f(x) \quad \text{for alle} \quad x \in B(x^*, \varepsilon) \cap \Omega, \tag{Lokal løsning}                     \\
+        f(x^*) & < f(x) \quad \text{for alle} \quad x \in B(x^*, \varepsilon) \cap \Omega, x \neq x^*. \tag{Streng lokal løsning}     \\
+        f(x^*) & \leq f(x) \quad \text{for alle} \quad x \in B(x^*, \varepsilon) \cap \Omega, x \neq x^*. \tag{Isolert lokal løsning}
+    \end{align*}
+\end{definition}
+
+\begin{remark}{Maksimeringsproblemet}{}
+    for maksimeringsproblemer snur vi bare ulikhetene.
+    \[
+        \leq \; \leftrightarrow \; \geq
+    \]
+\end{remark}
+
+\subsection*{Eksistens av globale løsninger}
+
+Hvis $f: \Omega \subset \R^d \to \overline{\R}$ er nedre semi-kontinuerlig og koersiv på $\Omega$, så har $f$ en global løsning (minimum) i $\Omega$.
+
+\begin{enumerate}
+    \item $f$ er nedre semi-kontinuerlig (lsc) på $\Omega$ hvis for alle $y \in \R$ er nivåmengden $f^{-1}(y)$ lukket i $\Omega$.
+    \item $f$ er koersiv på $\Omega$ hvis for alle $y \in \R$ er nivåmengden $f^{-1}(y)$ kompakt i $\Omega$.
+    \item $f$ er konveks på $\Omega$ hvis for alle $x, y \in \Omega$ og $\lambda \in [0, 1]$ har vi:
+    \item
+          \[
+              f(\lambda x + (1 - \lambda)y) \leq \lambda f(x) + (1 - \lambda)f(y).
+          \]
+\end{enumerate}
+
+\newpage
+\section{Funksjoner}
+\begin{table}[ht]
+    \centering
+    \caption{Function Properties and Optimization Methods (Corrected)}
+    \label{tab:function_properties}
+    \footnotesize
+    \begin{tabularx}{\textwidth}{@{} >{\RaggedRight}Z Y Y Y Y Y Y Y @{}}
+        \toprule
+        \textbf{Function (Domain)}                                                        & \textbf{Cvx} & \textbf{Coe} & \textbf{lsc} & \textbf{QCvx} & \textbf{Loc} & \textbf{Glo} & \textbf{Alg}         \\
+        \midrule
+
+        \multicolumn{8}{@{}l}{\textbf{Scalar Functions (\(\mathbb{R}\))}}                                                                                                                                   \\
+        \midrule
+        \( f(x) = x^2 \)                                                                  & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Gradient Descent     \\
+        \( f(x) = |x| \)                                                                  & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Proximal/Subgradient \\
+        \( f(x) = x^3 \)                                                                  & \no          & \no          & \yes         & \no           & \no          & \no          & Heuristics           \\
+        \( f(x) = x^4 - Cx^2 \)                                                           & \no          & \yes         & \yes         & \no           & \yes         & \yes         & Newton               \\
+        \( f(x) = \begin{cases} 0 & x \leq 0 \\ 1 & x > 0 \end{cases} \)                  & \no          & \no          & \yes         & \yes          & \yes         & \yes         & Subgradient          \\
+
+        \( f(x) = \sqrt{x}\ (x \geq 0) \)                                                 & \no          & \no          & \yes         & \yes          & \yes         & \yes         & Gradient Descent     \\
+        \( f(x) = \log(1 + e^x) \)                                                        & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Gradient Descent     \\
+        \( f(x) = Ce^x \)                                                                 & \yes         & \no          & \yes         & \yes          & \no          & \no          & Heuristics           \\
+        \( f(x) = e^x - x \)                                                              & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Newton               \\
+        \( f(x) = \sin(x) \)                                                              & \no          & \no          & \yes         & \no           & \yes         & \yes         & Heuristics           \\
+
+        \midrule
+
+        \multicolumn{8}{@{}l}{\textbf{Vector Functions (\(\mathbb{R}^d\))}}                                                                                                                                 \\
+        \midrule
+        \( f(\mathbf{x}) = \|\mathbf{x}\| \)                                              & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Proximal             \\
+        \( f(\mathbf{x}) = \|\mathbf{x}\| + \sin(x_1) \)                                  & \no          & \yes         & \yes         & \no           & \yes         & \yes         & Stochastic GD        \\
+        \( f(\mathbf{x}) = \mathbf{x}^\top \mathbf{A} \mathbf{x}\ (\mathbf{A} \succ 0) \) & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Newton               \\
+        \midrule
+
+        \multicolumn{8}{@{}l}{\textbf{Counterexamples}}                                                                                                                                                     \\
+        \midrule
+        \( f(x) = \sqrt{|x|} \)                                                           & \no          & \no          & \yes         & \yes          & \no          & \no          & Heuristics           \\
+        \( f(x,y) = x^4y^2 + x^4 - 2x^3y \)                                               & \no          & \yes         & \yes         & \no           & \yes         & \yes         & Evolutionary         \\
+        \bottomrule
+    \end{tabularx}
+    \vspace{0.5em}
+    \footnotesize
+    \textbf{Key Corrections:}
+    \begin{itemize}
+        \item \( f(x) = |x| \): Marked as convex/coercive; algorithm changed to Proximal/Subgradient.
+        \item \( f(x) = x^3 \): Corrected coerciveness (No) and minima (No).
+        \item \( f(x) = \sqrt{x} \): Added domain restriction \( x \geq 0 \); has global minimum at 0.
+        \item \( f(x) = \sin(x) \): Quasi-convexity corrected to No; has infinite global minima.
+        \item Quadratic forms: Explicitly stated \( \mathbf{A} \succ 0 \) for convexity.
+    \end{itemize}
+\end{table}
+
+\newpage
+\begin{table}[ht]
+    \centering
+
+    \label{tab:glossary}
+    \footnotesize
+    \begin{tabularx}{\textwidth}{@{}>{\color{black!70}}l>{\raggedright\arraybackslash}X@{}}
+        \toprule
+        \rowcolor{headerblue}
+        \textbf{Term}     & \textbf{Definition/Formula}                                                                                                                               \\
+        \midrule
+
+        Convex            & \( f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y), \ \forall x,y \in \R^d, \lambda \in [0,1] \)                                          \\
+
+        Coercive          & \( \lim_{\|x\| \to \infty} f(x) = \infty \) (ensures existence of minima)                                                                                 \\
+
+        lsc               & \( \liminf_{x \to x_0} f(x) \geq f(x_0) \) (sublevel sets closed)                                                                                         \\
+
+        Quasi-Convex      & \( \mathcal{L}_{f}(\alpha) = \{x \mid f(x) \leq \alpha\} \text{ convex } \forall \alpha \in \R \iff f(\lambda x + (1-\lambda)y) \leq \max\{f(x),f(y)\} \) \\
+
+        Local Minimum     & \( \exists \epsilon > 0: f(x^*) \leq f(x), \, \forall x \in B_\epsilon(x^*) \)                                                                            \\
+
+        Global Minimum    & \( f(x^*) \leq f(x), \, \forall x \in \R^d \)                                                                                                             \\
+
+        Proximal Operator & \( \text{prox}_{\gamma f}(v) = \arg\min_x \left( f(x) + \frac{1}{2\gamma}\|x - v\|^2 \right) \)                                                           \\
+
+        Subgradient       & \( g \in \partial f(x) \text{ if } f(y) \geq f(x) + g^\top(y-x), \, \forall y \in \R^d \)                                                                 \\
+
+        Stochastic GD     & \( x_{k+1} = x_k - \eta_k \nabla f_{i_k}(x_k) \) (randomized gradients)                                                                                   \\
+
+        Newton's Method   & \( x_{k+1} = x_k - [\nabla^2 f(x_k)]^{-1} \nabla f(x_k) \)                                                                                                \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Quick Reference: Key Definitions and Formulas}
+\end{table}
+
+
+\input{lectures/lectures.tex}
+
+
+\end{document}

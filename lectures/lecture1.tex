@@ -1,0 +1,53 @@
+\subsubsection{Lecture 1 (6. Januar 2025)}
+
+\section*{Eksistens av globale løsninger}
+
+\begin{definition}{Nivåmengde}{level-set}
+For en funksjon $f: \mathbb{R}^d \to \mathbb{R}$ definerer vi nivåmengden som
+\[
+L_f(\alpha) = \{x \in \mathbb{R}^d : f(x) \leq \alpha\}
+\]
+\end{definition}
+
+\begin{theorem}{Karakterisering av koersivitet og semi-kontinuitet}{characterization}
+La $f: \mathbb{R}^d \to \mathbb{R}$ være en funksjon. Da har vi:
+\begin{itemize}
+    \item $f$ er koersiv $\iff L_f(\alpha)$ er avgrenset for alle $\alpha < \infty$
+    \item $f$ er nedre semi-kontinuerlig (lsc) $\iff L_f(\alpha)$ er lukket for alle $\alpha$
+\end{itemize}
+\end{theorem}
+
+\begin{theorem}{Eksistens av globale løsninger}{existence}
+Hvis $f: \mathbb{R}^d \to \mathbb{R}$ er koersiv og nedre semi-kontinuerlig, så har problemet
+\[
+\min_{x \in \mathbb{R}^d} f(x)
+\]
+en global løsning.
+\end{theorem}
+
+\section*{Nødvenige og tilstrekkelige betingelser for lokale løsninger}
+
+\begin{theorem}{Nødvendige betingelser for lokale løsninger}{necessary-conditions}
+La $x^* \in \mathbb{R}^d$ være en lokal løsning av $\min_{x \in \mathbb{R}^d} f(x)$. Da gjelder:
+\begin{itemize}
+    \item $\nabla f(x^*) = 0$ (Førsteordens nødvendig betingelse).
+    \item $H_f(x^*)$ er positiv semi-definit (Andreordens nødvendig betingelse).
+\end{itemize}
+da er $x^*$ en lokal løsning av $\min_{x \in \mathbb{R}^d} f(x)$.
+\end{theorem}\label{thm:necessary-conditions}
+
+\begin{theorem}{Tilstrekkelige betingelser for lokale løsninger}{sufficient-conditions}
+Hvis $x^* \in \mathbb{R}^d$ oppfyller:
+\begin{itemize}
+    \item $\nabla f(x^*) = 0$ (Førsteordens betingelse)
+    \item $H_f(x^*)$ er positiv definit (Andreordens tilstrekkelig betingelse)
+\end{itemize}
+da er $x^*$ en streng og isolert lokal løsning av $\min_{x \in \mathbb{R}^d} f(x)$.
+\end{theorem}\label{thm:sufficient-conditions}
+
+\begin{example}{Eksistens og optimalitet}{}
+\begin{itemize}
+    \item For \( f(x) = x^2 + 2x \), som er kontinuerlig og koersiv, finnes et globalt minimum i \( x^* = -1 \) der \( f(-1) = -1 \).
+    \item For \( f(x) = x^2 \), har vi \( \nabla f(x) = 2x \). I \( x^* = 0 \) er \( \nabla f(0) = 0 \) og \( \nabla^2 f(x) = 2 > 0 \), som oppfyller SOSC.
+\end{itemize}
+\end{example}

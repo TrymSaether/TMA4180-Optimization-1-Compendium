@@ -1,0 +1,79 @@
+\subsubsection{Lecture 3 (13. January 2025)}
+\section*{Optimization Algorithms}
+
+\begin{definition}{Nelder-Mead Algorithm}{nelder-mead}
+The Nelder-Mead algorithm is a heuristic search method used for minimizing an objective function without the need for derivatives. It operates on a simplex of \( n+1 \) points in \( \mathbb{R}^n \) and iteratively reflects, expands, contracts, or shrinks the simplex to converge to a local minimum.
+
+\end{definition}
+
+\begin{algorithm}[H]
+\caption{Nelder-Mead Algorithm}
+\label{alg:nelder-mead}
+Initialize simplex with $n+1$ points\;
+\Repeat{convergence criteria are met}{
+    Order the simplex points by their objective function values\;
+    Compute the centroid of the best $n$ points\;
+    Reflect the worst point through the centroid\;
+    \uIf{reflected point is better than the second worst but not better than the best}{
+        Accept the reflection\;
+    }
+    \uElseIf{reflected point is the best point}{
+        Try expanding\;
+    }
+    \uElseIf{reflected point is worse than the second worst}{
+        Perform contraction\;
+    }
+    \Else{
+        Shrink the simplex towards the best point\;
+    }
+}
+\end{algorithm}
+
+\subsubsection*{line search methods}
+Line search methods aim to find an appropriate step size \( \alpha \) that sufficiently decreases the objective function along a given search direction \( d \). The goal is to ensure convergence and improve the efficiency of optimization algorithms.
+
+\subsubsection*{Gradient Descent and Newton Directions}
+
+\begin{definition}{Gradient Descent}{gradient-descent}
+Gradient descent is an iterative optimization algorithm that updates the current point \( x_k \) by moving in the opposite direction of the gradient:
+\[
+x_{k+1} = x_k - \alpha_k \nabla f(x_k)
+\]
+where \( \alpha_k \) is the step size.
+\end{definition}
+
+\begin{definition}{Newton Direction}{newton-direction}
+Newton's method uses second-order information by incorporating the Hessian matrix:
+\[
+x_{k+1} = x_k - [\nabla^2 f(x_k)]^{-1} \nabla f(x_k)
+\]
+This direction can provide faster convergence near the optimum.
+\end{definition}
+
+\subsubsection*{Armijo Condition for Step-Length Selection}
+
+\begin{definition}{Armijo Condition}{armijo}
+The Armijo condition ensures that the step size \( \alpha \) provides a sufficient decrease in the objective function:
+\[
+f(x_k + \alpha d_k) \leq f(x_k) + c \alpha \nabla f(x_k)^\top d_k
+\]
+where \( 0 < c < 1 \) is a constant.
+\end{definition}
+
+\subsubsection*{Backtracking Line Search}
+
+\begin{definition}{Backtracking Line Search}{backtracking}
+Backtracking line search starts with an initial step size and iteratively reduces it by a factor until the Armijo condition is satisfied.
+
+\end{definition}
+
+\begin{algorithm}[H]
+\caption{Backtracking Line Search}
+\label{alg:backtracking}
+\SetKwFunction{BacktrackingLineSearch}{BacktrackingLineSearch}
+\BacktrackingLineSearch{$x_k$, $d_k$, $f$, $\nabla f$, $\alpha$, $\rho$, $c$}\;
+\While{$f(x_k + \alpha d_k) > f(x_k) + c \alpha \nabla f(x_k)^\top d_k$}{
+    $\alpha \gets \rho \alpha$\;
+}
+\KwRet{$\alpha$}\;
+\end{algorithm}
