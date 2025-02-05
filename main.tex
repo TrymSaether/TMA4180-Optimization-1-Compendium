@@ -1,4 +1,4 @@
-\documentclass[11pt, a4paper]{article}
+\documentclass[10pt, a4paper]{article}
 \usepackage{trymtex}
 
 \begin{document}
@@ -17,7 +17,7 @@
 \section{Introduksjon til optimering}
 
 \subsection{Optimeringsproblemet}
-La $f: \Omega \to \R$ være en (objekt)funksjon som vi ønsker å maksimere eller minimere, der $\Omega \subset \R^d$ er en ikke-tom mengde (feasible set).
+La \(f: \Omega \to \R\) være en (objekt)funksjon som vi ønsker å maksimere eller minimere, der \(\Omega \subset \R^d\) er en ikke-tom mengde (feasible set).
 
 \begin{definition}{Optimeringsproblemet \((P)\)}{}
   \[
@@ -26,23 +26,22 @@ La $f: \Omega \to \R$ være en (objekt)funksjon som vi ønsker å maksimere elle
 
 \end{definition}
 
-
 \section{Fri optimalisering}
 
-Fri optimalisering refererer til problemer uten eksplisitte restriksjoner på variablene. Målet er å minimere en glatt objektiv funksjon \( f : \mathbb{R}^n \to \mathbb{R} \) over hele rommet \( \mathbb{R}^n \). Problemformuleringen er:
+Fri optimalisering refererer til problemer uten eksplisitte restriksjoner på variablene. Målet er å minimere en glatt objektiv funksjon \( f : \R^n \to \R \) over hele rommet \( \R^n \). Problemformuleringen er:
 
 \[
-  \min_{x \in \mathbb{R}^n} f(x),
+  \min_{x \in \R^n} f(x),
 \]
 der løsningen \( x^* \) tilfredsstiller:
 \[
-  f(x^*) \leq f(x), \quad \forall x \in \mathbb{R}^n.
+  f(x^*) \leq f(x), \quad \forall x \in \R^n.
 \]
 
 \subsection*{Egenskaper}
 
 \begin{itemize}
-  \item \textbf{Ingen restriksjoner}: Den tillatte mengden (feasible set) er hele \( \mathbb{R}^n \), uten likhets- eller ulikhetsbetingelser.
+  \item \textbf{Ingen restriksjoner}: Den tillatte mengden (feasible set) er hele \( \R^n \), uten likhets- eller ulikhetsbetingelser.
   \item \textbf{Enklere oppsett}: Det er ikke behov for å håndtere restriksjoner som sikrer at løsningen er gyldig.
   \item \textbf{Fokuserer kun på målfunksjonen}: Algoritmer søker etter punkter \( x \) som reduserer \( f(x) \) direkte, uten å ta hensyn til andre forhold.
 \end{itemize}
@@ -51,7 +50,7 @@ der løsningen \( x^* \) tilfredsstiller:
 For å sikre konvergens til en stasjonær løsning \( x^* \), må følgende betingelser oppfylles:
 \begin{enumerate}
   \item \( f(x) \) er kontinuerlig deriverbar (\( C^1 \)), og dens gradient \( \nabla f(x) \) eksisterer og er Lipschitz-kontinuerlig.
-  \item Nivåsettene \( \{x \in \mathbb{R}^n : f(x) \leq c\} \) er kompakte.
+  \item Nivåsettene \( \{x \in \R^n : f(x) \leq c\} \) er kompakte.
 \end{enumerate}
 
 Under disse betingelsene sikres:
@@ -68,7 +67,7 @@ der \( x_k \) er iteratene generert av en optimaliseringsalgoritme. Akkumulering
 
 \subsection{Nivåsett}
 
-$f: \Omega \to \overline{\R}$ er en funksjon. Vi definerer nivåsettet til $f$ i punktet $y \in \R$ som:
+\(f: \Omega \to \overline{\R}\) er en funksjon. Vi definerer nivåsettet til \(f\) i punktet \(y \in \R\) som:
 
 \begin{definition}{Nivåsett}{level_set}
   \[
@@ -78,15 +77,15 @@ $f: \Omega \to \overline{\R}$ er en funksjon. Vi definerer nivåsettet til $f$ i
 
 \begin{definition}{Nedre semi-kontinuerlig funksjoner}{lsc}
 
-  $f: \Omega (\subset \R^d) \to \overline{\R}$ være en funksjon. Vi sier at $f$ er nedre semi-kontinuerlig (lsc) i punktet $x_0$ hvis for alle $\varepsilon > 0$ finnes det en $\delta > 0$ slik at
+  \(f: \Omega (\subset \R^d) \to \overline{\R}\) være en funksjon. Vi sier at \(f\) er nedre semi-kontinuerlig (lsc) i punktet \(x_0\) hvis for alle \(\varepsilon > 0\) finnes det en \(\delta > 0\) slik at
 
   \[
     f(x) > f(x_0) - \varepsilon \quad \text{for alle} \quad x \in B(x_0, \delta).
   \]
 
   \begin{enumerate}
-    \item $f$ er (lsc) i $x_0$ hvis det for alle $\alpha \in \R$ er mengden $\mathcal{L}_f(\alpha) = \{x | f(x) < \alpha \} \text{ er åpen i } \R^d$
-    \item $f$ er (lsc) i $x_0 \in X$ hvis og bare hvis: $\liminf_{x \to x_0} f(x) \geq f(x_0)$.
+    \item \(f\) er (lsc) i \(x_0\) hvis det for alle \(\alpha \in \R\) er mengden \(\mathcal{L}_f(\alpha) = \{x | f(x) < \alpha \} \text{ er åpen i } \R^d\)
+    \item \(f\) er (lsc) i \(x_0 \in X\) hvis og bare hvis: \(\liminf_{x \to x_0} f(x) \geq f(x_0)\).
   \end{enumerate}
 
 \end{definition}
@@ -100,26 +99,26 @@ $f: \Omega \to \overline{\R}$ er en funksjon. Vi definerer nivåsettet til $f$ i
 \end{example}
 
 \begin{definition}{Koersivitet}{}
-  $f: \Omega \to \overline{\R}$ er en koersiv funksjon hvis for alle $y \in \R$ er nivåmengden $f^{-1}(y)$ kompakt i $\Omega$.
+  \(f: \Omega \to \overline{\R}\) er en koersiv funksjon hvis for alle \(y \in \R\) er nivåmengden \(f^{-1}(y)\) kompakt i \(\Omega\).
 \end{definition} \label{def:coercive}
 
 \subsection{Konveksitet}
 
 \begin{definition}{Konveks funksjon}{convex_function}
-  En funksjon $f: \R^n \to \R$ er konveks hvis for alle $x, y \in \R^n$ og $\lambda \in [0, 1]$ har vi:
+  En funksjon \(f: \R^n \to \R\) er konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in [0, 1]\) har vi:
 
   \begin{align*}
     f(\lambda x + (1 - \lambda)y) & \leq \lambda f(x) + (1 - \lambda)f(y) \tag{Konveks} \\
   \end{align*}
 
   \begin{filingbox}[colback=red!20!white][Strengt konveks]{Strengt konveks funksjon}
-    En funksjon $f: \R^n \to \R$ er strengt konveks hvis for alle $x, y \in \R^n$ og $\lambda \in (0, 1)$ har vi:
+    En funksjon \(f: \R^n \to \R\) er strengt konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in (0, 1)\) har vi:
     \[
       f(\lambda x + (1 - \lambda)y) < \lambda f(x) + (1 - \lambda)f(y)
     \]\label{def:strictly_convex}
   \end{filingbox}
   \begin{filingbox}(ul)[red!20!white]{Kvasi-konveks}
-    En funksjon $f: \R^d \to \R$ er kvasi-konveks hvis for alle $x, y \in \R^n$ og $\lambda \in (0, 1)$ har vi:
+    En funksjon \(f: \R^d \to \R\) er kvasi-konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in (0, 1)\) har vi:
 
     \[
       f(\lambda x + (1 - \lambda)y) \leq \max\{f(x), f(y)\}
@@ -132,13 +131,13 @@ $f: \Omega \to \overline{\R}$ er en funksjon. Vi definerer nivåsettet til $f$ i
     \]
 
     \[
-      \boxed{\underbrace{\forall \alpha \in \mathbb{R}, \mathcal{L}_f(\alpha) \text{ er konveks}}_{f \text{ er kvasi-konveks }}\Longleftrightarrow \forall x, y \in \mathbb{R}^d,\lambda \text{ s.a. } f(\lambda x + (1-\lambda)y) \leq \max \{ f(x), f(y) \}}
+      \boxed{\underbrace{\forall \alpha \in \R, \mathcal{L}_f(\alpha) \text{ er konveks}}_{f \text{ er kvasi-konveks }}\Longleftrightarrow \forall x, y \in \R^d,\lambda \text{ s.a. } f(\lambda x + (1-\lambda)y) \leq \max \{ f(x), f(y) \}}
     \]
   \end{filingbox}\label{def:quasi_convex}
 
 \end{definition}
 
-En mengde $C \subset \R^n$ er (strengt) konveks når:
+En mengde \(C \subset \R^n\) er (strengt) konveks når:
 
 \begin{definition}{Konveks sett}{convex_set}
 
@@ -152,7 +151,7 @@ En mengde $C \subset \R^n$ er (strengt) konveks når:
 
 \subsection{Globale og lokale løsninger}
 
-La $f: \Omega \to \R$ være en funksjon. Vi sier at $x^* \in \Omega$ er en global løsning av minimeringsproblemet \((P)\) hvis
+La \(f: \Omega \to \R\) være en funksjon. Vi sier at \(x^* \in \Omega\) er en global løsning av minimeringsproblemet \((P)\) hvis
 
 \begin{definition}{Global løsning}{}
   \begin{align*}
@@ -161,7 +160,7 @@ La $f: \Omega \to \R$ være en funksjon. Vi sier at $x^* \in \Omega$ er en globa
   \end{align*}
 \end{definition}
 
-La $f: \Omega \to \R$ være en funksjon. Vi sier at $x^* \in \Omega$ er en lokal løsning av optimeringsproblemet hvis
+La \(f: \Omega \to \R\) være en funksjon. Vi sier at \(x^* \in \Omega\) er en lokal løsning av optimeringsproblemet hvis
 
 \begin{definition}{Lokal løsning}{}
   \begin{align*}
@@ -180,12 +179,12 @@ La $f: \Omega \to \R$ være en funksjon. Vi sier at $x^* \in \Omega$ er en lokal
 
 \subsection*{Eksistens av globale løsninger}
 
-Hvis $f: \Omega \subset \R^d \to \overline{\R}$ er nedre semi-kontinuerlig og koersiv på $\Omega$, så har $f$ en global løsning (minimum) i $\Omega$.
+Hvis \(f: \Omega \subset \R^d \to \overline{\R}\) er nedre semi-kontinuerlig og koersiv på \(\Omega\), så har \(f\) en global løsning (minimum) i \(\Omega\).
 
 \begin{enumerate}
-  \item $f$ er nedre semi-kontinuerlig (lsc) på $\Omega$ hvis for alle $y \in \R$ er nivåmengden $f^{-1}(y)$ lukket i $\Omega$.
-  \item $f$ er koersiv på $\Omega$ hvis for alle $y \in \R$ er nivåmengden $f^{-1}(y)$ kompakt i $\Omega$.
-  \item $f$ er konveks på $\Omega$ hvis for alle $x, y \in \Omega$ og $\lambda \in [0, 1]$ har vi:
+  \item \(f\) er nedre semi-kontinuerlig (lsc) på \(\Omega\) hvis for alle \(y \in \R\) er nivåmengden \(f^{-1}(y)\) lukket i \(\Omega\).
+  \item \(f\) er koersiv på \(\Omega\) hvis for alle \(y \in \R\) er nivåmengden \(f^{-1}(y)\) kompakt i \(\Omega\).
+  \item \(f\) er konveks på \(\Omega\) hvis for alle \(x, y \in \Omega\) og \(\lambda \in [0, 1]\) har vi:
   \item
         \[
           f(\lambda x + (1 - \lambda)y) \leq \lambda f(x) + (1 - \lambda)f(y).
@@ -204,7 +203,7 @@ Hvis $f: \Omega \subset \R^d \to \overline{\R}$ er nedre semi-kontinuerlig og ko
     \textbf{Function (Domain)}                                                        & \textbf{Cvx} & \textbf{Coe} & \textbf{lsc} & \textbf{QCvx} & \textbf{Loc} & \textbf{Glo} & \textbf{Alg}         \\
     \midrule
 
-    \multicolumn{8}{@{}l}{\textbf{Scalar Functions (\(\mathbb{R}\))}}                                                                                                                                   \\
+    \multicolumn{8}{@{}l}{\textbf{Scalar Functions (\(\R\))}}                                                                                                                                   \\
     \midrule
     \( f(x) = x^2 \)                                                                  & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Gradient Descent     \\
     \( f(x) = |x| \)                                                                  & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Proximal/Subgradient \\
@@ -220,7 +219,7 @@ Hvis $f: \Omega \subset \R^d \to \overline{\R}$ er nedre semi-kontinuerlig og ko
 
     \midrule
 
-    \multicolumn{8}{@{}l}{\textbf{Vector Functions (\(\mathbb{R}^d\))}}                                                                                                                                 \\
+    \multicolumn{8}{@{}l}{\textbf{Vector Functions (\(\R^d\))}}                                                                                                                                 \\
     \midrule
     \( f(\mathbf{x}) = \|\mathbf{x}\| \)                                              & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Proximal             \\
     \( f(\mathbf{x}) = \|\mathbf{x}\| + \sin(x_1) \)                                  & \no          & \yes         & \yes         & \no           & \yes         & \yes         & Stochastic GD        \\
@@ -281,9 +280,8 @@ Hvis $f: \Omega \subset \R^d \to \overline{\R}$ er nedre semi-kontinuerlig og ko
   \caption{Quick Reference: Key Definitions and Formulas}
 \end{table}
 
-\newpage
+\clearpage
 
-\input{lectures/lectures.tex}
-
+\input{sections/lectures}
 
 \end{document}

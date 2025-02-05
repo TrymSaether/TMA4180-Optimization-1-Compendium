@@ -1,3 +1,4 @@
+% !TeX root = ../main.tex
 \section{Lectures}
 
 \subsubsection{Lecture 1 (6. Januar 2025)}
@@ -5,24 +6,24 @@
 \section*{Eksistens av globale løsninger}
 
 \begin{definition}{Nivåmengde}{level-set}
-  For en funksjon $f: \mathbb{R}^d \to \mathbb{R}$ definerer vi nivåmengden som
+  For en funksjon  \(f: \R^d \to \R\) definerer vi nivåmengden som
   \[
     L_f(\alpha) = \{x \in \R^d : f(x) \leq \alpha\}
   \]
 \end{definition}
 
 \begin{theorem}{Karakterisering av koersivitet og semi-kontinuitet}{characterization}
-  La $f: \mathbb{R}^d \to \mathbb{R}$ være en funksjon. Da har vi:
+  La  \(f: \R^d \to \R\) være en funksjon. Da har vi:
   \begin{itemize}
-    \item $f$ er koersiv $\iff L_f(\alpha)$ er avgrenset for alle $\alpha < \infty$
-    \item $f$ er nedre semi-kontinuerlig (lsc) $\iff L_f(\alpha)$ er lukket for alle $\alpha$
+    \item  \(f\) er koersiv  \(\iff L_f(\alpha)\) er avgrenset for alle  \(\alpha < \infty\)
+    \item  \(f\) er nedre semi-kontinuerlig (lsc)  \(\iff L_f(\alpha)\) er lukket for alle  \(\alpha\)
   \end{itemize}
 \end{theorem}
 
 \begin{theorem}{Eksistens av globale løsninger}{existence}
-  Hvis $f: \mathbb{R}^d \to \mathbb{R}$ er koersiv og nedre semi-kontinuerlig, så har problemet
+  Hvis  \(f: \R^d \to \R\) er koersiv og nedre semi-kontinuerlig, så har problemet
   \[
-    \min_{x \in \mathbb{R}^d} f(x)
+    \min_{x \in \R^d} f(x)
   \]
   en global løsning.
 \end{theorem}
@@ -30,21 +31,21 @@
 \section*{Nødvenige og tilstrekkelige betingelser for lokale løsninger}
 
 \begin{theorem}{Nødvendige betingelser for lokale løsninger}{necessary-conditions}
-  La $x^* \in \mathbb{R}^d$ være en lokal løsning av $\min_{x \in \mathbb{R}^d} f(x)$. Da gjelder:
+  La  \(x^* \in \R^d\) være en lokal løsning av  \(\min_{x \in \R^d} f(x)\). Da gjelder:
   \begin{itemize}
-    \item $\nabla f(x^*) = 0$ (Førsteordens nødvendig betingelse).
-    \item $H_f(x^*)$ er positiv semi-definit (Andreordens nødvendig betingelse).
+    \item  \(\nabla f(x^*) = 0\) (Førsteordens nødvendig betingelse).
+    \item  \(H_f(x^*)\) er positiv semi-definit (Andreordens nødvendig betingelse).
   \end{itemize}
-  da er $x^*$ en lokal løsning av $\min_{x \in \mathbb{R}^d} f(x)$.
+  da er \(x^*\) en lokal løsning av  \(\min_{x \in \R^d} f(x)\).
 \end{theorem}\label{thm:necessary-conditions}
 
 \begin{theorem}{Tilstrekkelige betingelser for lokale løsninger}{sufficient-conditions}
-  Hvis $x^* \in \mathbb{R}^d$ oppfyller:
+  Hvis  \(x^* \in \R^d\) oppfyller:
   \begin{itemize}
-    \item $\nabla f(x^*) = 0$ (Førsteordens betingelse)
-    \item $H_f(x^*)$ er positiv definit (Andreordens tilstrekkelig betingelse)
+    \item  \(\nabla f(x^*) = 0\) (Førsteordens betingelse)
+    \item  \(H_f(x^*)\) er positiv definit (Andreordens tilstrekkelig betingelse)
   \end{itemize}
-  da er $x^*$ en streng og isolert lokal løsning av $\min_{x \in \mathbb{R}^d} f(x)$.
+  da er  \(x^*\) en streng og isolert lokal løsning av  \(\min_{x \in \R^d} f(x)\).
 \end{theorem}\label{thm:sufficient-conditions}
 
 \begin{example}{Eksistens og optimalitet}{}
@@ -59,18 +60,18 @@
 \section*{Gradientmetoder og konveksitet}
 
 \begin{theorem}{Gradientestimat nær lokale minima}{gradient-estimate}
-  La $f: \mathbb{R}^n \to \mathbb{R}$ være deriverbar og $x^*$ være et lokalt minimum. Da gjelder:
+  La  \(f: \R^n \to \R\) være deriverbar og  \(x^*\) være et lokalt minimum. Da gjelder:
   \[
     \|\nabla f(x)\| \to 0 \quad \text{når } x \to x^*.
   \]
 \end{theorem}
 
 \begin{remark}{Geometrisk tolkning}
-  Dette indikerer at funksjonen blir "flatere" når $x$ nærmer seg minimumpunktet, noe som er fundamentalt for konvergensen til iterative optimaliseringsmetoder.
+  Dette indikerer at funksjonen blir "flatere" når  \(x\) nærmer seg minimumpunktet, noe som er fundamentalt for konvergensen til iterative optimaliseringsmetoder.
 \end{remark}
 
 \begin{definition}{Konveks funksjon}{convex-function}
-  En funksjon $f: \mathbb{R}^n \to \mathbb{R}$ er konveks hvis, for alle $x, y \in \mathbb{R}^n$ og $\lambda \in (0,1)$:
+  En funksjon  \(f: \R^n \to \R\) er konveks hvis, for alle  \(x, y \in \R^n\) og  \(\lambda \in (0,1)\):
   \begin{align*}
     f(\lambda x + (1 - \lambda)y) \leq \lambda f(x) + (1 - \lambda)f(y) \tag{Konveks} \\
     f(\lambda x + (1 - \lambda)y) < \lambda f(x) + (1 - \lambda)f(y) \tag{Strengt konveks}
@@ -79,10 +80,10 @@
 \end{definition}
 
 \begin{theorem}{Karakterisering av deriverbare konvekse funksjoner}{convex-characterization}
-  For en deriverbar funksjon $f: \mathbb{R}^n \to \mathbb{R}$ er følgende ekvivalente:
+  For en deriverbar funksjon  \(f: \R^n \to \R\) er følgende ekvivalente:
   \begin{itemize}
-    \item $f$ er konveks
-    \item For alle $x, y \in \mathbb{R}^n$ gjelder:
+    \item  \(f\) er konveks
+    \item For alle  \(x, y \in \R^n\) gjelder:
           \[
             f(y) \geq f(x) + \nabla f(x)^\top (y - x)
           \]
@@ -90,31 +91,31 @@
 \end{theorem}
 
 \begin{theorem}{Karakterisering av konvekse funksjoner med Hessian}{convex-hessian}
-  For en dobbelt deriverbar funksjon $f: \mathbb{R}^n \to \mathbb{R}$ er følgende ekvivalente:
+  For en dobbelt deriverbar funksjon  \(f: \R^n \to \R\) er følgende ekvivalente:
   \[
-    f \text{ er konveks} \iff H_f(x) \succeq 0 \quad \forall x \in \mathbb{R}^n
+    f \text{ er konveks} \iff H_f(x) \succeq 0 \quad \forall x \in \R^n
   \]
 
-  $H_f(x) \succeq 0$ betyr at Hessian-matrisen er positiv semi-definit for alle $x$.
+   \(H_f(x) \succeq 0\) betyr at Hessian-matrisen er positiv semi-definit for alle  \(x\).
 
 \end{theorem}
 
 \begin{remark}{Positiv semi-definit matrise}
-  En matrise $A \in \mathbb{R}^{n \times n}$ er positiv semi-definit hvis og bare hvis en av følgende ekvivalente påstander holder:
+  En matrise  \(A \in \R^{n \times n}\) er positiv semi-definit hvis og bare hvis en av følgende ekvivalente påstander holder:
   \begin{align*}
-    A \succeq 0 & \iff x^\top A x \geq 0 \quad \forall x \in \mathbb{R}^n \tag{Kvadratisk form}                     \\
+    A \succeq 0 & \iff x^\top A x \geq 0 \quad \forall x \in \R^n \tag{Kvadratisk form}                     \\
                 & \iff \lambda_i \geq 0 \text{ for alle egenverdier } \lambda_i \text{ av } A \tag{Egenverdier}     \\
                 & \iff \text{Alle hovedminordeterminanter er ikke-negative} \tag{Minordeterminanter}                \\
                 & \iff A = LL^\top \text{ for en nedre triangulær matrise } L \tag{Cholesky}                        \\
-                & \iff A = B^\top B \text{ for en matrise } B \in \mathbb{R}^{m \times n} \tag{Gram}                \\
+                & \iff A = B^\top B \text{ for en matrise } B \in \R^{m \times n} \tag{Gram}                \\
                 & \iff A - 0 \cdot I \succeq 0 \tag{Semidefinit ordning}                                            \\
-                & \iff A \text{ ligger i den positive semidefinite konen i } \mathbb{R}^{n \times n} \tag{PSD kone} \\
+                & \iff A \text{ ligger i den positive semidefinite konen i } \R^{n \times n} \tag{PSD kone} \\
                 & \iff e^{tA} \text{ er positiv semidefinit for alle } t > 0 \tag{Matrise eksponential}
   \end{align*}
 
   \begin{itemize}
-    \item Kvadratisk form: $x^\top A x \geq 0$ for alle $x \in \mathbb{R}^n$ karakteriserer positiv semi-definite matriser.
-    \item Egenverdier: Alle egenverdier $\lambda_i$ av $A$ er ikke-negative.
+    \item Kvadratisk form:  \(x^\top A x \geq 0\) for alle  \(x \in \R^n\) karakteriserer positiv semi-definite matriser.
+    \item Egenverdier: Alle egenverdier  \(\lambda_i\) av  \(A\) er ikke-negative.
     \item Hovedminordeterminant: Determinanten til alle hoved-undermatriser er ikke-negative.
           \[
             \begin{bmatrix}
@@ -123,29 +124,29 @@
             \end{bmatrix} \succeq 0 \iff a_{11} \geq 0, \quad a_{11}a_{22} - a_{12}a_{21} \geq 0
           \]
 
-    \item Cholesky-faktorisering: $A = LL^\top$ der $L$ er en nedre triangulær matrise.
-    \item Gram-matrise: $A = B^\top B$ der $B \in \mathbb{R}^{m \times n}$.
-    \item Semidefinit ordning: $A - 0 \cdot I \succeq 0$ betyr at $A$ er positiv semi-definit.
+    \item Cholesky-faktorisering:  \(A = LL^\top\) der  \(L\) er en nedre triangulær matrise.
+    \item Gram-matrise:  \(A = B^\top B\) der  \(B \in \R^{m \times n}\).
+    \item Semidefinit ordning:  \(A - 0 \cdot I \succeq 0\) betyr at  \(A\) er positiv semi-definit.
     \item PSD-kone: Den positive semidefinite konen er mengden av alle positiv semi-definite matriser.
-    \item Matrise eksponential: $e^{tA}$ er positiv semi-definit for alle $t > 0$.
+    \item Matrise eksponential:  \(e^{tA}\) er positiv semi-definit for alle  \(t > 0\).
   \end{itemize}
 \end{remark}
 
 
 \begin{theorem}{Globale egenskaper for konvekse funksjoner}{global-properties}
-  La $f: \mathbb{R}^n \to \mathbb{R}$ være konveks. Da gjelder:
+  La  \(f: \R^n \to \R\) være konveks. Da gjelder:
   \begin{itemize}
     \item Ethvert lokalt minimum er også et globalt minimum.
-    \item Hvis $\nabla f(x^*) = 0$, da er $x^*$ et globalt minimum.
+    \item Hvis  \(\nabla f(x^*) = 0\), da er  \(x^*\) et globalt minimum.
   \end{itemize}
 \end{theorem}
 
 \begin{example}{Konvekse funksjoner}{convex-examples}
   Noen klassiske eksempler på konvekse funksjoner:
   \begin{itemize}
-    \item Lineære funksjoner: $f(x) = a^\top x + b$
-    \item Kvadratiske funksjoner med positiv definit matrise: $f(x) = x^\top Ax + b^\top x + c$, der $A \succ 0$
-    \item Eksponentialfunksjonen: $f(x) = e^{ax}$ for enhver $a \in \mathbb{R}$
+    \item Lineære funksjoner:  \(f(x) = a^\top x + b\)
+    \item Kvadratiske funksjoner med positiv definit matrise:  \(f(x) = x^\top Ax + b^\top x + c\), der  \(A \succ 0\)
+    \item Eksponentialfunksjonen:  \(f(x) = e^{ax}\) for enhver  \(a \in \R\)
   \end{itemize}
 \end{example}
 
@@ -154,17 +155,17 @@
 \section*{Optimization Algorithms}
 
 \begin{definition}{Nelder-Mead Algorithm}{nelder-mead}
-  The Nelder-Mead algorithm is a heuristic search method used for minimizing an objective function without the need for derivatives. It operates on a simplex of \( n+1 \) points in \( \mathbb{R}^n \) and iteratively reflects, expands, contracts, or shrinks the simplex to converge to a local minimum.
+  The Nelder-Mead algorithm is a heuristic search method used for minimizing an objective function without the need for derivatives. It operates on a simplex of \( n+1 \) points in \( \R^n \) and iteratively reflects, expands, contracts, or shrinks the simplex to converge to a local minimum.
 
 \end{definition}
 
 \begin{algorithm}[H]
   \caption{Nelder-Mead Algorithm}
   \label{alg:nelder-mead}
-  Initialize simplex with $n+1$ points\;
+  Initialize simplex with  \(n+1\) points\;
   \Repeat{convergence criteria are met}{
     Order the simplex points by their objective function values\;
-    Compute the centroid of the best $n$ points\;
+    Compute the centroid of the best  \(n\) points\;
     Reflect the worst point through the centroid\;
     \uIf{reflected point is better than the second worst but not better than the best}{
       Accept the reflection\;
@@ -223,11 +224,11 @@ Line search methods aim to find an appropriate step size \( \alpha \) that suffi
   \caption{Backtracking Line Search}
   \label{alg:backtracking}
   \SetKwFunction{BacktrackingLineSearch}{BacktrackingLineSearch}
-  \BacktrackingLineSearch{$x_k$, $d_k$, $f$, $\nabla f$, $\alpha$, $\rho$, $c$}\;
-  \While{$f(x_k + \alpha d_k) > f(x_k) + c \alpha \nabla f(x_k)^\top d_k$}{
-    $\alpha \gets \rho \alpha$\;
+  \BacktrackingLineSearch{ \(x_k\),  \(d_k\),  \(f\),  \(\nabla f\),  \(\alpha\),  \(\rho\),  \(c\)}\;
+  \While{ \(f(x_k + \alpha d_k) > f(x_k) + c \alpha \nabla f(x_k)^\top d_k\)}{
+     \(\alpha \gets \rho \alpha\)\;
   }
-  \KwRet{$\alpha$}\;
+  \KwRet{ \(\alpha\)}\;
 \end{algorithm}
 \newpage
 
@@ -244,7 +245,7 @@ We want to solve \( \min_{x \in \R^d} f(x) \) numerically. Want to find an appro
     \item sufficiently fast
 \end{itemize}
 
-\textbf{Assumption:} Given $ x \in \R^d $, we have a black-box that computes $f(x), \nabla f(x), \nabla^2 f(x) , \ldots $.
+\textbf{Assumption:} Given  \( x \in \R^d \), we have a black-box that computes  \(f(x), \nabla f(x), \nabla^2 f(x) , \ldots \).
 
 \textbf{Can expect:}
 \begin{itemize}
@@ -258,45 +259,45 @@ It should try to minimize the number of function and gradient evaluations.
 \textbf{Properties:}
 \begin{itemize}
     \item Derivative-free method
-    \item Only require $f(x)$, but not $\nabla f(x)$.
+    \item Only require  \(f(x)\), but not  \(\nabla f(x)\).
           \begin{itemize}
-              \item $\nabla f(x)$ might be to expensive to compute.
-              \item $\nabla f(x)$ might be unavailable.
-              \item $f(x)$ might not be differentiable.
+              \item  \(\nabla f(x)\) might be to expensive to compute.
+              \item  \(\nabla f(x)\) might be unavailable.
+              \item  \(f(x)\) might not be differentiable.
           \end{itemize}
     \item Works well for low-dimensional problems, but not for high-dimensional problems.
 \end{itemize}
 
 \textbf{Idea of Nelder-Mead:}
-Choose $d+1$ affinely independent points in $\R^d$.
+Choose  \(d+1\) affinely independent points in  \(\R^d\).
 \begin{align*}
     x_1, x_2, \ldots, x_{d+1} \in \R^d \\
     f(x_1) \leq f(x_2) \leq \ldots \leq f(x_{d+1})
 \end{align*}
-Then replace the worst point $x_{d+1}$ with a better point:
+Then replace the worst point  \(x_{d+1}\) with a better point:
 
-define $\bar{x} := \frac{1}{d} \sum_{k=0}^{d-1} x_k$ and choose a new point on the line $\bar{x} - t(x_{d} - \bar{x})$ with $t < 1$.
+define  \(\bar{x} := \frac{1}{d} \sum_{k=0}^{d-1} x_k\) and choose a new point on the line  \(\bar{x} - t(x_{d} - \bar{x})\) with  \(t < 1\).
 
-Take particularly: $t= -1$, $t = -2$, $t = 0.5$ or $t = 0.5$.
+Take particularly:  \(t= -1\),  \(t = -2\),  \(t = 0.5\) or  \(t = 0.5\).
 
 \begin{itemize}
-    \item \textit{If:} one of these points $f(x_k)$ is better than $f(x_{d})$, replace $x_{d}$ by this point.
-    \item \textit{Else:} replace $x_k$ by $\frac{1}{2}(x_k + x_0)$ for $k = 0, 1, \ldots, d$.
+    \item \textit{If:} one of these points  \(f(x_k)\) is better than  \(f(x_{d})\), replace  \(x_{d}\) by this point.
+    \item \textit{Else:} replace  \(x_k\) by  \(\frac{1}{2}(x_k + x_0)\) for  \(k = 0, 1, \ldots, d\).
 \end{itemize}
 
 \textbf{Theory:} almost non-existent.
 \begin{itemize}
-    \item If $f \in \mathcal{C}^1(\R^2)$ is strictly convex, then Nelder-Mead converges or more specific the diameter $d(x_1, x_{d+1})$ converges to zero (but the limit point is not necessarily a minimizer).
+    \item If  \(f \in \mathcal{C}^1(\R^2)\) is strictly convex, then Nelder-Mead converges or more specific the diameter  \(d(x_1, x_{d+1})\) converges to zero (but the limit point is not necessarily a minimizer).
 \end{itemize}
 
 \begin{algorithm}[H]
 \SetAlgoLined
-\KwIn{Initial simplex with $d+1$ points}
+\KwIn{Initial simplex with  \(d+1\) points}
 \KwOut{Optimal point}
-Initialize simplex with $d+1$ points\;
+Initialize simplex with  \(d+1\) points\;
 \While{convergence criteria not met}{
     Order points by function values\;
-    Compute centroid of best $d$ points\;
+    Compute centroid of best  \(d\) points\;
     Reflect worst point through centroid\;
     \eIf{reflected point better than second worst but not better than best}{
         Accept reflection\;
@@ -336,48 +337,48 @@ since:
 \end{align*}
 
 \begin{example}{}{}
-    If $p_k = - \nabla f(x_k) \rightarrow \text{(GD)}$.
+    If  \(p_k = - \nabla f(x_k) \rightarrow \text{(GD)}\).
 
-    Newtons method: $p_k = H_f(x_k)^{-1} \nabla f(x_k)$ if $H_f(x_k)$ is positive definite.
+    Newtons method:  \(p_k = H_f(x_k)^{-1} \nabla f(x_k)\) if  \(H_f(x_k)\) is positive definite.
 \end{example}
 
 \subsubsection*{Algorithm}
 \begin{algorithm}[H]
 \SetAlgoLined
-\KwIn{Initial point $x_0$, tolerance $\epsilon > 0$}
-\KwOut{Local minimum $x^*$}
-$k \gets 0$\;
-\While{$\|\nabla f(x_k)\| \geq \epsilon$}{
-    Compute $\nabla f(x_k)$\;
-    Choose step size $\alpha_k$\;
-    $x_{k+1} \gets x_k - \alpha_k \nabla f(x_k)$\;
-    $k \gets k + 1$\;
+\KwIn{Initial point  \(x_0\), tolerance  \(\epsilon > 0\)}
+\KwOut{Local minimum  \(x^*\)}
+ \(k \gets 0\)\;
+\While{ \(\|\nabla f(x_k)\| \geq \epsilon\)}{
+    Compute  \(\nabla f(x_k)\)\;
+    Choose step size  \(\alpha_k\)\;
+     \(x_{k+1} \gets x_k - \alpha_k \nabla f(x_k)\)\;
+     \(k \gets k + 1\)\;
 }
-\Return{$x_k$}\;
+\Return{ \(x_k\)}\;
 \caption{Gradient Descent}
 \end{algorithm}
 
 \begin{remark}{Step length selection}{}
-    Theoretical idea is exact line search. Choose $\alpha_k > 0$ s.t. $f(x_k + \alpha_k p_k)$ is minimal.
-    $\alpha_k$ solves $\min_{\alpha > 0} f(x_k + \alpha p_k)$.
+    Theoretical idea is exact line search. Choose  \(\alpha_k > 0\) s.t.  \(f(x_k + \alpha_k p_k)\) is minimal.
+     \(\alpha_k\) solves  \(\min_{\alpha > 0} f(x_k + \alpha p_k)\).
 \end{remark}
 
 \begin{definition}{Armijo condition}{}
-    Choose $\alpha_k$ s.t. $f(x_k + \alpha_k p_k) \leq f(x_k) + c_1 \alpha_k \inner{\nabla f(x_k), p_k}$.
+    Choose  \(\alpha_k\) s.t.  \(f(x_k + \alpha_k p_k) \leq f(x_k) + c_1 \alpha_k \inner{\nabla f(x_k), p_k}\).
 \end{definition}
 
-In practice: try different step lengths $\alpha_k$ until the Armijo condition is satisfied.
+In practice: try different step lengths  \(\alpha_k\) until the Armijo condition is satisfied.
 
-First idea: require that $f(x_k + \alpha_k p_k) \leq f(x_k)$ $\rightsquigarrow$ does not guarantee convergence.
+First idea: require that  \(f(x_k + \alpha_k p_k) \leq f(x_k)\)  \(\rightsquigarrow\) does not guarantee convergence.
 
 \begin{lemma}{}{}
-    Assume that $f \in \mathcal{C}^1(\R^d)$ is bounded below, that $p_k = - \nabla f(x_k) \neq 0$ and that the Armijo condition is satisfied for each step, then:
+    Assume that  \(f \in \mathcal{C}^1(\R^d)\) is bounded below, that  \(p_k = - \nabla f(x_k) \neq 0\) and that the Armijo condition is satisfied for each step, then:
 
     \[
         \sum_{k=0}^{\infty} \alpha_k \norm{\nabla f(x_k)}^2 < \infty
     \]
 
-    In particular if $0 < c \leq \alpha_k \; \forall k \rightarrow \nabla f(x_k) \rightarrow 0$.
+    In particular if  \(0 < c \leq \alpha_k \; \forall k \rightarrow \nabla f(x_k) \rightarrow 0\).
 \end{lemma}
 
 
@@ -387,66 +388,66 @@ First idea: require that $f(x_k + \alpha_k p_k) \leq f(x_k)$ $\rightsquigarrow$ 
 \section*{Gradient Descent}
 
 
-Gradient descent er en metode for å finne minimum av en funksjon $f: \R^n \to \R$ ved å iterere:
+Gradient descent er en metode for å finne minimum av en funksjon  \(f: \R^n \to \R\) ved å iterere:
 \[
     x_{k+1} = x_k - \alpha_k \nabla f(x_k),
 \]
-hvor $\alpha_k$ er en skalar som kalles \emph{learning rate}.
+hvor  \(\alpha_k\) er en skalar som kalles \emph{learning rate}.
 
 \begin{remark}{Armijo condition}{}
-    Armijo condition er en tilnærming for å velge $\alpha_k$ i gradient descent. Den sier at vi velger $\alpha_k$ slik at
+    Armijo condition er en tilnærming for å velge  \(\alpha_k\) i gradient descent. Den sier at vi velger  \(\alpha_k\) slik at
     \[
         f(x_k - \alpha_k \nabla f(x_k)) \leq f(x_k) - c \alpha_k \norm{\nabla f(x_k)}^2,
     \]
-    hvor $c \in (0, 1)$ er en konstant.
+    hvor  \(c \in (0, 1)\) er en konstant.
 \end{remark}
 
 
 \begin{algorithm}
     \caption{Backtracking gradient descent}
     \SetAlgoLined
-    \KwIn{$f$, $\nabla f$, $x_0$, $\alpha_0$, $c \in (0, 1)$}
-    $k \gets 0$\;
+    \KwIn{ \(f\),  \(\nabla f\),  \(x_0\),  \(\alpha_0\),  \(c \in (0, 1)\)}
+     \(k \gets 0\)\;
     \While{not converged}{
-        $\alpha_k \gets \alpha_0$\;
-        \While{$f(x_k - \alpha_k \nabla f(x_k)) > f(x_k) - c \alpha_k \norm{\nabla f(x_k)}^2$}{
-            $\alpha_k \gets \beta \alpha_k$\;
+         \(\alpha_k \gets \alpha_0\)\;
+        \While{ \(f(x_k - \alpha_k \nabla f(x_k)) > f(x_k) - c \alpha_k \norm{\nabla f(x_k)}^2\)}{
+             \(\alpha_k \gets \beta \alpha_k\)\;
         }
-        $x_{k+1} \gets x_k - \alpha_k \nabla f(x_k)$\;
-        $k \gets k + 1$\;
+         \(x_{k+1} \gets x_k - \alpha_k \nabla f(x_k)\)\;
+         \(k \gets k + 1\)\;
     }
 \end{algorithm}
 
 
 \begin{theorem}{}{}
-    Assume that $f \in \mathcal{C}^2$, that $(x_k)_{k \in \N}$
+    Assume that  \(f \in \mathcal{C}^2\), that  \((x_k)_{k \in \N}\)
     is generated by backtracking gradient descent with
-    $x_0 \in \R^d$, $\hat{\alpha} > 0$,$c \in (0, 1)$, $\nabla f(x_k) \neq 0 \; \forall \; k$, and that
-    $L_f(f(x_0))$ is bounded. Then, $\nabla f(x_k) \to 0$ as $\abs{x_{k+1} - x_k} \to 0$.
+     \(x_0 \in \R^d\),  \(\hat{\alpha} > 0\), \(c \in (0, 1)\),  \(\nabla f(x_k) \neq 0 \; \forall \; k\), and that
+     \(L_f(f(x_0))\) is bounded. Then,  \(\nabla f(x_k) \to 0\) as  \(\abs{x_{k+1} - x_k} \to 0\).
 \end{theorem}
 
 \begin{proof}{}{}
     \begin{enumerate}
-        \item \textit{Boundedness of Iterates:} Since $L_f(f(x_0))$ is bounded and the backtracking gradient descent ensures $f(x_{k+1}) \leq f(x_k)$, the sequence $\{x_k\}$ remains within $L_f(f(x_0))$, hence bounded.
-        \item \textit{Lipschitz Continuity of Gradient:} Given $f \in \mathcal{C}^2$ and $\{x_k\}$ is bounded, the gradient $\nabla f$ is Lipschitz continuous on $L_f(f(x_0))$. Thus, there exists $M > 0$ such that
+        \item \textit{Boundedness of Iterates:} Since  \(L_f(f(x_0))\) is bounded and the backtracking gradient descent ensures  \(f(x_{k+1}) \leq f(x_k)\), the sequence  \(\{x_k\}\) remains within  \(L_f(f(x_0))\), hence bounded.
+        \item \textit{Lipschitz Continuity of Gradient:} Given  \(f \in \mathcal{C}^2\) and  \(\{x_k\}\) is bounded, the gradient  \(\nabla f\) is Lipschitz continuous on  \(L_f(f(x_0))\). Thus, there exists  \(M > 0\) such that
 
               \[
                   \|\nabla f(x) - \nabla f(y)\| \leq M \|x - y\| \quad \forall x, y \in L_f(f(x_0)).
               \]
 
-        \item \textit{Lower Bound on Step Sizes:} If $\|\nabla f(x_k)\| \geq \delta > 0$, the Armijo condition ensures a step size $\alpha_k \geq \alpha_{\min} > 0$ for some $\alpha_{\min}$, preventing $\alpha_k$ from shrinking to zero.
-        \item \textit{Contradiction Argument:} Assume $\|\nabla f(x_k)\|$ does not converge to zero. Then, there exists $\delta > 0$ and an infinite subsequence where $\|\nabla f(x_k)\| \geq \delta$. Consequently, each such iteration decreases $f$ by at least $c \alpha_{\min} \delta^2$, leading to $f(x_k) \to -\infty$, contradicting the boundedness of $L_f(f(x_0))$.
+        \item \textit{Lower Bound on Step Sizes:} If  \(\|\nabla f(x_k)\| \geq \delta > 0\), the Armijo condition ensures a step size  \(\alpha_k \geq \alpha_{\min} > 0\) for some  \(\alpha_{\min}\), preventing  \(\alpha_k\) from shrinking to zero.
+        \item \textit{Contradiction Argument:} Assume  \(\|\nabla f(x_k)\|\) does not converge to zero. Then, there exists  \(\delta > 0\) and an infinite subsequence where  \(\|\nabla f(x_k)\| \geq \delta\). Consequently, each such iteration decreases  \(f\) by at least  \(c \alpha_{\min} \delta^2\), leading to  \(f(x_k) \to -\infty\), contradicting the boundedness of  \(L_f(f(x_0))\).
     \end{enumerate}
 
-    \textbf{Conclusion:} Therefore, $\|\nabla f(x_k)\| \to 0$. Since $\|x_{k+1} - x_k\| = \alpha_k \|\nabla f(x_k)\|$ and $\alpha_k$ is bounded below by a positive constant when $\|\nabla f(x_k)\|$ is not small, it follows that $\|x_{k+1} - x_k\| \to 0$ if and only if $\|\nabla f(x_k)\| \to 0$.
+    \textbf{Conclusion:} Therefore,  \(\|\nabla f(x_k)\| \to 0\). Since  \(\|x_{k+1} - x_k\| = \alpha_k \|\nabla f(x_k)\|\) and  \(\alpha_k\) is bounded below by a positive constant when  \(\|\nabla f(x_k)\|\) is not small, it follows that  \(\|x_{k+1} - x_k\| \to 0\) if and only if  \(\|\nabla f(x_k)\| \to 0\).
 
 \end{proof}
 
 \begin{remark}{}{}
 
-    The result does not state that the sequence $\{x_k\}_{k \in \N}$ converges to a critical point.
+    The result does not state that the sequence  \(\{x_k\}_{k \in \N}\) converges to a critical point.
 
-    If all critical points of $f$ are isolated, then $\{x_k\}_{k \in \N}$ converges to a critical point.
+    If all critical points of  \(f\) are isolated, then  \(\{x_k\}_{k \in \N}\) converges to a critical point.
 \end{remark}
 
 One can show: if the Hessian at all critical points is non-singular, then the sequence does not converge to a local minimum.
@@ -456,13 +457,13 @@ More generally, the theorem holds for search directions:
     p_k = - B_k^{-1} \nabla f(x_k),
 \]
 
-where $B_k$ is a symmetric positive definite matrix.
+where  \(B_k\) is a symmetric positive definite matrix.
 
 \[
     \text{if } \exists C > 0 \text{ s.t. } \norm{B_k}_2 \leq C \text{ and } \norm{B_k^{-1}}_2 \leq C \text{ for all } k \in \N
 \]
 
-Choice of constant: $c_1 \approx 10^{-3,-4}$, $\rho \approx 10^{-1,-2}$.
+Choice of constant:  \(c_1 \approx 10^{-3,-4}\),  \(\rho \approx 10^{-1,-2}\).
 
 \subsection*{Alternative methods for step length selection}
 
@@ -471,27 +472,27 @@ Armijo condition:
     f(x_k - \alpha p_k) \leq f(x_k) - c \alpha \inner{\nabla f(x_k)}{p_k} \tag{(A)}
 \]
 
-if $(A)$ fails $\alpha$ is to large $\to$ decrease $\alpha$.
+if  \((A)\) fails  \(\alpha\) is to large  \(\to\) decrease  \(\alpha\).
 
 \begin{figure}[H]
     \centering
-    \caption{Visualization of Armijo condition. The blue curve shows the actual function value, while the red dashed line shows the upper bound from Armijo condition. When $\alpha$ is too large, we reduce it until the function value falls below the Armijo bound.}
+    \caption{Visualization of Armijo condition. The blue curve shows the actual function value, while the red dashed line shows the upper bound from Armijo condition. When  \(\alpha\) is too large, we reduce it until the function value falls below the Armijo bound.}
 \end{figure}
 
 \subsubsection*{Goldstein conditions}
-Choose $0 < c_1 < c_2 < 1$.
+Choose  \(0 < c_1 < c_2 < 1\).
 \includegraphics[scale=0.5]{figures/goldstein_conditions.png}
 \begin{itemize}
-    \item \textbf{Sufficient decrease:} $f(x_k + \alpha p_k) \leq f(x_k) + c_1 \alpha \inner{\nabla f(x_k), p_k}$. If this fails, decrease $\alpha$ because it is too large.
-    \item \textbf{Curvature condition:} $f(x_k + \alpha p_k) \geq f(x_k) + c_2 \alpha \inner{\nabla f(x_k), p_k}$. If this fails, increase $\alpha$ because it is too small.
+    \item \textbf{Sufficient decrease:}  \(f(x_k + \alpha p_k) \leq f(x_k) + c_1 \alpha \inner{\nabla f(x_k), p_k}\). If this fails, decrease  \(\alpha\) because it is too large.
+    \item \textbf{Curvature condition:}  \(f(x_k + \alpha p_k) \geq f(x_k) + c_2 \alpha \inner{\nabla f(x_k), p_k}\). If this fails, increase  \(\alpha\) because it is too small.
     \item Goldstein conditions are more robust than Armijo conditions.
 \end{itemize}
 
 \subsubsection*{Wolfe conditions}
-Choose $0 < c_1 < c_2 < 1$.
+Choose  \(0 < c_1 < c_2 < 1\).
 \begin{itemize}
-    \item \textbf{Sufficient decrease:} $f(x_k + \alpha p_k) \leq f(x_k) + c_1 \alpha \inner{\nabla f(x_k), p_k}$. If this fails, decrease $\alpha$ because it is too large.
-    \item \textbf{Curvature condition:} $\inner{\nabla f(x_k + \alpha p_k)}{p_k} \geq c_2 \inner{\nabla f(x_k)}{p_k}$. If this fails, increase $\alpha$ because it is too small.
+    \item \textbf{Sufficient decrease:}  \(f(x_k + \alpha p_k) \leq f(x_k) + c_1 \alpha \inner{\nabla f(x_k), p_k}\). If this fails, decrease  \(\alpha\) because it is too large.
+    \item \textbf{Curvature condition:}  \(\inner{\nabla f(x_k + \alpha p_k)}{p_k} \geq c_2 \inner{\nabla f(x_k)}{p_k}\). If this fails, increase  \(\alpha\) because it is too small.
     \item Wolfe conditions are more robust than Goldstein conditions.
 \end{itemize}
 \subsection{Lecture 6 (24. Januar 2025)}
@@ -501,34 +502,34 @@ Backtracking Line Search er en metode for å finne en passende skrittlengde \( \
 
 \subsection*{Algoritme og Matematisk Formulering}
 La \( f: \R^n \to \R \) være kontinuerlig deriverbar, og \( \bm{p} \in \R^n \) en nedstigningsretning (dvs. \( \langle \nabla f(\bm{x}), \bm{p} \rangle < 0 \)). Algoritmen søker \( \alpha > 0 \) som tilfredsstiller \textbf{Armijo-betingelsen}:
-\begin{equation}
+\[
     f(\bm{x} + \alpha \bm{p}) \leq f(\bm{x}) + c_1 \alpha \langle \nabla f(\bm{x}), \bm{p} \rangle, \quad c_1 \in (0, 1).
-\end{equation}
+\]
 
 \begin{algorithm}[H]
     \SetAlgoLined
     \DontPrintSemicolon
-    \KwIn{$\alpha_0 > 0$, $c_1 \in (0,1)$, $\rho \in (0,1)$}
-    \KwOut{$\alpha$}
-    $\alpha \leftarrow \alpha_0$\;
-    \While{$f(\bm{x} + \alpha \bm{p}) > f(\bm{x}) + c_1 \alpha \langle \nabla f(\bm{x}), \bm{p} \rangle$}{
-        $\alpha \leftarrow \rho \alpha$ \tcp*{Reduser skrittlengde}
+    \KwIn{ \(\alpha_0 > 0\),  \(c_1 \in (0,1)\),  \(\rho \in (0,1)\)}
+    \KwOut{ \(\alpha\)}
+     \(\alpha \leftarrow \alpha_0\)\;
+    \While{ \(f(\bm{x} + \alpha \bm{p}) > f(\bm{x}) + c_1 \alpha \langle \nabla f(\bm{x}), \bm{p} \rangle\)}{
+         \(\alpha \leftarrow \rho \alpha\) \tcp*{Reduser skrittlengde}
     }
-    \Return{$\alpha$}
+    \Return{ \(\alpha\)}
     \caption{Backtracking Linjesøk (Armijo)}
 \end{algorithm}
 
 \subsection*{Relaterte Betingelser}
 \begin{itemize}
     \item \textbf{Armijo-Goldstein}: Legger til en nedre grense for \( \alpha \):
-    \begin{equation}
+    \[
         f(\bm{x}) + c_2 \alpha \langle \nabla f(\bm{x}), \bm{p} \rangle \leq f(\bm{x} + \alpha \bm{p}) \leq f(\bm{x}) + c_1 \alpha \langle \nabla f(\bm{x}), \bm{p} \rangle, \quad 0 < c_1 < c_2 < 1.
-    \end{equation}
+    \]
 
     \item \textbf{Wolfe-betingelsene}: Inkluderer krumningstilstand:
-    \begin{equation}
+    \[
         \langle \nabla f(\bm{x} + \alpha \bm{p}), \bm{p} \rangle \geq c_2 \langle \nabla f(\bm{x}), \bm{p} \rangle, \quad 0 < c_1 < c_2 < 1.
-    \end{equation}
+    \]
 \end{itemize}
 
 \begin{lemma}{Terminering}{}
@@ -543,9 +544,9 @@ La \( f: \R^n \to \R \) være kontinuerlig deriverbar, og \( \bm{p} \in \R^n \) 
         \item \( \alpha_k \) tilfredsstiller Armijo- eller Wolfe-betingelsene
     \end{itemize}
     Da gjelder:
-    \begin{equation}
+    \[
         \lim_{k \to \infty} \|\nabla f(\bm{x}_k)\| = 0.
-    \end{equation}
+    \]
 \end{theorem}
 
 \begin{example}{Kvadratisk Funksjon}{}
@@ -559,9 +560,9 @@ La \( f: \R^n \to \R \) være kontinuerlig deriverbar, og \( \bm{p} \in \R^n \) 
 
 \begin{example}{Rosenbrock-funksjonen: Hessian}{}
     For \( f(x,y) = (1 - x)^2 + 100(y - x^2)^2 \) har Hessianen i minimum \( \bm{x}^\star = (1,1) \) formen:
-    \begin{equation}
+    \[
         H_f(1,1) = \begin{bmatrix} 802 & -400 \\ -400 & 200 \end{bmatrix}.
-    \end{equation}
+    \]
     Kondisjonstallet \( \kappa \approx 2500 \) forklarer treg konvergens for gradientdescent.
 \end{example}
 
@@ -622,16 +623,16 @@ We apply Newton's method to solve \(\nabla f(x) = 0\). That is, to find stationa
 \begin{algorithm}[H]
 \caption{Basic Newton's Method}
 \label{alg:newton-basic}
-\KwInput{Starting point $x_0$, tolerance $\epsilon > 0$}
-\KwOutput{Approximate solution $x_k$}
-$k \gets 0$\;
-\While{$\|\nabla f(x_k)\| > \epsilon$}{
-    Compute Hessian $H_f(x_k)$\;
-    Solve $H_f(x_k)\,p_k = -\,\nabla f(x_k)$\;
-    $x_{k+1} \gets x_k + p_k$\;
-    $k \gets k + 1$\;
+\KwInput{Starting point  \(x_0\), tolerance  \(\epsilon > 0\)}
+\KwOutput{Approximate solution  \(x_k\)}
+ \(k \gets 0\)\;
+\While{ \(\|\nabla f(x_k)\| > \epsilon\)}{
+    Compute Hessian  \(H_f(x_k)\)\;
+    Solve  \(H_f(x_k)\,p_k = -\,\nabla f(x_k)\)\;
+     \(x_{k+1} \gets x_k + p_k\)\;
+     \(k \gets k + 1\)\;
 }
-\KwRet{$x_k$}\;
+\KwRet{ \(x_k\)}\;
 \end{algorithm}
 
 \paragraph{Global Convergence Strategy}
@@ -645,20 +646,20 @@ $k \gets 0$\;
 \begin{algorithm}[H]
 \caption{Globally Convergent Newton's Method}
 \label{alg:newton-global}
-\KwInput{Starting point $x_0$, tolerances $\epsilon, c > 0$, reduction factor $\rho \in (0,1)$}
-\KwOutput{Approximate solution $x_k$}
-$k \gets 0$\;
-\While{$\|\nabla f(x_k)\| > \epsilon$}{
-    Compute Hessian $H_f(x_k)$\;
-    Solve $H_f(x_k)\,p_k = -\nabla f(x_k)$\;
-    $\alpha_k \gets 1$\;
-    \While{$f(x_k + \alpha_k p_k) > f(x_k) + c\,\alpha_k\,\nabla f(x_k)^\top p_k$}{
-        $\alpha_k \gets \rho\,\alpha_k$\;
+\KwInput{Starting point  \(x_0\), tolerances  \(\epsilon, c > 0\), reduction factor  \(\rho \in (0,1)\)}
+\KwOutput{Approximate solution  \(x_k\)}
+ \(k \gets 0\)\;
+\While{ \(\|\nabla f(x_k)\| > \epsilon\)}{
+    Compute Hessian  \(H_f(x_k)\)\;
+    Solve  \(H_f(x_k)\,p_k = -\nabla f(x_k)\)\;
+     \(\alpha_k \gets 1\)\;
+    \While{ \(f(x_k + \alpha_k p_k) > f(x_k) + c\,\alpha_k\,\nabla f(x_k)^\top p_k\)}{
+         \(\alpha_k \gets \rho\,\alpha_k\)\;
     }
-    $x_{k+1} \gets x_k + \alpha_k p_k$\;
-    $k \gets k + 1$\;
+     \(x_{k+1} \gets x_k + \alpha_k p_k\)\;
+     \(k \gets k + 1\)\;
 }
-\KwRet{$x_k$}\;
+\KwRet{ \(x_k\)}\;
 \end{algorithm}
 
 \paragraph{Descent Direction Condition}
@@ -683,27 +684,27 @@ If \(H_f(x_k)\) is not positive definite, or if \(\langle \nabla f(x_k), p_k\ran
 \begin{algorithm}[H]
 \caption{Modified Newton's Method with Hessian Modification}
 \label{alg:newton-modified}
-\KwInput{Starting point $x_0$, tolerances $\epsilon, \varepsilon > 0$}
-\KwOutput{Approximate solution $x_k$}
-$k \gets 0$\;
-\While{$\|\nabla f(x_k)\| > \epsilon$}{
-    Compute Hessian $H_f(x_k)$\;
-    Compute eigendecomposition $H_f(x_k) = U\,\Lambda\,U^\top$\;
-    $M \gets \text{diag}\bigl(\max\{\lambda_1, \varepsilon\}, \ldots, \max\{\lambda_d, \varepsilon\}\bigr)$\;
-    $p_k \gets -\,U\,M^{-1}\,U^\top\,\nabla f(x_k)$\;
-    \uIf{$\nabla f(x_k)^\top p_k < -\,\varepsilon\,\|\nabla f(x_k)\|\|p_k\|$}{
-        Use $p_k$ as the search direction\;
+\KwInput{Starting point  \(x_0\), tolerances  \(\epsilon, \varepsilon > 0\)}
+\KwOutput{Approximate solution  \(x_k\)}
+ \(k \gets 0\)\;
+\While{ \(\|\nabla f(x_k)\| > \epsilon\)}{
+    Compute Hessian  \(H_f(x_k)\)\;
+    Compute eigendecomposition  \(H_f(x_k) = U\,\Lambda\,U^\top\)\;
+     \(M \gets \text{diag}\bigl(\max\{\lambda_1, \varepsilon\}, \ldots, \max\{\lambda_d, \varepsilon\}\bigr)\)\;
+     \(p_k \gets -\,U\,M^{-1}\,U^\top\,\nabla f(x_k)\)\;
+    \uIf{ \(\nabla f(x_k)^\top p_k < -\,\varepsilon\,\|\nabla f(x_k)\|\|p_k\|\)}{
+        Use  \(p_k\) as the search direction\;
     }
     \Else{
-        $p_k \gets -\,\nabla f(x_k)$\;
+         \(p_k \gets -\,\nabla f(x_k)\)\;
     }
     % In a global method, we would then do a line search on p_k:
     %   x_{k+1} = x_k + alpha_k p_k
     % but here it is omitted for brevity.
-    $x_{k+1} \gets x_k + p_k$\;
-    $k \gets k + 1$\;
+     \(x_{k+1} \gets x_k + p_k\)\;
+     \(k \gets k + 1\)\;
 }
-\KwRet{$x_k$}\;
+\KwRet{ \(x_k\)}\;
 \end{algorithm}
 
 \paragraph{Alternative Interpretation of Newton's Method}
@@ -828,7 +829,7 @@ with \(\beta_k\) chosen so that \(\langle p_{k+1},\,Q\,p_k\rangle=0\). One can s
 \end{theorem}
 
 \begin{lemma}{}{}
-    Assume that \alpha satisfies in each step the strong curvature condition:
+    Assume that \(\alpha\) satisfies in each step the strong curvature condition:
     \[
     \left|\inner{}\right|
     \]
@@ -857,26 +858,26 @@ This approach avoids the computational cost of computing the exact Hessian matri
 \end{definition}
 
 \begin{algorithm}[H]
-    \caption{Quasi-Newton Method}
-    \label{alg:quasi-newton}
-    \SetKwFunction{QuasiNewton}{QuasiNewton}
-    \QuasiNewton{$x_0$, $B_0$, $f$, $\nabla f$, $\epsilon$}\;
-    \While{$\norm{\nabla f(x_k)} > \epsilon$}{
-        Compute the search direction $p_k = -B_k^{-1} \nabla f(x_k)$\;
-        Choose the step size $\alpha_k$ by line search\;
-        Update the current point $x_{k+1} = x_k + \alpha_k p_k$\;
-        Update the approximation $B_{k+1}$ of the Hessian matrix\;
-    }
-    \KwRet{$x_k$}\;
+  \caption{Quasi-Newton Method}
+  \label{alg:quasi-newton}
+  \SetKwFunction{QuasiNewton}{QuasiNewton}
+  \QuasiNewton{ \(x_0\),  \(B_0\),  \(f\),  \(\nabla f\),  \(\epsilon\)}\;
+  \While{ \(\norm{\nabla f(x_k)} > \epsilon\)}{
+      Compute the search direction  \(p_k = -B_k^{-1} \nabla f(x_k)\)\;
+      Choose the step size  \(\alpha_k\) by line search\;
+      Update the current point  \(x_{k+1} = x_k + \alpha_k p_k\)\;
+      Update the approximation  \(B_{k+1}\) of the Hessian matrix\;
+  }
+  \KwRet{ \(x_k\)}\;
 \end{algorithm}
 
 \paragraph{Update Formulas}
 
 \begin{itemize}
-    \item \textbf{DFP update}: \( B_{k+1} = B_k + \frac{y_k y_k^T}{y_k^T s_k} - \frac{B_k s_k s_k^T B_k}{s_k^T B_k s_k} \)
-    \item \textbf{BFGS update}: \( B_{k+1} = B_k + \frac{(y_k y_k^T)}{y_k^T s_k} - \frac{(B_k s_k)(B_k s_k)^T}{s_k^T B_k s_k} \)
-    \item \textbf{SR1 update}: \( B_{k+1} = B_k + \frac{(y_k - B_k s_k)(y_k - B_k s_k)^T}{(y_k - B_k s_k)^T s_k} \)
-    \item \textbf{Broyden update}: \( B_{k+1} = B_k + \frac{(y_k - B_k s_k - B_k^T y_k)(s_k^T B_k)}{s_k^T B_k s_k} \)
+  \item \textbf{DFP update}: \( B_{k+1} = B_k + \frac{y_k y_k^T}{y_k^T s_k} - \frac{B_k s_k s_k^T B_k}{s_k^T B_k s_k} \)
+  \item \textbf{BFGS update}: \( B_{k+1} = B_k + \frac{(y_k y_k^T)}{y_k^T s_k} - \frac{(B_k s_k)(B_k s_k)^T}{s_k^T B_k s_k} \)
+  \item \textbf{SR1 update}: \( B_{k+1} = B_k + \frac{(y_k - B_k s_k)(y_k - B_k s_k)^T}{(y_k - B_k s_k)^T s_k} \)
+  \item \textbf{Broyden update}: \( B_{k+1} = B_k + \frac{(y_k - B_k s_k - B_k^T y_k)(s_k^T B_k)}{s_k^T B_k s_k} \)
 \end{itemize}
 
 \subsection*{SR1 Update}
@@ -885,7 +886,3 @@ The SR1 update is a rank-one update that approximates the Hessian matrix using t
 B_{k+1} = B_k + \frac{(y_k - B_k s_k)(y_k - B_k s_k)^T}{(y_k - B_k s_k)^T s_k}
 \]
 where \( s_k = x_{k+1} - x_k \) and \( y_k = \nabla f(x_{k+1}) - \nabla f(x_k) \).
-
-
-
-
