@@ -1,6 +1,6 @@
 INFO:  latexindent.pl version 3.24.4, 2024-07-18, a script to indent .tex files
        latexindent.pl lives here: /opt/homebrew/Cellar/latexindent/3.24.4_1/libexec/bin/
-       Mon Jan 27 12:19:13 2025
+       Tue Feb  4 16:57:55 2025
        Filename: /Users/saether/Library/CloudStorage/OneDrive-NTNU/Skole/Fysikk og matematikk - Master/3. År/6. semester/Optimization 1/notes/lectures/__latexindent_temp_lecture7.tex
 INFO:  Processing switches:
        -y|--yaml: YAML settings specified via command line
@@ -23,9 +23,9 @@ INFO:  YAML reading settings
        latexindent.pl didn't find indentconfig.yaml or .indentconfig.yaml
        see all possible locations: https://latexindentpl.readthedocs.io/en/latest/sec-appendices.html#indentconfig-options)
 INFO:  YAML settings read: -y switch
-       YAML setting: defaultIndent:'    '
-       single-quoted string found in -y switch: '    ', substitute to     
-       Updating mainSettings with defaultIndent:     
+       YAML setting: defaultIndent:'  '
+       single-quoted string found in -y switch: '  ', substitute to   
+       Updating mainSettings with defaultIndent:   
 INFO:  Phase 1: searching for objects
 INFO:  Phase 2: finding surrounding indentation
 INFO:  Phase 3: indenting objects
