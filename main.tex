@@ -1,5 +1,6 @@
 \documentclass[10pt, a4paper]{article}
 \usepackage{trymtex}
+\usepackage{forest}
 
 \begin{document}
 \sloppy
@@ -14,9 +15,7 @@
 
 \newpage
 
-\section{Introduksjon til optimering}
-
-\subsection{Optimeringsproblemet}
+\section{Optimeringsproblemet}
 La \(f: \Omega \to \R\) være en (objekt)funksjon som vi ønsker å maksimere eller minimere, der \(\Omega \subset \R^d\) er en ikke-tom mengde (feasible set).
 
 \begin{definition}{Optimeringsproblemet \((P)\)}{}
@@ -24,18 +23,24 @@ La \(f: \Omega \to \R\) være en (objekt)funksjon som vi ønsker å maksimere el
     \min_{x \in \Omega} f(x) \quad \text{eller} \quad \max_{x \in \Omega} f(x).
   \]\label{def:optimization_problem}
 
+  \begin{itemize}
+    \item \textbf{Fri optimalisering}: Ingen restriksjoner på \(x\) og \(\Omega = \R^d\).
+    \item \textbf{Bundet optimalisering}: Restriksjoner på \(x\) og \(\Omega \subset \R^d\).
+  \end{itemize}
+
 \end{definition}
 
-\section{Fri optimalisering}
+\subsection{Fri optimalisering}
 
-Fri optimalisering refererer til problemer uten eksplisitte restriksjoner på variablene. Målet er å minimere en glatt objektiv funksjon \( f : \R^n \to \R \) over hele rommet \( \R^n \). Problemformuleringen er:
+Fri optimalisering refererer til problemer uten eksplisitte restriksjoner på variablene.
+Målet er å minimere en \textit{glatt objektfunksjon} \( f : \R^d \to \R \) for hele rommet \( \R^d \).
 
 \[
-  \min_{x \in \R^n} f(x),
+  \min_{\symbf{x} \in \R^d} f(\symbf{x})
 \]
-der løsningen \( x^* \) tilfredsstiller:
+der løsningen \( \symbf{x}^* \) tilfredsstiller:
 \[
-  f(x^*) \leq f(x), \quad \forall x \in \R^n.
+  f(\symbf{x}^*) \leq f(\symbf{x}) \quad \forall \symbf{x} \in \R^d
 \]
 
 \subsection*{Egenskaper}
@@ -64,82 +69,109 @@ der \( x_k \) er iteratene generert av en optimaliseringsalgoritme. Akkumulering
 \]
 
 \section{Begreper og definisjoner}
+\subsection{Ytre og indre produkter}
+\begin{definition}{Ytre produkt}{outer_product}
+  Gitt to vektorer \( \symbf{a} \in \R^m \) og \( \symbf{b} \in \R^n \), er det ytre produktet definert som:
+  \[
+    \symbf{a} \otimes \symbf{b} = \symbf{a} \symbf{b}^\top =
+    \begin{bmatrix}
+      a_1b_1 & a_1b_2 & \cdots & a_1b_n \\
+      a_2b_1 & a_2b_2 & \cdots & a_2b_n \\
+      \vdots  & \vdots  & \ddots & \vdots  \\
+      a_mb_1 & a_mb_2 & \cdots & a_mb_n
+    \end{bmatrix}
+  \]
+\end{definition}
+
+\begin{definition}{Indre produkt}{inner_product}
+  Gitt to vektorer \( \symbf{a}, \symbf{b} \in \R^n \), er det indre produktet definert som:
+  
+  \[
+    \symbf{a} \cdot \symbf{b} = \symbf{a}^\top \symbf{b} = \sum_{i=1}^{n} a_i b_i
+  \]
+
+\end{definition}
+
 
 \subsection{Nivåsett}
-
-\(f: \Omega \to \overline{\R}\) er en funksjon. Vi definerer nivåsettet til \(f\) i punktet \(y \in \R\) som:
-
+Intuitivt er nivåsettet til en funksjon \( f \) i et punkt \( y \) mengden av alle punkter \( x \) som har samme eller lavere verdi enn \( y \) under \( f \).
 \begin{definition}{Nivåsett}{level_set}
+  \(f: \Omega \to \overline{\R}\) er en funksjon. Vi definerer nivåsettet til \(f\) i punktet \(y \in \R\) som:
   \[
     \mathcal{L}_f(y) = \{x \in \Omega | f(x) = y\}.
   \]
 \end{definition}
 
+\subsection{Nedre semi-kontinuerlige funksjoner (lsc)}
+
+En nedre semikontinuerlig funksjon (\textit{lower semi-continuous function}) er en funksjon som ikke har plutselige "hopp nedover".
+
+Tenk deg at du nærmer deg et punkt \( \symbf{x_0} \) fra alle mulige retninger:
+\begin{itemize}
+  \item Verdien av funksjonen i \( \symbf{x_0} \) vil ikke være høyere enn verdiene du ser når du kommer nærmere.
+  \item Funksjonen kan ha "hopp oppover".
+\end{itemize}
+
+
 \begin{definition}{Nedre semi-kontinuerlig funksjoner}{lsc}
-
   \(f: \Omega (\subset \R^d) \to \overline{\R}\) være en funksjon. Vi sier at \(f\) er nedre semi-kontinuerlig (lsc) i punktet \(x_0\) hvis for alle \(\varepsilon > 0\) finnes det en \(\delta > 0\) slik at
-
   \[
     f(x) > f(x_0) - \varepsilon \quad \text{for alle} \quad x \in B(x_0, \delta).
   \]
-
   \begin{enumerate}
     \item \(f\) er (lsc) i \(x_0\) hvis det for alle \(\alpha \in \R\) er mengden \(\mathcal{L}_f(\alpha) = \{x | f(x) < \alpha \} \text{ er åpen i } \R^d\)
     \item \(f\) er (lsc) i \(x_0 \in X\) hvis og bare hvis: \(\liminf_{x \to x_0} f(x) \geq f(x_0)\).
   \end{enumerate}
-
 \end{definition}
-
-\begin{example}{(lsc)}{}
-  \begin{figure}[H]
-    \includegraphics[scale=0.7]{figures/example_lsc.png}
-    \caption{Eksempel på en nedre semi-kontinuerlig funksjon.}
-    \label{fig:lsc}
-  \end{figure}
+\begin{example}{Eksempel på en nedre semi-kontinuerlig funksjon}{lsc}
+    \includegraphics[width=0.5\textwidth]{figures/example_lsc.png}
 \end{example}
 
-\begin{definition}{Koersivitet}{}
-  \(f: \Omega \to \overline{\R}\) er en koersiv funksjon hvis for alle \(y \in \R\) er nivåmengden \(f^{-1}(y)\) kompakt i \(\Omega\).
-\end{definition} \label{def:coercive}
+\begin{definition}{Koersivitet}{coercive}
+  \(f: \Omega \to \bar{\R}\) er en koersiv funksjon hvis for alle \(y \in \R\) er nivåmengden \(f^{-1}(y)\) kompakt i \(\Omega\).
+\end{definition}
 
 \subsection{Konveksitet}
+
+Konveksitet er en egenskap som beskriver hvordan en funksjon bøyer seg.
+En konveks funksjon har en bue som vender oppover, mens en konkav funksjon har en bue som vender nedover.
 
 \begin{definition}{Konveks funksjon}{convex_function}
   En funksjon \(f: \R^n \to \R\) er konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in [0, 1]\) har vi:
 
   \begin{align*}
-    f(\lambda x + (1 - \lambda)y) & \leq \lambda f(x) + (1 - \lambda)f(y) \tag{Konveks} \\
+    f(\lambda x + (1 - \lambda)y) & \leq \lambda f(x) + (1 - \lambda)f(y) \\
   \end{align*}
 
-  \begin{filingbox}[colback=red!20!white][Strengt konveks]{Strengt konveks funksjon}
-    En funksjon \(f: \R^n \to \R\) er strengt konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in (0, 1)\) har vi:
-    \[
-      f(\lambda x + (1 - \lambda)y) < \lambda f(x) + (1 - \lambda)f(y)
-    \]\label{def:strictly_convex}
-  \end{filingbox}
-  \begin{filingbox}(ul)[red!20!white]{Kvasi-konveks}
-    En funksjon \(f: \R^d \to \R\) er kvasi-konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in (0, 1)\) har vi:
-
-    \[
-      f(\lambda x + (1 - \lambda)y) \leq \max\{f(x), f(y)\}
-    \]
-
-    En alternativ definisjon er at en funksjon er kvasi-konveks hvis alle nivåsettene er konvekse.
-
-    \[
-      \mathcal{L}_f(y) = \{x \in \R^n | f(x) \leq y\} \quad \text{er konveks for alle} \quad y \in \R
-    \]
-
-    \[
-      \boxed{\underbrace{\forall \alpha \in \R, \mathcal{L}_f(\alpha) \text{ er konveks}}_{f \text{ er kvasi-konveks }}\Longleftrightarrow \forall x, y \in \R^d,\lambda \text{ s.a. } f(\lambda x + (1-\lambda)y) \leq \max \{ f(x), f(y) \}}
-    \]
-  \end{filingbox}\label{def:quasi_convex}
-
 \end{definition}
+\begin{remark}{Strengt konveks funksjon}{strictly_convex}
+  En funksjon \(f: \R^n \to \R\) er strengt konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in (0, 1)\) har vi:
+  \[
+    f(\lambda x + (1 - \lambda)y) < \lambda f(x) + (1 - \lambda)f(y)
+  \]
+\end{remark}
 
-En mengde \(C \subset \R^n\) er (strengt) konveks når:
+\begin{remark}{Kvasi-konveks}{quasi_convex}
+  En funksjon \(f: \R^d \to \R\) er kvasi-konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in (0, 1)\) har vi:
+
+  \[
+    f(\lambda x + (1 - \lambda)y) \leq \max\{f(x), f(y)\}
+  \]
+
+  En alternativ definisjon er at en funksjon er kvasi-konveks hvis alle nivåsettene er konvekse.
+
+  \[
+    \mathcal{L}_f(y) = \{x \in \R^n | f(x) \leq y\} \quad \text{er konveks for alle} \quad y \in \R
+  \]
+
+  \[
+    \boxed{\underbrace{\forall \alpha \in \R, \mathcal{L}_f(\alpha) \text{ er konveks}}_{f \text{ er kvasi-konveks }}\Longleftrightarrow \forall x, y \in \R^d,\lambda \text{ s.a. } f(\lambda x + (1-\lambda)y) \leq \max \{ f(x), f(y) \}}
+  \]
+\end{remark}
+
 
 \begin{definition}{Konveks sett}{convex_set}
+  En mengde \(C \subset \R^n\) er (strengt) konveks når:
 
   \begin{align*}
     \lambda x + (1 - \lambda)y & \in C \quad \forall \; x, y \in C, \lambda \in [0, 1] \tag{Konveks}                   \\
@@ -151,30 +183,31 @@ En mengde \(C \subset \R^n\) er (strengt) konveks når:
 
 \subsection{Globale og lokale løsninger}
 
-La \(f: \Omega \to \R\) være en funksjon. Vi sier at \(x^* \in \Omega\) er en global løsning av minimeringsproblemet \((P)\) hvis
+En løsning av et optimeringsproblem er et punkt som oppfyller visse betingelser.
+Vi skiller mellom globale og lokale løsninger.
 
 \begin{definition}{Global løsning}{}
+  La \(f: \Omega \to \R\) være en funksjon. Vi sier at \(\symbf{x}^* \in \Omega\) er en global løsning av minimeringsproblemet \((P)\) hvis
+
   \begin{align*}
-    f(x^*) & \leq f(x) \quad \text{for alle} \quad x \in \Omega, \tag{Global løsning}                 \\
-    f(x^*) & < f(x) \quad \text{for alle} \quad x \in \Omega, x \neq x^*. \tag{Streng global løsning}
+    f(\symbf{x}^*) & \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in \Omega, \tag{Global løsning}                                 \\
+    f(\symbf{x}^*) & < f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in \Omega, \symbf{x} \neq \symbf{x}^*. \tag{Streng global løsning}
   \end{align*}
 \end{definition}
 
-La \(f: \Omega \to \R\) være en funksjon. Vi sier at \(x^* \in \Omega\) er en lokal løsning av optimeringsproblemet hvis
-
 \begin{definition}{Lokal løsning}{}
+
+  La \(f: \Omega \to \R\) være en funksjon. Vi sier at \(x^* \in \Omega\) er en lokal løsning av optimeringsproblemet hvis
+
   \begin{align*}
-    f(x^*) & \leq f(x) \quad \text{for alle} \quad x \in B(x^*, \varepsilon) \cap \Omega, \tag{Lokal løsning}                     \\
-    f(x^*) & < f(x) \quad \text{for alle} \quad x \in B(x^*, \varepsilon) \cap \Omega, x \neq x^*. \tag{Streng lokal løsning}     \\
-    f(x^*) & \leq f(x) \quad \text{for alle} \quad x \in B(x^*, \varepsilon) \cap \Omega, x \neq x^*. \tag{Isolert lokal løsning}
+    f(\symbf{x}^*) & \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in B(\symbf{x}^*, \varepsilon) \cap \Omega, \tag{Lokal løsning}                                     \\
+    f(\symbf{x}^*) & < f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in B(\symbf{x}^*, \varepsilon) \cap \Omega, \symbf{x} \neq \symbf{x}^*. \tag{Streng lokal løsning}     \\
+    f(\symbf{x}^*) & \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in B(\symbf{x}^*, \varepsilon) \cap \Omega, \symbf{x} \neq \symbf{x}^*. \tag{Isolert lokal løsning}
   \end{align*}
 \end{definition}
 
 \begin{remark}{Maksimeringsproblemet}{}
-  for maksimeringsproblemer snur vi bare ulikhetene.
-  \[
-    \leq \; \leftrightarrow \; \geq
-  \]
+  for maksimeringsproblemer snur vi bare ulikhetene: \(\leq \; \Leftrightarrow \; \geq\).
 \end{remark}
 
 \subsection*{Eksistens av globale løsninger}
@@ -203,7 +236,7 @@ Hvis \(f: \Omega \subset \R^d \to \overline{\R}\) er nedre semi-kontinuerlig og 
     \textbf{Function (Domain)}                                                        & \textbf{Cvx} & \textbf{Coe} & \textbf{lsc} & \textbf{QCvx} & \textbf{Loc} & \textbf{Glo} & \textbf{Alg}         \\
     \midrule
 
-    \multicolumn{8}{@{}l}{\textbf{Scalar Functions (\(\R\))}}                                                                                                                                   \\
+    \multicolumn{8}{@{}l}{\textbf{Scalar Functions (\(\R\))}}                                                                                                                                           \\
     \midrule
     \( f(x) = x^2 \)                                                                  & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Gradient Descent     \\
     \( f(x) = |x| \)                                                                  & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Proximal/Subgradient \\
@@ -219,7 +252,7 @@ Hvis \(f: \Omega \subset \R^d \to \overline{\R}\) er nedre semi-kontinuerlig og 
 
     \midrule
 
-    \multicolumn{8}{@{}l}{\textbf{Vector Functions (\(\R^d\))}}                                                                                                                                 \\
+    \multicolumn{8}{@{}l}{\textbf{Vector Functions (\(\R^d\))}}                                                                                                                                         \\
     \midrule
     \( f(\mathbf{x}) = \|\mathbf{x}\| \)                                              & \yes         & \yes         & \yes         & \yes          & \yes         & \yes         & Proximal             \\
     \( f(\mathbf{x}) = \|\mathbf{x}\| + \sin(x_1) \)                                  & \no          & \yes         & \yes         & \no           & \yes         & \yes         & Stochastic GD        \\
@@ -247,7 +280,6 @@ Hvis \(f: \Omega \subset \R^d \to \overline{\R}\) er nedre semi-kontinuerlig og 
 \newpage
 \begin{table}[ht]
   \centering
-
   \label{tab:glossary}
   \footnotesize
   \begin{tabularx}{\textwidth}{@{}>{\color{black!70}}l>{\raggedright\arraybackslash}X@{}}
@@ -279,6 +311,58 @@ Hvis \(f: \Omega \subset \R^d \to \overline{\R}\) er nedre semi-kontinuerlig og 
   \end{tabularx}
   \caption{Quick Reference: Key Definitions and Formulas}
 \end{table}
+
+\clearpage
+
+\section{Optimeringsalgoritmer}
+
+
+\resizebox{\textwidth}{!}{
+  \begin{forest}
+    for tree={
+    draw,
+    rounded corners,
+    align=center,
+    l sep=1em,
+    s sep=1em,
+    font=\small,
+    edge={->}
+    }
+    [{\textbf{1. Problem Classification}}
+      [{\textbf{Constrained}\\ (Not our current focus)}]
+      [{\textbf{Unconstrained}\\ (Focus here)}
+          [{\textbf{2. Choose a Derivative-Based Approach}}
+              [{\textbf{First-Order Methods}}
+                  [{Gradient Descent}]
+                  [{Conjugate Gradient}]
+                  [{Momentum / Nesterov\\ (Variants often used in ML)}]
+              ]
+              [{\textbf{Second-Order Methods}}
+                  [{Newton's Method\\ (Uses Hessian)}]
+                  [{Quasi-Newton\\ (BFGS, DFP, SR1)}]
+              ]
+              [{\textbf{3. Decide on Update Strategy}}
+                  [{\textbf{Line Search Framework}}
+                      [{\textbf{4. Iteration $k$:}}
+                          [{\textbf{(a) Compute direction $d_k$}\\ $-\nabla f$, CG formula,\\ Hessian approx.}]
+                          [{\textbf{(b) Find step size $\alpha_k$}}
+                              [{Exact Line Search\\ (Rare)}]
+                              [{Inexact Line Search\\ (More common)}
+                                  [{Backtracking\\ (Armijo)}]
+                                  [{More-Thuente\\ (Wolfe)}]
+                              ]
+                          ]
+                          [{\textbf{(c) Update}\\ $x_{k+1} = x_k + \alpha_k d_k$}]
+                      ]
+                  ]
+                  [{\textbf{Trust Region}\\ (Alternative)}]
+              ]
+              [{\textbf{5. Convergence Check}\\ $\|\nabla f(x_k)\| < \epsilon$}]
+          ]
+      ]
+    ]
+  \end{forest}
+}
 
 \clearpage
 

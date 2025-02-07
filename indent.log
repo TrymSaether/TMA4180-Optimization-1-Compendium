@@ -1,12 +1,12 @@
 INFO:  latexindent.pl version 3.24.4, 2024-07-18, a script to indent .tex files
        latexindent.pl lives here: /opt/homebrew/Cellar/latexindent/3.24.4_1/libexec/bin/
-       Tue Feb  4 16:57:55 2025
-       Filename: /Users/saether/Library/CloudStorage/OneDrive-NTNU/Skole/Fysikk og matematikk - Master/3. År/6. semester/Optimization 1/notes/lectures/__latexindent_temp_lecture7.tex
+       Fri Feb  7 15:25:07 2025
+       Filename: /Users/saether/Library/CloudStorage/OneDrive-NTNU/Skole/Fysikk og matematikk - Master/3. År/6. semester/Optimization 1/notes (tma4180)/sections/__latexindent_temp_lectures.tex
 INFO:  Processing switches:
        -y|--yaml: YAML settings specified via command line
        -c|--cruft: cruft directory
-INFO:  Directory for backup files and log file /Users/saether/Library/CloudStorage/OneDrive-NTNU/Skole/Fysikk og matematikk - Master/3. År/6. semester/Optimization 1/notes/indent.log:
-       /Users/saether/Library/CloudStorage/OneDrive-NTNU/Skole/Fysikk og matematikk - Master/3. År/6. semester/Optimization 1/notes/
+INFO:  Directory for backup files and log file /Users/saether/Library/CloudStorage/OneDrive-NTNU/Skole/Fysikk og matematikk - Master/3. År/6. semester/Optimization 1/notes (tma4180)/indent.log:
+       /Users/saether/Library/CloudStorage/OneDrive-NTNU/Skole/Fysikk og matematikk - Master/3. År/6. semester/Optimization 1/notes (tma4180)/
 INFO:  Perl modules are being loaded from the following directories:
        /opt/homebrew/opt/perl/lib/perl5/5.40/FindBin.pm
        /opt/homebrew/Cellar/latexindent/3.24.4_1/libexec/lib/perl5/YAML/Tiny.pm
