@@ -1,0 +1,48 @@
+\chapter{Optimeringsalgoritmer}
+
+\resizebox{\textwidth}{!}{
+  \begin{forest}
+    for tree={
+    draw,
+    rounded corners,
+    align=center,
+    l sep=1em,
+    s sep=1em,
+    font=\small,
+    edge={->}
+    }
+    [{\textbf{1. Problem Classification}}
+      [{\textbf{Constrained}\\ (Not our current focus)}]
+      [{\textbf{Unconstrained}\\ (Focus here)}
+          [{\textbf{2. Choose a Derivative-Based Approach}}
+              [{\textbf{First-Order Methods}}
+                  [{Gradient Descent}]
+                  [{Conjugate Gradient}]
+                  [{Momentum / Nesterov\\ (Variants often used in ML)}]
+              ]
+              [{\textbf{Second-Order Methods}}
+                  [{Newton's Method\\ (Uses Hessian)}]
+                  [{Quasi-Newton\\ (BFGS, DFP, SR1)}]
+              ]
+              [{\textbf{3. Decide on Update Strategy}}
+                  [{\textbf{Line Search Framework}}
+                      [{\textbf{4. Iteration $k$:}}
+                          [{\textbf{(a) Compute direction $d_k$}\\ $-\nabla f$, CG formula,\\ Hessian approx.}]
+                          [{\textbf{(b) Find step size $\alpha_k$}}
+                              [{Exact Line Search\\ (Rare)}]
+                              [{Inexact Line Search\\ (More common)}
+                                  [{Backtracking\\ (Armijo)}]
+                                  [{More-Thuente\\ (Wolfe)}]
+                              ]
+                          ]
+                          [{\textbf{(c) Update}\\ $x_{k+1} = x_k + \alpha_k d_k$}]
+                      ]
+                  ]
+                  [{\textbf{Trust Region}\\ (Alternative)}]
+              ]
+              [{\textbf{5. Convergence Check}\\ $\|\nabla f(x_k)\| < \epsilon$}]
+          ]
+      ]
+    ]
+  \end{forest}
+}

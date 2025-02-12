@@ -160,8 +160,8 @@ ax.set_ylabel("y")
 ax.set_title("Fletcher-Reeves optimization of Rosenbrock function")
 
 # Plot Rosenbrock contours
-x = np.linspace(-2, 2, 100)
-y = np.linspace(-1, 3, 100)
+x = np.linspace(-4, 4, 100)
+y = np.linspace(-4, 4, 100)
 X, Y = np.meshgrid(x, y)
 Z = rosenbrock(np.array([X, Y]))
 contours = ax.contourf(X, Y, Z, cmap="viridis", levels=50, alpha=0.8)

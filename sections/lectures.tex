@@ -1,9 +1,9 @@
 % !TeX root = ../main.tex
-\section{Lectures}
+\chapter{Lectures}
 
-\subsection{Lecture 1 (6. Januar 2025)}
+\section{Lecture 1 (6. Januar 2025)}
 
-\section*{Eksistens av globale løsninger}
+\subsection*{Eksistens av globale løsninger}
 
 \begin{definition}{Nivåmengde}{level-set}
   For en funksjon  \(f: \R^d \to \R\) definerer vi nivåmengden som
@@ -28,7 +28,7 @@
   en global løsning.
 \end{theorem}
 
-\section*{Nødvenige og tilstrekkelige betingelser for lokale løsninger}
+\subsection*{Nødvenige og tilstrekkelige betingelser for lokale løsninger}
 
 \begin{theorem}{Nødvendige betingelser for lokale løsninger}{necessary-conditions}
   La  \(x^* \in \R^d\) være en lokal løsning av  \(\min_{x \in \R^d} f(x)\). Da gjelder:
@@ -55,9 +55,9 @@
   \end{itemize}
 \end{example}
 
-\subsection{Lecture 2 (10. January 2025)}
+\section{Lecture 2 (10. January 2025)}
 
-\section*{Gradientmetoder og konveksitet}
+\subsection*{Gradientmetoder og konveksitet}
 
 \begin{theorem}{Gradientestimat nær lokale minima}{gradient-estimate}
   La  \(f: \R^n \to \R\) være deriverbar og  \(x^*\) være et lokalt minimum. Da gjelder:
@@ -150,9 +150,8 @@
   \end{itemize}
 \end{example}
 
-
-\subsection{Lecture 3 (13. January 2025)}
-\section*{Optimization Algorithms}
+\section{Lecture 3 (13. January 2025)}
+\subsection*{Optimization Algorithms}
 
 \begin{definition}{Nelder-Mead Algorithm}{nelder-mead}
   The Nelder-Mead algorithm is a heuristic search method used for minimizing an objective function without the need for derivatives. It operates on a simplex of \( n+1 \) points in \( \R^n \) and iteratively reflects, expands, contracts, or shrinks the simplex to converge to a local minimum.
@@ -232,7 +231,7 @@ Line search methods aim to find an appropriate step size \( \alpha \) that suffi
 \end{algorithm}
 \newpage
 
-\subsection{Lecture 4 (17. Januar 2025)}
+\section{Lecture 4 (17. Januar 2025)}
 
 \subsubsection*{Numerical methods for free optimization}
 
@@ -255,7 +254,7 @@ We want to solve \( \min_{x \in \R^d} f(x) \) numerically. Want to find an appro
 
 It should try to minimize the number of function and gradient evaluations.
 
-\subsection*{Nelder-Mead Algorithm}
+\subsubsection*{Nelder-Mead Algorithm}
 \textbf{Properties:}
 \begin{itemize}
   \item Derivative-free method
@@ -317,7 +316,7 @@ Take particularly:  \(t= -1\),  \(t = -2\),  \(t = 0.5\) or  \(t = 0.5\).
   \caption{Nelder-Mead Algorithm}
 \end{algorithm}
 
-\subsection*{Gradient Descent and backtracking}
+\subsubsection*{Gradient Descent and backtracking}
 \vspace{-0.1cm}
 \textit{Line search methods}
 
@@ -342,7 +341,6 @@ since:
   Newtons method:  \(p_k = H_f(x_k)^{-1} \nabla f(x_k)\) if  \(H_f(x_k)\) is positive definite.
 \end{example}
 
-\subsubsection*{Algorithm}
 \begin{algorithm}[H]
   \SetAlgoLined
   \KwIn{Initial point  \(x_0\), tolerance  \(\epsilon > 0\)}
@@ -383,9 +381,9 @@ First idea: require that  \(f(x_k + \alpha_k p_k) \leq f(x_k)\)  \(\rightsquigar
 
 
 
-\subsection{Lecture 5 (20. Januar 2025)}
+\section{Lecture 5 (20. Januar 2025)}
 
-\section*{Gradient Descent}
+\subsection*{Gradient Descent}
 
 
 Gradient descent er en metode for å finne minimum av en funksjon  \(f: \R^n \to \R\) ved å iterere:
@@ -465,7 +463,7 @@ where  \(B_k\) is a symmetric positive definite matrix.
 
 Choice of constant:  \(c_1 \approx 10^{-3,-4}\),  \(\rho \approx 10^{-1,-2}\).
 
-\subsection*{Alternative methods for step length selection}
+\subsubsection*{Alternative methods for step length selection}
 
 Armijo condition:
 \[
@@ -495,12 +493,12 @@ Choose  \(0 < c_1 < c_2 < 1\).
   \item \textbf{Curvature condition:}  \(\inner{\nabla f(x_k + \alpha p_k)}{p_k} \geq c_2 \inner{\nabla f(x_k)}{p_k}\). If this fails, increase  \(\alpha\) because it is too small.
   \item Wolfe conditions are more robust than Goldstein conditions.
 \end{itemize}
-\subsection{Lecture 6 (24. Januar 2025)}
+\section{Lecture 6 (24. Januar 2025)}
 
-\section*{Backtracking Linjesøk}
+\subsection*{Backtracking Linjesøk}
 Backtracking Line Search er en metode for å finne en passende skrittlengde \( \alpha \) i iterative optimeringsalgoritmer. Målet er å sikre at skrittet reduserer objektivfunksjonen \( f(\bm{x} + \alpha \bm{p}) \) tilstrekkelig, samtidig som det unngås for små eller ustabile skritt.
 
-\subsection*{Algoritme og Matematisk Formulering}
+\subsubsection*{Algoritme og Matematisk Formulering}
 La \( f: \R^n \to \R \) være kontinuerlig deriverbar, og \( \bm{p} \in \R^n \) en nedstigningsretning (dvs. \( \langle \nabla f(\bm{x}), \bm{p} \rangle < 0 \)). Algoritmen søker \( \alpha > 0 \) som tilfredsstiller \textbf{Armijo-betingelsen}:
 \[
   f(\bm{x} + \alpha \bm{p}) \leq f(\bm{x}) + c_1 \alpha \langle \nabla f(\bm{x}), \bm{p} \rangle, \quad c_1 \in (0, 1).
@@ -519,7 +517,7 @@ La \( f: \R^n \to \R \) være kontinuerlig deriverbar, og \( \bm{p} \in \R^n \) 
   \caption{Backtracking Linjesøk (Armijo)}
 \end{algorithm}
 
-\subsection*{Relaterte Betingelser}
+\subsubsection*{Relaterte Betingelser}
 \begin{itemize}
   \item \textbf{Armijo-Goldstein}: Legger til en nedre grense for \( \alpha \):
         \[
@@ -567,9 +565,9 @@ La \( f: \R^n \to \R \) være kontinuerlig deriverbar, og \( \bm{p} \in \R^n \) 
 \end{example}
 
 
-\subsection{Lecture 7 (27. Januar 2025)}
+\section{Lecture 7 (27. Januar 2025)}
 
-\paragraph{Goal for today}
+\subsection*{Goal for today}
 \begin{itemize}
   \item Newton's Method:
         \begin{itemize}
@@ -579,9 +577,9 @@ La \( f: \R^n \to \R \) være kontinuerlig deriverbar, og \( \bm{p} \in \R^n \) 
         \end{itemize}
 \end{itemize}
 
-\section*{Newton's Method}
+\subsection*{Newton's Method}
 
-\paragraph{Background}
+\subsection*{Background}
 Assume \(G: \R^d \to \R^d\). We want to solve \(G(x) = 0\).
 
 Newton's method is an iterative procedure for finding the roots of a differentiable function \(G: \R^d \to \R^d\).
@@ -595,7 +593,7 @@ It uses the first-order Taylor (linear) approximation of \(G\) at the current po
   where \(D G(x_k)\) is the derivative (Jacobian) of \(G\) at \(x_k\). If \(G\) is the gradient of a scalar function \(f\), then \(DG(x_k) = H_f(x_k)\), the Hessian of \(f\).
 \end{definition}
 
-\paragraph{Convergence Theory}
+\subsection*{Convergence Theory}
 If \(G\in \mathcal{C}^2\), then this iteration converges locally \emph{quadratically} to
 a solution \(x^\star\) of \(G(x) = 0\), provided that \(D G(x^\star)\) is invertible.
 
@@ -606,11 +604,11 @@ a solution \(x^\star\) of \(G(x) = 0\), provided that \(D G(x^\star)\) is invert
   \]
 \end{remark}
 
-\subsection*{Application to Optimization}
+\subsubsection*{Application to Optimization}
 
 We apply Newton's method to solve \(\nabla f(x) = 0\). That is, to find stationary points of a function \(f:\R^d \to \R\).
 
-\paragraph{Basic Method}
+\subsection*{Basic Method}
 \begin{itemize}
   \item Newton iteration:
         \[
@@ -635,7 +633,7 @@ We apply Newton's method to solve \(\nabla f(x) = 0\). That is, to find stationa
   \KwRet{ \(x_k\)}\;
 \end{algorithm}
 
-\paragraph{Global Convergence Strategy}
+\subsection*{Global Convergence Strategy}
 \begin{enumerate}
   \item Combine with a line search.
   \item Define \(p_k\) by solving \(H_f(x_k)\,p_k = -\nabla f(x_k)\).
@@ -662,7 +660,7 @@ We apply Newton's method to solve \(\nabla f(x) = 0\). That is, to find stationa
   \KwRet{ \(x_k\)}\;
 \end{algorithm}
 
-\paragraph{Descent Direction Condition}
+\subsection*{Descent Direction Condition}
 If \(H_f(x_k)\) is positive definite, then
 \[
   \langle p_k, \nabla f(x_k)\rangle
@@ -672,7 +670,7 @@ If \(H_f(x_k)\) is positive definite, then
 \]
 so \(p_k\) is a descent direction for the line search.
 
-\paragraph{Modified Newton's Method}
+\subsection*{Modified Newton's Method}
 If \(H_f(x_k)\) is not positive definite, or if \(\langle \nabla f(x_k), p_k\rangle \geq 0\), then the line search may fail. One approach is to modify the Hessian or switch to a different direction:
 
 \begin{itemize}
@@ -707,7 +705,7 @@ If \(H_f(x_k)\) is not positive definite, or if \(\langle \nabla f(x_k), p_k\ran
   \KwRet{ \(x_k\)}\;
 \end{algorithm}
 
-\paragraph{Alternative Interpretation of Newton's Method}
+\subsection*{Alternative Interpretation of Newton's Method}
 Newton's method can also be viewed via a second-order Taylor expansion of \(f\) around \(x_k\):
 
 \begin{enumerate}
@@ -726,7 +724,7 @@ Newton's method can also be viewed via a second-order Taylor expansion of \(f\) 
 
 The \emph{modified Newton's method} then reads \(x_{k+1} = x_k + \alpha_k\,p_k\) with \(\alpha_k>0\) found by a line search and \(p_k\) given by one of the strategies above.
 
-\paragraph{Quadratic Convergence Criterion}
+\subsection*{Quadratic Convergence Criterion}
 Quadratic convergence holds precisely when, near \(x^\star\), we use
 \[
   p_k \;=\; -\,H_f(x_k)^{-1}\,\nabla f(x_k)
@@ -735,7 +733,7 @@ Quadratic convergence holds precisely when, near \(x^\star\), we use
 \]
 In particular, for \(\alpha_k = 1\) to be acceptable in the line search once \(x_k\) is close to \(x^\star\), the Hessian near \(x^\star\) must be uniformly positive definite (so all eigenvalues \(\ge \varepsilon > 0\)), and the line search parameters (e.g.\ the Armijo or Wolfe constants) must allow a full step.
 
-\section*{Conjugate Gradient Methods}
+\subsection*{Conjugate Gradient Methods}
 
 We now focus on the special case of minimizing the quadratic function
 \[
@@ -754,7 +752,7 @@ which ensures
 \]
 In particular, for a gradient method we would have \(\nabla \Phi(x_{k+1}) \propto p_{k+1}\). Orthogonality conditions arise naturally here.
 
-\paragraph{Conjugate Directions}
+\subsection*{Conjugate Directions}
 A set of vectors \(\{p_0, p_1, \dots, p_{d-1}\}\subset \R^d\) is \emph{conjugate} with respect to \(Q\) if
 \[
   \langle p_i,\;Q\,p_j\rangle \;=\; 0 \quad\text{for}\quad i\neq j.
@@ -798,7 +796,7 @@ Equivalently, the vectors are mutually orthogonal under the inner product \(\lan
   Careful manipulation (and using the fact that \(\langle p_i, Q\,p_j\rangle=0\) for \(i\neq j\)) shows \(\sigma_l = \alpha_l\). Hence \(x^\star = x_d\).
 \end{proof}
 
-\paragraph{The CG Iteration}
+\subsection*{The CG Iteration}
 The Conjugate Gradient method constructs a sequence of conjugate directions by choosing
 \[
   p_0 = -\,r_0 \;=\; b - Q\,x_0,
@@ -807,7 +805,7 @@ The Conjugate Gradient method constructs a sequence of conjugate directions by c
 \]
 with \(\beta_k\) chosen so that \(\langle p_{k+1},\,Q\,p_k\rangle=0\). One can show this leads to convergence in at most \(d\) steps for solving \(Q\,x = b\) in exact arithmetic.
 
-\subsection{Lecture 8 (31. February 2025)}
+\section{Lecture 8 (31. February 2025)}
 
 \textbf{Goals:}
 \begin{enumerate}
@@ -833,10 +831,9 @@ with \(\beta_k\) chosen so that \(\langle p_{k+1},\,Q\,p_k\rangle=0\). One can s
   \[
     \left|\inner{}\right|
   \]
-
 \end{lemma}
 
-\subsection{Lecture 9 (3. Februar 2025)}
+\section{Lecture 9 \date{3. Februar 2025}}
 
 \begin{definition}{Newton's Method}{newton-method}
   \[
@@ -847,7 +844,7 @@ with \(\beta_k\) chosen so that \(\langle p_{k+1},\,Q\,p_k\rangle=0\). One can s
 
 But computing the Hessian matrix is expensive, so we use the \textbf{quasi-Newton} method instead.
 
-\section*{Quasi-Newton Methods}
+\subsection*{Quasi-Newton Methods}
 The quasi-Newton method is an iterative optimization algorithm that approximates the Hessian matrix using rank-one updates.
 This approach avoids the computational cost of computing the exact Hessian matrix and can provide faster convergence rates.
 \begin{definition}{Quasi-Newton Method}{quasi-newton}
@@ -871,7 +868,7 @@ This approach avoids the computational cost of computing the exact Hessian matri
   \KwRet{ \(x_k\)}\;
 \end{algorithm}
 
-\paragraph{Update Formulas}
+\subsubsection*{Update Formulas}
 
 \begin{itemize}
   \item \textbf{DFP update}: \( B_{k+1} = B_k + \frac{y_k y_k^T}{y_k^T s_k} - \frac{B_k s_k s_k^T B_k}{s_k^T B_k s_k} \)
@@ -880,7 +877,7 @@ This approach avoids the computational cost of computing the exact Hessian matri
   \item \textbf{Broyden update}: \( B_{k+1} = B_k + \frac{(y_k - B_k s_k - B_k^T y_k)(s_k^T B_k)}{s_k^T B_k s_k} \)
 \end{itemize}
 
-\subsection*{SR1 Update}
+\subsubsection*{SR1 Update}
 The SR1 update is a rank-one update that approximates the Hessian matrix using the following formula:
 \[
   B_{k+1} = B_k + \frac{(y_k - B_k s_k)(y_k - B_k s_k)^T}{(y_k - B_k s_k)^T s_k}
@@ -889,16 +886,16 @@ where \( s_k = x_{k+1} - x_k \) and \( y_k = \nabla f(x_{k+1}) - \nabla f(x_k) \
 
 \clearpage
 
-\subsection{Lecture 10 (7. Februar 2025)}
+\section{Lecture 10 \date{7. Februar 2025}}
 
-\paragraph{Læringsmål}
+\subsection*{Læringsmål}
 \begin{enumerate}
   \item \textbf{Quasi-Newton Methods}
   \item BFGS
   \item DFP
 \end{enumerate}
 
-\paragraph{Fra tidligere: Quasi-Newton Metoder}
+\subsection*{Fra tidligere: Quasi-Newton Metoder}
 \begin{align*}
   p_k     & = -B_k^{-1} \nabla f(x_k) = -H_k^{-1} \nabla f(x_k) \\
   x_{k+1} & = x_k + \alpha_k p_k                                \\
@@ -954,7 +951,7 @@ Definerer \( \norm{A}_W = \norm{WA}_F = \sqrt{\sum_{i,j} (W A)_{ij}^2} \).
 \hrule
 \vspace{1em}
 
-\paragraph{BFGS oppdatering (Broyden-Fletcher-Goldfarb-Shanno)}
+\subsection*{BFGS oppdatering (Broyden-Fletcher-Goldfarb-Shanno)}
 
 One can again work with \(H_k = B_k^{-1}\) instead.
 Here we obtain the update formula:
@@ -987,29 +984,31 @@ Da får vi Broyden-Fletcher-Goldfarb-Shanno (BFGS) metoden.
   \end{align*}
   Nå er \( w = \left(I - \rho_k y_k \otimes s_k\right) z = z - \rho_k \inner{y_k, z} s_k \), så hvis \( \inner{s_k, z} = 0 \) så er \( w = z \neq 0 \).
   Dermed er enten \( \rho_k\inner{y_k, z}^2\) eller \( \inner{w, H_k w} \) positiv, så \(\implies H_{k+1} \) er positiv definit.
-  
+
   \qed
 \end{proof}
 
 
 Hvis vi kan garantere at \( \inner{y_k, s_k} \gg 0 \; \forall k \) og \( H_0 \) er positiv definit, så vil \( H_{k+1} \) være positiv definit for alle \( k \), og \(p_{k+1} = -H_{k+1} \nabla f(x_k) \) vil være en nedstigningsretning.
 
-Hvis \( f \) er strengt konveks\ref{def:rem:strictly_convex} ( og dermed \(x_{k+1} \neq x_k \) for alle \( k \)), så vil 
+Hvis \( f \) er strengt konveks (og dermed \(x_{k+1} \neq x_k \) for alle \( k \)), så vil
+
 \[
-\inner{\nabla f(x_{k+1}) - \nabla f(x_k), x_{k+1} - x_k} > 0
+  \inner{\nabla f(x_{k+1}) - \nabla f(x_k), x_{k+1} - x_k} > 0
 \]
 
 \begin{itemize}
   \item Anta at \(\alpha_k\) er valgt mhp Wolfe-betingelsene. Da er
-  \[
-    \inner{\nabla f(x_k + \alpha_k p_k), p_k} \geq c_2 \inner{\nabla f(x_k), p_k} \quad \text{og} \quad \inner{\nabla f(x_{k+1}), p_k} \geq c_1 \inner{\nabla f(x_k), p_k}
-  \]
+        \[
+          \inner{\nabla f(x_k + \alpha_k p_k), p_k} \geq c_2 \inner{\nabla f(x_k), p_k} \quad \text{og} \quad \inner{\nabla f(x_{k+1}), p_k} \geq c_1 \inner{\nabla f(x_k), p_k}
+        \]
   \item Implementer BFGS/DFP oppdateringene med linjesøk (Wolfe-betingelsene) og velg \( H_0 \) positiv definit.
-  \[
-    H_0 = c \, I \quad \text{hvor} \quad c > 0
-  \]
+        \[
+          H_0 = c \, I \quad \text{hvor} \quad c > 0
+        \]
 
-  \item Vanlig strategi: I første steg velg \( p_0 = -\nabla f(x_0) \) og finn \( \alpha_0 \) med linjesøk (f.eks. Wolfe-betingelsene).
+  
+  \item \textbf{Vanlig strategi:} Først velg \( p_0 = -\nabla f(x_0) \) og finn \( \alpha_0 \) med linjesøk (f.eks. Wolfe-betingelsene).
   \item Deretter finner vi \(x_1 = x_0 + \alpha_0 p_0 \) og \( s_0 = x_1 - x_0 \) og \( y_0 = \nabla f(x_1) - \nabla f(x_0) \).
   \item Definerer så \( c = \frac{\inner{y_0, s_0}}{\inner{y_0, y_0}} \) og \( H_0 = c \, I \).
   \item Regn ut \( H_1 = H_0 + \text{BFGS/DFP update} \).
@@ -1018,7 +1017,7 @@ Hvis \( f \) er strengt konveks\ref{def:rem:strictly_convex} ( og dermed \(x_{k+
 \begin{figure}[H]
   \begin{minipage}[t]{0.49\textwidth}
     \begin{algorithm}[H]
-      \caption{BFGS with Wolfe Conditions} 
+      \caption{BFGS with Wolfe Conditions}
       \label{alg:bfgs}
       \KwIn{Initial point \(x_0\), tolerance \(\epsilon>0\), \(N\), \(H_0 = I\)}
       \For{\(k=0,1,\ldots,N\)}{
@@ -1032,10 +1031,7 @@ Hvis \( f \) er strengt konveks\ref{def:rem:strictly_convex} ( og dermed \(x_{k+
         Set \(s_k = x_{k+1} - x_k\)\;
         Set \(y_k = \nabla f(x_{k+1}) - g_k\)\;
         Set \(\rho_k = \frac{1}{y_k^\top s_k}\)\;
-        Update inverse Hessian:
-        \[
-          H_{k+1} = (I - \rho_k s_k y_k^\top) H_k (I - \rho_k y_k s_k^\top) + \rho_k s_k s_k^\top
-        \]
+        Update inverse Hessian: \(H_{k+1} = (I - \rho_k s_k y_k^\top) H_k (I - \rho_k y_k s_k^\top) + \rho_k s_k s_k^\top\)
       }
       \Return{\(x_{k+1}\)}\;
     \end{algorithm}
@@ -1063,3 +1059,249 @@ Hvis \( f \) er strengt konveks\ref{def:rem:strictly_convex} ( og dermed \(x_{k+
     \end{algorithm}
   \end{minipage}
 \end{figure}
+
+
+\section{Lecture 11 \date{10. Februar 2025}}
+
+\subsection*{Læringsmål}
+\begin{enumerate}
+  \item Optimisation with convex constraints
+  \item Various formulations of optimality conditions
+  \item Feasible directions, tangent cones and normal cones
+  \item Projections onto convex sets
+  \item Projected gradient descent
+\end{enumerate}
+
+\subsection*{Optimalisering med konvekse begrensninger}
+\begin{itemize}
+  \item \textbf{Problem:} Minimer \(\min_{\Omega \subset \R^d} f(x)\) hvor \(\Omega\) er konveks og lukket, med \(f: \R^d \to \R\) hvor \(f\in \mathcal{C}^1\).
+  \item \textbf{Optimalitetsbetingelser:} Hvis \(x^\star\) løser problemet, så er det nødvendig at \(\nabla f(x^\star) = 0\) og \(x^\star \in \Omega\).
+\end{itemize}
+
+\begin{example}{\(f(x,y)=x, \quad \Omega = \{(x,y) \in \R^2 \mid x^2 + y^2 \leq 1\}\)}{}
+  \begin{itemize}
+    \item \textbf{Optimalitetsbetingelser:} \(\nabla f(x,y) = (1,0)\) og \((1,0) \in \Omega\).
+    \item \textbf{Løsning:} \(x^\star = (1,0)\).
+    \item La \((x^\star, y^\star)=(-1,0) \) og \(\nabla f(x^\star, y^\star) = (1,0)^T \). Observer at punktet peker mot settet \(\Omega\).
+  \end{itemize}
+
+  \begin{tikzpicture}[scale=2]
+    \draw[fill=gray!40] (0,0) circle (1) node[above right] {\(\Omega\)};
+    \draw[->] (-1.5,0) -- (1.5,0) node[right] {\(x\)};
+    \draw[->] (0,-1.5) -- (0,1.5) node[above] {\(y\)};
+    \draw[fill=black] (-1,-1) circle (0.05) node[above] {\(x^\star\)};
+    \draw[->, thick, in=0, out=90, green] (-1,-1) to (-1, 0);
+    \draw[->, thick, orange] (-1,0) -- (0,0) node[below left] {\(\nabla f(x^\star, y^\star)\)};
+  \end{tikzpicture}
+
+\end{example}
+
+
+\begin{definition}{Bevegelse mot \(\Omega\)}{}
+  La \(x \in \R^d\) og \(\Omega \subset \R^d\) være konveks og lukket.
+  \begin{itemize}
+    \item En vektor \(p \in \R^d\) er en \textbf{bevegelse mot \(\Omega\)} fra \(x\) hvis det finnes et \(\epsilon > 0\) slik at \(x + \tau p \in \Omega\) for alle \(\tau \in (0, \epsilon)\).
+    \item La \(D(x)\) være mengden av alle bevegelser mot \(\Omega\) fra \(x\).
+  \end{itemize}
+
+  \[
+    D(x) = \{p \in \R^d \mid \exists \epsilon > 0 \text{ slik at } x + \tau d \in \Omega \; \forall \tau \in (0, \epsilon)\}
+  \]
+
+\end{definition}
+
+\begin{lemma}{}{}
+  La \(\Omega \subseteq \R^d\) være konveks og lukket og \(x \in \Omega\).
+
+  Da er \(p \in \R^d\) en bevegelse mot (feasible direction) \(\Omega\) fra \(x\) ekvivalent til
+
+  \[
+    \Leftrightarrow \exists \hat{x} \in \Omega \text{ og } t > 0 \text{ slik at } p = t(\hat{x} - x)
+  \]
+
+\end{lemma}
+
+\begin{proposition}{}{}
+  Anta at \(\Omega \subset \R^d\) er konveks og \(f: \R^d \to \R\) er i \(\mathcal{C}^1\).
+  \begin{itemize}
+    \item Hvis \(x^\star\) løser \(\min_{x \in \Omega} f(x)\), så er \(\inner{\nabla f(x^\star), p} \geq 0\) for alle mulige bevegelser til \(p\) ved \(x^\star\).
+    \item Ekvivalent: \(\inner{\nabla f(x^\star), x - x^\star} \geq 0\) for alle \(x \in \Omega\).
+    \item En konsekvens av at \(f\) er konveks og \(x^\star\) tilfredstiller betingelsen over, da er \(x^\star\) en global løsning for problemet \(\min_{x \in \Omega} f(x)\).
+          \begin{proof}{}{}
+            Anta at \(x^\star\) er en lokal løsning av (P) og \(p\) er en bevegelse mot \(\Omega\) fra \(x^\star\).
+            \begin{align*}
+              \exists t_0 > 0 \text{ s.a } x^\star + t_0 p \in \Omega \quad \text{og} \quad \Omega \text{ er konveks} \implies x^\star + t p \in \Omega \quad \forall t \in (0, t_0) \\
+              x^\star \text{ er en lokal løsning av (P)} \implies \exists \varepsilon > 0 \text{ s.a } f(x^\star) \leq f(x^\star + t p) \quad \forall t \in (0, \varepsilon)         \\
+              \implies \inner{\nabla f(x^\star), p} = \lim_{t \to 0^+} \frac{f(x^\star + t p) - f(x^\star)}{t} \geq 0                                                                \\
+            \end{align*}
+
+            Konvers: Anta at \(f\) er konveks og \(x^\star\) tilfredstiller betingelsen over. La \(x \in \Omega\), da får vi:
+            \begin{align*}
+              f(x) & \underbrace{\geq}_{\text{f er konveks.}} f(x^\star) + \underbrace{\inner{\nabla f(x^\star), x - x^\star}}_{\geq 0} \geq f(x^\star) \quad \forall x \in \Omega
+            \end{align*}
+            \qed
+          \end{proof}
+  \end{itemize}
+\end{proposition}
+
+\begin{definition}{}{}
+  Anta at \(\Omega \subset \R^d\) er konveks og \(x \in \Omega\).
+
+  Den normale kjeglen til \(\Omega\) ved \(x\) er gitt ved settet:
+  \[
+    N_\Omega(x) = \{p \in \R^d \mid \inner{p, y - x} \leq 0 \; \forall y \in \Omega\}
+  \]
+
+  Ekvivalent:
+  \[
+    q \in N_\Omega(x) \iff \inner{q, p} \leq 0 \; \forall p \in D(x)
+  \]
+
+  \begin{tikzpicture}[scale=2]
+    \draw[fill=gray!40] (0,0) ellipse (1 and 0.5) node[above right] {\(\Omega\)};
+    \draw[->] (-1.5,0) -- (1.5,0) node[right] {\(x\)};
+    \draw[->] (0,-1.5) -- (0,1.5) node[above] {\(y\)};
+    \draw[fill=black] (-1,0) circle (0.05) node[above] {\(x^\star\)};
+    \draw[->, thick, orange] (-1,0) -- (0,0) node[below left] {\(N_\Omega(x)\)};
+    \draw[->, thick, green] (-1,0) -- (0, 0.5) node[above] {\(p\)};
+    \draw[->, thick, red] (-1,0) -- (0, -0.5) node[below] {\(q\)};
+  \end{tikzpicture}
+\end{definition}
+
+\begin{proposition}{}{}
+  Anta at \(\Omega \subset \R^d\) er konveks og \(x \in \Omega\).
+  \begin{itemize}
+    \item Hvis \(x^\star\) er en lokal løsning av (P) da er \(-\nabla f(x^\star) \in N_\Omega(x^\star)\).
+    \item Konvers: Hvis \(f\) er konveks og \(-\nabla f(x^\star) \in N_\Omega(x^\star)\) da er \(x^\star\) en global løsning av (P).
+  \end{itemize}
+
+\end{proposition}
+\begin{proof}{}{}
+  \begin{align*}
+    -\nabla f(x^\star) \in N_\Omega(x^\star) & \iff \inner{-\nabla f(x^\star), y - x^\star} \leq 0 \quad \forall y \in \Omega                \\
+                                             & \iff f(y) \geq f(x^\star) + \inner{\nabla f(x^\star), y - x^\star} \quad \forall y \in \Omega
+  \end{align*}
+  \qed
+\end{proof}
+\begin{remark}{}{}
+  Hvis \(x^\star \in \operatorname{int}(\Omega)\) da er alle \(p \in N_\Omega(x^\star) = \{0\}\).
+  Intuitivt betyr dette bare at \(-\nabla f(x^\star) = 0\).
+
+  Betingelsen \(-\nabla f(x^\star) \in N_\Omega(x^\star)\) er det samme som at \(\nabla f(x^\star) = 0\) og \(x^\star \in \Omega\).
+
+  \[
+    N_\Omega(x) = \{q \in \R^d \mid \inner{q, p} \leq 0 \; \forall p \in \R^d \}
+  \]
+
+\end{remark}
+
+\begin{definition}{Tangentkjeglen \(T_\Omega(x)\)}{}
+  Anta at \(\Omega \subset \R^d\) er konveks og \(x \in \Omega\).
+
+  Da er tangentkjeglen til \(\Omega\) ved \(x\) gitt ved:
+
+  \[
+    T_\Omega(x) = \{p \in \R^d \mid \inner{p, y - x} \leq 0 \; \forall y \in \Omega \text{ og } \inner{p, y - x} = 0 \; \forall y \in \partial \Omega\}
+  \]
+
+  Intuitivt er tangentkjeglen \(T_\Omega(x)\) til \(\Omega\) ved \(x\) mengden av alle vektorer som peker inn i \(\Omega\) og er tangent til \(\partial \Omega\) ved \(x\).
+  \footnote{
+  Vi kan bytte ut betingelsen 
+  \[
+    \inner{\nabla f(x^\star), p} \geq 0 \quad \forall p \in D(x^\star) \quad \text{med} \quad \inner{\nabla f(x^\star), p} \geq 0 \quad \forall p \in T_\Omega(x^\star)
+  \]
+}
+\end{definition}
+
+\begin{remark}{}{}
+  Vi har at 
+  \[
+  N_\Omega(x) = \{q \in \R^d \mid \inner{q, p} \leq 0 \; \forall p \in T_\Omega(x)\}
+  \]
+  Vi kan vise at:
+  \begin{align*}
+    T_\Omega(x) & = \{p \in \R^d \mid \inner{q, p} \leq 0 \; \forall q \in N_\Omega(x)\} \\
+  \end{align*}
+\end{remark}
+
+\begin{remark}{}{}
+  Anta at \(C \subset \R^d\) er ikke-tom.
+  Vi sier at:
+  \begin{itemize}
+    \item \(C\) er en \textbf{kjegle} hvisdet for alle \(p \in C\) og \(t > 0\) så er \(t p \in C\).
+    \item \(C\) er en \textbf{rettet kjegle} hvis \(C\) er en kjegle og \(0 \in C\).
+  \end{itemize}
+\end{remark}
+
+\subsection*{Projeksjoner}
+
+\begin{lemma}{Projeksjon}{}
+  Anta at \(\Omega \subset \R^d\) være ikke-tom, lukket og konveks og \(x \in \R^d\).
+  Da er optimaliseringsproblemet:
+  \[
+    \min_{x \in \Omega} \frac{1}{2} \norm{x - y}^2
+  \]
+  Har en unik løsning \(\pi_\Omega(y)\) som kalles projeksjonen av \(y\) på \(\Omega\).
+
+\begin{tikzpicture}[scale=2]
+  \draw[fill=gray!40] (0,0) ellipse (1 and 0.5) node[above right] {\(\Omega\)};
+  \draw[->] (-1.5,0) -- (1.5,0) node[right] {\(x\)};
+  \draw[->] (0,-1.5) -- (0,1.5) node[above] {\(y\)};
+
+  \draw[dashed] (-1,-1) -- (-1,1);
+  \draw[fill=black] (-1,0) circle (0.05) node[above] {\(\pi_\Omega(y)\)};
+  \draw[->, thick, orange] (-1,0) -- (0,0) node[below left] {\(y\)};
+\end{tikzpicture}
+
+\end{lemma}
+\begin{proof}{}{}
+  La \(g(x) = \frac{1}{2} \norm{x - y}^2\) er strengt-konveks og koersiv (nedadgående uendelig).
+
+  Anta at \(\Omega \neq \emptyset\), lukket og konveks. Da er:
+  \[
+    \min_{x \in \Omega} g(x) = \min_{x \in \Omega} \frac{1}{2} \norm{x - y}^2
+  \]
+  et konvekst problem og har en unik løsning.
+
+  \qed
+\end{proof}
+
+\begin{proposition}{}{}
+  La \(\Omega \subset \R^d\) være ikke-tom, lukket og konveks og \(y \in \R^d\).
+  Da er projeksjonen \(\pi_\Omega(y)\) gitt ved det unike punktet som løser betingelsen:
+  \[
+    \pi_\Omega(y) \in \Omega \quad \text{og} \quad \inner{\pi_\Omega(y) - y, x - \pi_\Omega(y)} \leq 0 \quad \forall x \in \Omega
+  \]
+  Ekvivalent:
+  \[
+    \pi_\Omega(y) \in \Omega \quad \text{og} \quad y - \pi_\Omega(y) \in N_\Omega(\pi_\Omega(y))
+  \]
+
+\end{proposition}
+
+\begin{proof}{}{}
+  Med \(g(x) = \frac{1}{2} \norm{x - y}^2\) har vi at \(\nabla g(x) = x - y\).
+  Da er betingelsen:
+  \[
+    \nabla g(\pi_\Omega(y)) = \pi_\Omega(y) - y \in N_\Omega(\pi_\Omega(y))
+  \]
+  \qed
+\end{proof}
+
+\begin{proposition}{}{}
+  Anta at \(\Omega \subset \R^d\) er ikke-tom, lukket og konveks og \(x^\star \in \Omega\).
+  \begin{itemize}
+    \item Hvis \(x^\star\) er en lokal løsning av (P) da er \(\pi_\Omega(x^\star - \alpha \nabla f(x^\star)) = x^\star\) for alle \(\alpha > 0\) tilstrekkelig liten.
+  \end{itemize}
+\end{proposition}
+
+
+
+
+
+
+
+
+
+
+
