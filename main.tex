@@ -14,7 +14,9 @@
 
 \newpage
 
-\chapter*{Optimeringsproblemet}
+\chapter{Introduksjon}
+
+\section{Hva er optimering?}
 La \(f: \Omega \to \R\) være en kost-funksjon som vi ønsker å maksimere eller minimere, der \(\Omega \subset \R^d\) er mengden av mulige løsninger.
 
 \begin{definition}{Optimeringsproblemet \((P)\)}{optimization_problem}
@@ -24,14 +26,16 @@ La \(f: \Omega \to \R\) være en kost-funksjon som vi ønsker å maksimere eller
 
 \end{definition}
 
+\section{Typer optimering}
 
 \begin{itemize}
   \item \textbf{Fri optimalisering}: Ingen restriksjoner på \(x\) og \(\Omega = \R^d\).
   \item \textbf{Bundet optimalisering}: Restriksjoner på \(x\) og \(\Omega \subset \R^d\).
 \end{itemize}
 
-\include{sections/unconstrained}
-\include{sections/convex}
+\include{sections/free_optimization}
+\include{sections/convex_optimization}
+\clearpage
 
 \input{sections/lectures}
 \clearpage

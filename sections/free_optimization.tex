@@ -19,19 +19,18 @@ der løsningen \( \symbf{x}^* \) tilfredsstiller:
   \item \textbf{Fokuserer kun på målfunksjonen}: Algoritmer søker etter punkter \( x \) som reduserer \( f(x) \) direkte, uten å ta hensyn til andre forhold.
 \end{itemize}
 
-\subsection*{Konvergens}
-For å sikre konvergens til en stasjonær løsning \( x^* \), må følgende betingelser oppfylles:
+\subsection{Konvergens}
+For å sikre konvergens til en stasjonær løsning i \( x^* \), må følgende betingelser oppfylles:
 \begin{enumerate}
-  \item \( f(x) \) er kontinuerlig deriverbar (\( C^1 \)), og dens gradient \( \nabla f(x) \) eksisterer og er Lipschitz-kontinuerlig.
-  \item Nivåsettene \( \{x \in \R^n : f(x) \leq c\} \) er kompakte.
+  \item \(f(x)\) er kontinuerlig deriverbar i (\(C^1\)).
+  \item Gradienten \(\nabla f(x)\) eksisterer og er Lipschitz-kontinuerlig.
+  \item \hyperref[def:level_set]{Nivåsettene} \(\mathcal{L}_f(\alpha)\) er begrenset og lukket \hyperref[def:compact_set]{(kompakte)}.
 \end{enumerate}
-
-Under disse betingelsene sikres:
+Under disse betingelsene sikres konvergens til en stasjonær løsning \( x^* \) som oppfyller \(\nabla f(x^*) = 0\).
 \[
   \lim_{k \to \infty} \|\nabla f(x_k)\| = 0,
 \]
-
-der \( x_k \) er iteratene generert av en optimaliseringsalgoritme. Akkumuleringspunkter \( x^* \) tilfredsstiller førsteordens nødvendige betingelser:
+der \( x_k \) er iteratene generert av en optimaliseringsalgoritme, og \( x^* \) tilfredsstiller førsteordens nødvendige betingelser:
 \[
   \nabla f(x^*) = 0.
 \]

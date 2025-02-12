@@ -5,7 +5,7 @@ Hvis et optimeringsproblem er konvekst, kan vi være sikre på at vi finner en g
 
 \section*{Definisjoner}
 
-\begin{definition}{Lineært optimeringsproblem}{}
+\begin{definition}{Lineært optimeringsproblem}{linear_programming}
   Et lineært optimeringsproblem er et optimeringsproblem på formen
   \begin{align*}
     \text{minimer}     & \quad \min_{x \in \R^n} f(x)                \\
@@ -15,12 +15,12 @@ Hvis et optimeringsproblem er konvekst, kan vi være sikre på at vi finner en g
   hvor \(f, h_i, g_j\) er lineære funksjoner.
 \end{definition}
 
-\begin{example}{Lineær funksjon}{}
+\begin{example}{Lineær funksjon}{linear_function}
   La \(f(\symbf{x}) = c^T\symbf{x} + d\) være en lineær funksjon, hvor \(c\) er en vektor normal til en hyperplan og \(d\) er en konstant.
   Da er \(f(\symbf{x}) = 0\) en lineær likning som definerer en hyperplan i \(\R^n\).
 \end{example}
 
-\begin{example}{Lineær regresjon}{}
+\begin{example}{Lineær regresjon}{linear_regression}
   La \(X \in \R^{n \times m}\) være en matrise med observasjoner og \(y \in \R^n\) være en vektor med målinger.
   Lineær regresjon er et eksempel på et lineært program hvor vi ønsker å finne en vektor \(w \in \R^m\) som minimerer kvadratfeilen
   \begin{equation*}
