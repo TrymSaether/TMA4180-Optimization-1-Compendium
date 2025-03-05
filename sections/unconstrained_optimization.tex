@@ -286,3 +286,83 @@ Beviset forutsetter at startverdien \(\symbf{x}_0\) er tilstrekkelig nær \(\sym
   \item \textbf{Dempet Newtons metode}: Benytter en skrittlengde \(\alpha_k\) (linjesøk) for å unngå for store steg.
   \item \textbf{Kvasi-Newton-metoder}: Reduserer kostnader ved å approksimere Hesse-matrisen (f.eks.\ BFGS, DFP).
 \end{itemize}
+
+
+\section{Konjugerte Gradientmetode (CG)}
+\label{sec:conjugate_gradient}
+
+Konjugert Gradient (CG) metoden er en effektiv iterativ algoritme for å løse lineære ligningssystemer og optimere kvadratiske funksjoner. Den er spesielt nyttig for store, men sparse systemer.
+
+\subsection{Grunnleggende Konsept}
+CG-metoden genererer en sekvens av retninger som er konjugerte med hensyn til en symmetrisk, positiv definit matrise. For en kvadratisk funksjon:
+\[
+  f(\symbf{x}) = \frac{1}{2}\symbf{x}^T\symbf{A}\symbf{x} - \symbf{b}^T\symbf{x} + c,
+\]
+hvor \(\symbf{A}\) er symmetrisk, positiv definit, søker CG-metoden å løse \(\nabla f(\symbf{x}) = \symbf{A}\symbf{x} - \symbf{b} = \symbf{0}\).
+
+\subsection{Algoritme for Kvadratiske Funksjoner}
+
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{Startpunkt \(\symbf{x}_0\), toleranse \(\epsilon > 0\)}
+  \KwOut{Omtrentelig løsning \(\symbf{x}^*\)}
+  \(\symbf{r}_0 \gets \symbf{b} - \symbf{A}\symbf{x}_0\) \tcc*{Residual}
+  \(\symbf{p}_0 \gets \symbf{r}_0\) \tcc*{Første søkeretning}
+  \For{\(k = 0, 1, 2, \ldots\)}{
+    \If{\(\|\symbf{r}_k\| < \epsilon\)}{
+      \Return \(\symbf{x}_k\) \tcc*{Konvergens oppnådd}
+    }
+    \(\alpha_k \gets \frac{\symbf{r}_k^T\symbf{r}_k}{\symbf{p}_k^T\symbf{A}\symbf{p}_k}\) \tcc*{Optimal skrittlengde}
+    \(\symbf{x}_{k+1} \gets \symbf{x}_k + \alpha_k\symbf{p}_k\) \tcc*{Oppdater løsning}
+    \(\symbf{r}_{k+1} \gets \symbf{r}_k - \alpha_k\symbf{A}\symbf{p}_k\) \tcc*{Oppdater residual}
+    \(\beta_{k+1} \gets \frac{\symbf{r}_{k+1}^T\symbf{r}_{k+1}}{\symbf{r}_k^T\symbf{r}_k}\) \tcc*{Konjugasjonsparameter}
+    \(\symbf{p}_{k+1} \gets \symbf{r}_{k+1} + \beta_{k+1}\symbf{p}_k\) \tcc*{Ny søkeretning}
+  }
+  \caption{Konjugert Gradient Metode (kvadratisk tilfelle)}
+\end{algorithm}
+
+\subsection{Ikke-lineær Konjugert Gradient Metode}
+For generelle ikke-lineære funksjoner tilpasses algoritmen:
+
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{Startpunkt \(\symbf{x}_0\), toleranse \(\epsilon > 0\)}
+  \KwOut{Omtrentelig løsning \(\symbf{x}^*\)}
+  \(\symbf{g}_0 \gets \nabla f(\symbf{x}_0)\) \tcc*{Gradient}
+  \(\symbf{p}_0 \gets -\symbf{g}_0\) \tcc*{Første søkeretning}
+  \For{\(k = 0, 1, 2, \ldots\)}{
+    \If{\(\|\symbf{g}_k\| < \epsilon\)}{
+      \Return \(\symbf{x}_k\) \tcc*{Konvergens oppnådd}
+    }
+    Finn \(\alpha_k\) ved linjesøk som minimerer \(f(\symbf{x}_k + \alpha\symbf{p}_k)\) \;
+    \(\symbf{x}_{k+1} \gets \symbf{x}_k + \alpha_k\symbf{p}_k\) \tcc*{Oppdater løsning}
+    \(\symbf{g}_{k+1} \gets \nabla f(\symbf{x}_{k+1})\) \tcc*{Ny gradient}
+    Beregn \(\beta_{k+1}\) (f.eks. Fletcher-Reeves eller Polak-Ribière)\;
+    \(\symbf{p}_{k+1} \gets -\symbf{g}_{k+1} + \beta_{k+1}\symbf{p}_k\) \tcc*{Ny søkeretning}
+  }
+  \caption{Ikke-lineær Konjugert Gradient Metode}
+\end{algorithm}
+
+\subsection{Valg av beta-parameter}
+
+Flere formler eksisterer for \(\beta\) i ikke-lineære CG-metoder:
+\begin{itemize}
+  \item \textbf{Fletcher-Reeves}: \(\beta_{k+1}^{FR} = \frac{\symbf{g}_{k+1}^T\symbf{g}_{k+1}}{\symbf{g}_k^T\symbf{g}_k}\)
+  \item \textbf{Polak-Ribière}: \(\beta_{k+1}^{PR} = \frac{\symbf{g}_{k+1}^T(\symbf{g}_{k+1}-\symbf{g}_k)}{\symbf{g}_k^T\symbf{g}_k}\)
+  \item \textbf{Hestenes-Stiefel}: \(\beta_{k+1}^{HS} = \frac{\symbf{g}_{k+1}^T(\symbf{g}_{k+1}-\symbf{g}_k)}{\symbf{p}_k^T(\symbf{g}_{k+1}-\symbf{g}_k)}\)
+\end{itemize}
+
+\subsection{Egenskaper}
+\begin{itemize}
+  \item \textbf{Hurtig konvergens}: For kvadratiske funksjoner konvergerer metoden på maksimalt \(n\) iterasjoner (i eksakt aritmetikk), hvor \(n\) er problemdimensjon.
+  \item \textbf{Minneeffektivitet}: Lagrer kun et begrenset antall vektorer, noe som gjør den egnet for store problemer.
+  \item \textbf{Numerisk stabilitet}: God oppførsel under avrundingsfeil, spesielt med periodisk omstart.
+  \item \textbf{Forbehandling}: Kan akselereres videre ved å bruke en prekondisjonerer som transformerer problemet.
+\end{itemize}
+
+\subsection{Prekondisjonering}
+Konvergenshastigheten kan forbedres ved å bruke en prekondisjonerer \(\symbf{M}\) som approksimerer \(\symbf{A}\) på en inverterbar måte. Den prekondisjonerte algoritmen løser det transformerte systemet:
+\[
+  \symbf{M}^{-1}\symbf{A}\symbf{x} = \symbf{M}^{-1}\symbf{b}.
+\]
+Dette reduserer kondisjonsnummeret og akselererer konvergensen betydelig i mange praktiske tilfeller.
