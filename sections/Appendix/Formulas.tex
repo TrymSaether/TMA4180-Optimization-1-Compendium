@@ -1,0 +1,34 @@
+\chapter{Formeltabell}
+
+\begin{table}[ht]
+  \centering
+  \footnotesize
+  \begin{tabularx}{\textwidth}{@{}>{\color{black!70}}l>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \rowcolor{headerblue}
+    \textbf{Term}     & \textbf{Definition/Formula}                                                                                                                               \\
+    \midrule
+
+    Convex            & \( f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y), \ \forall x,y \in \R^d, \lambda \in [0,1] \)                                          \\
+
+    Coercive          & \( \lim_{\|x\| \to \infty} f(x) = \infty \) (ensures existence of minima)                                                                                 \\
+
+    lsc               & \( \liminf_{x \to x_0} f(x) \geq f(x_0) \) (sublevel sets closed)                                                                                         \\
+
+    Quasi-Convex      & \( \mathcal{L}_{f}(\alpha) = \{x \mid f(x) \leq \alpha\} \text{ convex } \forall \alpha \in \R \iff f(\lambda x + (1-\lambda)y) \leq \max\{f(x),f(y)\} \) \\
+
+    Local Minimum     & \( \exists \epsilon > 0: f(x^*) \leq f(x), \, \forall x \in B_\epsilon(x^*) \)                                                                            \\
+
+    Global Minimum    & \( f(x^*) \leq f(x), \, \forall x \in \R^d \)                                                                                                             \\
+
+    Proximal Operator & \( \text{prox}_{\gamma f}(v) = \arg\min_x \left( f(x) + \frac{1}{2\gamma}\|x - v\|^2 \right) \)                                                           \\
+
+    Subgradient       & \( g \in \partial f(x) \text{ if } f(y) \geq f(x) + g^\top(y-x), \, \forall y \in \R^d \)                                                                 \\
+
+    Stochastic GD     & \( x_{k+1} = x_k - \eta_k \nabla f_{i_k}(x_k) \) (randomized gradients)                                                                                   \\
+
+    Newton's Method   & \( x_{k+1} = x_k - [\nabla^2 f(x_k)]^{-1} \nabla f(x_k) \)                                                                                                \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Quick Reference: Key Definitions and Formulas}
+\end{table}

@@ -76,8 +76,15 @@
     f(\lambda x + (1 - \lambda)y) \leq \lambda f(x) + (1 - \lambda)f(y) \tag{Konveks} \\
     f(\lambda x + (1 - \lambda)y) < \lambda f(x) + (1 - \lambda)f(y) \tag{Strengt konveks}
   \end{align*}
-
 \end{definition}
+
+\begin{remark}{Konveksitet med indre-produkt notasjon}{}
+  En funksjon  \(f: \R^n \to \R\) er konveks hvis og bare hvis:
+  \[
+    f(y) \geq f(x) + \langle \nabla f(x), y - x \rangle
+  \]
+  for alle  \(x, y \in \R^n\).
+\end{remark}
 
 \begin{theorem}{Karakterisering av deriverbare konvekse funksjoner}{convex-characterization}
   For en deriverbar funksjon  \(f: \R^n \to \R\) er følgende ekvivalente:

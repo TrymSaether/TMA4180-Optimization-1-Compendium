@@ -21,7 +21,7 @@ La \(f: \Omega \to \R\) være en kost-funksjon som vi ønsker å maksimere eller
 
 \section{Matematiske Definisjoner og Notasjon}
 
-\section{Ytre og indre produkter}
+\subsection{Ytre og indre produkter}
 \begin{definition}{Ytre produkt}{outer_product}
   Gitt to vektorer \( \symbf{a} \in \R^m \) og \( \symbf{b} \in \R^n \), er det ytre produktet definert som:
   \[
@@ -46,7 +46,7 @@ La \(f: \Omega \to \R\) være en kost-funksjon som vi ønsker å maksimere eller
 
 
 
-\section{Nivåsett}
+\subsection{Nivåsett}
 Intuitivt er nivåsettet til en funksjon \( f \) i et punkt \( y \) mengden av alle punkter \( x \) som har samme eller lavere verdi enn \( y \) under \( f \).
 \begin{definition}{Nivåsett}{level_set}
   \(f: \Omega \to \overline{\R}\) er en funksjon. Vi definerer nivåsettet til \(f\) i punktet \(y \in \R\) som:
@@ -55,7 +55,7 @@ Intuitivt er nivåsettet til en funksjon \( f \) i et punkt \( y \) mengden av a
   \]
 \end{definition}
 
-\section{Åpen og lukket mengde}
+\subsection{Åpen og lukket mengde}
 
 \begin{definition}{Åpen mengde}{open_set}
   En mengde \(A \subset \R^n\) er åpen hvis for alle \(x \in A\) finnes det en \(\varepsilon > 0\) slik at \(B(x, \varepsilon) \subset A\).
@@ -71,7 +71,7 @@ Intuitivt er nivåsettet til en funksjon \( f \) i et punkt \( y \) mengden av a
   \]
 \end{definition}
 
-\section{Begrenset mengde}
+\subsection{Begrenset mengde}
 En mengde er begrenset hvis den ikke strekker seg til uendelig langt i noen retning.
 Intuitivt kan vi si at en mengde er begrenset hvis den kan plasseres innenfor en kule med endelig radius.
 
@@ -82,7 +82,7 @@ Intuitivt kan vi si at en mengde er begrenset hvis den kan plasseres innenfor en
   \]
 \end{definition}
 
-\section{Kompakt mengde}
+\subsection{Kompakt mengde}
 En kompakt mengde er en mengde som er både lukket og begrenset. Dette betyr at den er avgrenset og inneholder alle sine grenseverdier.
 
 \begin{definition}{Kompakt mengde}{compact_set}
@@ -92,7 +92,7 @@ En kompakt mengde er en mengde som er både lukket og begrenset. Dette betyr at 
   \]
 \end{definition}
 
-\section{Nedre semi-kontinuerlige funksjoner (lsc)}
+\subsection{Nedre semi-kontinuerlige funksjoner (lsc)}
 
 En nedre semikontinuerlig funksjon (\textit{lower semi-continuous function}) er en funksjon som ikke har plutselige "hopp nedover".
 
@@ -117,7 +117,7 @@ Tenk deg at du nærmer deg et punkt \( \symbf{x_0} \) fra alle mulige retninger:
   \includegraphics[width=0.5\textwidth]{figures/example_lsc.png}
 \end{example}
 
-\section{Koersivitet}
+\subsection{Koersivitet}
 
 En koersiv funksjon er intuitivt en funksjon som "går mot uendelig" når vi beveger oss mot kanten av definisjonsmengden hvor \( f \) er definert.
 
@@ -129,10 +129,14 @@ En koersiv funksjon er intuitivt en funksjon som "går mot uendelig" når vi bev
   \]
 \end{definition}
 
-\section{Konveksitet}
+\subsection{Konveksitet}
 
-Konveksitet er en egenskap som beskriver hvordan en funksjon bøyer seg.
-En konveks funksjon har en bue som vender oppover, mens en konkav funksjon har en bue som vender nedover.
+Konveksitet er et viktig begrep i optimering og matematikk generelt. Det refererer til formen på en funksjon eller en mengde.
+\begin{itemize}
+  \item En konveks funksjon har en bue som vender oppover.
+  \item En konkav funksjon har en bue som vender nedover.
+  \item En konveks mengde er en mengde der enhver linje mellom to punkter i mengden også ligger helt innenfor mengden.
+\end{itemize}
 
 \begin{definition}{Konveks funksjon}{convex_function}
   En funksjon \(f: \R^n \to \R\) er konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in [0, 1]\) har vi:
@@ -140,14 +144,23 @@ En konveks funksjon har en bue som vender oppover, mens en konkav funksjon har e
   \begin{align*}
     f(\lambda x + (1 - \lambda)y) & \leq \lambda f(x) + (1 - \lambda)f(y) \\
   \end{align*}
-
 \end{definition}
-\begin{remark}{Strengt konveks funksjon}{strictly_convex}
+
+\begin{definition}{Strengt konveks funksjon}{strictly_convex}
   En funksjon \(f: \R^n \to \R\) er strengt konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in (0, 1)\) har vi:
   \[
     f(\lambda x + (1 - \lambda)y) < \lambda f(x) + (1 - \lambda)f(y)
   \]
+\end{definition}
+
+\begin{remark}{Konveksitet med indre-produkt notasjon}{convex_inner_product}
+  En funksjon  \(f: \R^n \to \R\) er konveks hvis og bare hvis:
+  \[
+    f(y) - f(x) \geq  \langle \nabla f(x), y - x \rangle
+  \]
+  for alle  \(x, y \in \R^n\).
 \end{remark}
+
 
 \begin{remark}{Kvasi-konveks}{quasi_convex}
   En funksjon \(f: \R^d \to \R\) er kvasi-konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in (0, 1)\) har vi:
@@ -167,7 +180,6 @@ En konveks funksjon har en bue som vender oppover, mens en konkav funksjon har e
   \]
 \end{remark}
 
-
 \begin{definition}{Konveks sett}{convex_set}
   En mengde \(C \subset \R^n\) er (strengt) konveks når:
 
@@ -178,6 +190,12 @@ En konveks funksjon har en bue som vender oppover, mens en konkav funksjon har e
 
 \end{definition}
 
+\begin{definition}{Konveks kombinasjon}{convex_combination}
+  En konveks kombinasjon av punkter $x_1, x_2, \ldots, x_n$ i $\mathbb{R}^d$ er ethvert punkt på formen:
+  \[
+    \sum_{i=1}^n \lambda_i x_i \quad \text{der} \quad \lambda_i \geq 0, \sum_{i=1}^n \lambda_i = 1
+  \]
+\end{definition}
 
 \section{Globale og lokale løsninger}
 
@@ -188,8 +206,8 @@ Vi skiller mellom globale og lokale løsninger.
   La \(f: \Omega \to \R\) være en funksjon. Vi sier at \(\symbf{x}^* \in \Omega\) er en global løsning av minimeringsproblemet \((P)\) hvis
 
   \begin{align*}
-    f(\symbf{x}^*) & \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in \Omega, \tag{Global løsning}                                 \\
-    f(\symbf{x}^*) & < f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in \Omega, \symbf{x} \neq \symbf{x}^*. \tag{Streng global løsning}
+    f(\symbf{x}^*) & \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in \Omega, \tag{Global}                                  \\
+    f(\symbf{x}^*) & < f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in \Omega, \symbf{x} \neq \symbf{x}^*. \tag{Strengt Global}
   \end{align*}
 \end{definition}
 
@@ -198,9 +216,9 @@ Vi skiller mellom globale og lokale løsninger.
   La \(f: \Omega \to \R\) være en funksjon. Vi sier at \(x^* \in \Omega\) er en lokal løsning av optimeringsproblemet hvis
 
   \begin{align*}
-    f(\symbf{x}^*) & \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in B(\symbf{x}^*, \varepsilon) \cap \Omega, \tag{Lokal løsning}                                     \\
-    f(\symbf{x}^*) & < f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in B(\symbf{x}^*, \varepsilon) \cap \Omega, \symbf{x} \neq \symbf{x}^*. \tag{Streng lokal løsning}     \\
-    f(\symbf{x}^*) & \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in B(\symbf{x}^*, \varepsilon) \cap \Omega, \symbf{x} \neq \symbf{x}^*. \tag{Isolert lokal løsning}
+    f(\symbf{x}^*) & \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in B(\symbf{x}^*, \varepsilon) \cap \Omega, \tag{Lokal}                                     \\
+    f(\symbf{x}^*) & < f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in B(\symbf{x}^*, \varepsilon) \cap \Omega, \symbf{x} \neq \symbf{x}^*. \tag{Strengt Lokal}    \\
+    f(\symbf{x}^*) & \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in B(\symbf{x}^*, \varepsilon) \cap \Omega, \symbf{x} \neq \symbf{x}^*. \tag{Isolert Lokal}
   \end{align*}
 \end{definition}
 
@@ -222,37 +240,3 @@ Hvis \(f: \Omega \subset \R^d \to \overline{\R}\) er nedre semi-kontinuerlig og 
         \]
 \end{enumerate}
 
-\chapter{Formeltabell}
-
-\begin{table}[ht]
-  \centering
-  \footnotesize
-  \begin{tabularx}{\textwidth}{@{}>{\color{black!70}}l>{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \rowcolor{headerblue}
-    \textbf{Term}     & \textbf{Definition/Formula}                                                                                                                               \\
-    \midrule
-
-    Convex            & \( f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y), \ \forall x,y \in \R^d, \lambda \in [0,1] \)                                          \\
-
-    Coercive          & \( \lim_{\|x\| \to \infty} f(x) = \infty \) (ensures existence of minima)                                                                                 \\
-
-    lsc               & \( \liminf_{x \to x_0} f(x) \geq f(x_0) \) (sublevel sets closed)                                                                                         \\
-
-    Quasi-Convex      & \( \mathcal{L}_{f}(\alpha) = \{x \mid f(x) \leq \alpha\} \text{ convex } \forall \alpha \in \R \iff f(\lambda x + (1-\lambda)y) \leq \max\{f(x),f(y)\} \) \\
-
-    Local Minimum     & \( \exists \epsilon > 0: f(x^*) \leq f(x), \, \forall x \in B_\epsilon(x^*) \)                                                                            \\
-
-    Global Minimum    & \( f(x^*) \leq f(x), \, \forall x \in \R^d \)                                                                                                             \\
-
-    Proximal Operator & \( \text{prox}_{\gamma f}(v) = \arg\min_x \left( f(x) + \frac{1}{2\gamma}\|x - v\|^2 \right) \)                                                           \\
-
-    Subgradient       & \( g \in \partial f(x) \text{ if } f(y) \geq f(x) + g^\top(y-x), \, \forall y \in \R^d \)                                                                 \\
-
-    Stochastic GD     & \( x_{k+1} = x_k - \eta_k \nabla f_{i_k}(x_k) \) (randomized gradients)                                                                                   \\
-
-    Newton's Method   & \( x_{k+1} = x_k - [\nabla^2 f(x_k)]^{-1} \nabla f(x_k) \)                                                                                                \\
-    \bottomrule
-  \end{tabularx}
-  \caption{Quick Reference: Key Definitions and Formulas}
-\end{table}

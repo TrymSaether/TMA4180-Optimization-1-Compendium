@@ -1,6 +1,15 @@
 \documentclass[10pt, a4paper]{report}
 \usepackage{trymtex}
 \usepackage{forest}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    citecolor=green,
+}
+
+\addbibresource{references.bib} 
 
 \begin{document}
 
@@ -8,22 +17,25 @@
 
 \author{Trym Sæther}
 
+\date{Vår 2025}
+
 \maketitle
 
 \tableofcontents
 
-\newpage
+\clearpage
 
-\include{Sections/introduction}
-\include{Sections/unconstrained_optimization}
-\include{Sections/convex_optimization}
+\include{Sections/1_Introduction}
+\include{Sections/2_UnconstrainedOptimization}
+\include{Sections/3_ConvexOptimization}
 
 \clearpage
+
 \appendix
-\include{Sections/lectures}
-\include{Sections/Appendix/algorithmMap}
-\include{Sections/Appendix/commonFunctions}
+\include{Sections/Appendix/LectureNotes}
+\include{Sections/Appendix/Formulas}
+\include{Sections/Appendix/Functions}
 
-
+\printbibliography
 
 \end{document}
