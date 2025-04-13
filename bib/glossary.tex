@@ -1,0 +1,102 @@
+% ===================================================
+% Glossary
+% ===================================================
+\newglossaryentry{hessian}
+{
+    name=Hessian-matrise,
+    description={En kvadratisk matrise av andre partielle deriverte av en funksjon med flere variabler, som beskriver lokal krumning av funksjonen.},
+    symbol={$\nabla^2 f(x)$ eller $H(x)$}
+}
+
+\newglossaryentry{feasible-region}
+{
+    name=tillatt område,
+    description={Mengden av alle mulige punkter som tilfredsstiller alle bibetingelser i et optimeringsproblem.},
+    symbol={$\mathcal{X}$}
+}
+
+\newglossaryentry{convex-function}
+{
+    name=konveks funksjon,
+    description={En funksjon $f$ der linjesegmentet mellom to vilkårlige punkter på funksjonen aldri ligger under funksjonsgrafen. Matematisk: $f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y)$ for alle $x, y$ og $\lambda \in [0,1]$.},
+    symbol={$f$ er konveks}
+}
+
+\newglossaryentry{local-minimum}
+{
+    name=lokalt minimum,
+    description={Et punkt $x^*$ hvor funksjonsverdien er mindre enn eller lik verdiene i en liten omegn rundt punktet. Formelt: Det eksisterer en $\delta > 0$ slik at $f(x^*) \leq f(x)$ for alle $x$ med $\|x - x^*\| < \delta$.},
+    symbol={$x^*$ lokalt min}
+}
+
+\newglossaryentry{global-minimum}
+{
+    name=globalt minimum,
+    description={Et punkt $x^*$ hvor funksjonsverdien er mindre enn eller lik verdien for alle andre punkter i definisjonsmengden. Formelt: $f(x^*) \leq f(x)$ for alle $x$ i definisjonsmengden.},
+    symbol={$x^*$ globalt min}
+}
+
+\newglossaryentry{gradient}
+{
+    name=gradient,
+    description={En vektor som gir retningen og størrelsen på den maksimale økningen av en funksjon i et gitt punkt. For en funksjon $f(x)$ er gradienten gitt ved $\nabla f(x) = (\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n})$.},
+    symbol={$\nabla f(x)$}
+}
+
+\newglossaryentry{lagrange-multiplier}
+{
+    name=lagrange-multiplikator,
+    description={En variabel brukt i lagrange-metoden for å finne ekstremalpunkter til en funksjon underlagt bibetingelser. For et problem med mål $f(x)$ og bibetingelser $g(x) = 0$, danner vi Lagrange-funksjonen $L(x, \lambda) = f(x) - \lambda g(x)$.},
+    symbol={$\lambda$}
+}
+
+\newglossaryentry{kkt-conditions}
+{
+    name=KKT-betingelser,
+    description={Nødvendige første-ordens betingelser for at en løsning skal være optimal i et optimeringsproblem med bibetingelser, oppkalt etter Karush, Kuhn og Tucker. Inkluderer stasjonaritetsbetingelsen, komplementær slakk, primal og dual gjennomførbarhet.},
+    symbol={$\nabla f(x^*) + \sum_{i=1}^m \lambda_i \nabla g_i(x^*) = 0$},
+    see={first-order-necessary-conditions}
+}
+\newglossaryentry{slater-condition}{
+    name=slakkbetingelse,
+    description={En betingelse i KKT-betingelsene som sier at produktet av Lagrange-multiplikatoren og bibetingelsen må være null. Dette betyr at enten er multiplikatoren null eller så er bibetingelsen lik null.},
+    symbol={$g_i(x) \geq 0$},
+    see={kkt-conditions}
+}
+
+\newglossaryentry{first-order-necessary-conditions}{
+    name={First-order necessary conditions},
+    description={
+        Betingelser som må være oppfylt for at en løsning skal være optimal i et optimeringsproblem. Disse inkluderer gradienten av målfunksjonen og bibetingelsene.
+    },
+    symbol={$\nabla f(x^*) = 0$}
+    see={kkt-conditions},
+}
+
+\newglossaryentry{steepest-descent}{
+    name={Steepest Descent},
+    description={
+        En metode for å finne minimum av en funksjon ved å følge den bratteste nedstigningen i gradienten \(d_k = -\nabla f(x_k)\). Dette innebærer å ta et skritt i retning av den negative gradienten for å minimere funksjonen.
+    },
+    symbol={$d_k = -\nabla f(x_k)$},
+    see={gradient},
+}
+
+
+
+
+% ==================================================
+% Acronyms
+% ==================================================
+\newacronym{kkt}{KKT}{Karush-Kuhn-Tucker betingelser}
+
+\newacronym{gd}{GD}{Gradient Descent}
+
+\newacronym{ls}{LS}{Line Search}
+
+\newacronym{lp}{LP}{Lineær Programmering}
+
+\newacronym{nlp}{NLP}{Ikke-lineær Programmering}
+
+\newacronym{qp}{QP}{Kvadratisk Programmering}
+

@@ -1,6 +1,21 @@
 \documentclass[10pt, a4paper]{report}
 \usepackage{trymtex}
 \usepackage{forest}
+\usepackage[acronym,symbols,nogroupskip]{glossaries-extra}
+\usepackage[backend=biber]{biblatex}
+
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{colormaps}  
+\usetikzlibrary{
+    backgrounds,
+    positioning,
+    arrows.meta,
+    calc,
+    decorations.pathreplacing,
+    3d
+}
+\pgfplotsset{compat=1.18}
+
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -9,33 +24,36 @@
     citecolor=green,
 }
 
-\addbibresource{references.bib} 
+\makeglossaries
+\addbibresource{bib/references.bib}
+\setglossarystyle{listhypergroup}
+
+\include{bib/glossary}
 
 \begin{document}
 
-\title{Optimering 1}
+\include{frontmatter/titlepage}
 
-\author{Trym Sæther}
-
-\date{Vår 2025}
-
-\maketitle
+\newpage
 
 \tableofcontents
 
 \clearpage
 
-\include{Sections/1_Introduction}
-\include{Sections/2_UnconstrainedOptimization}
-\include{Sections/3_ConvexOptimization}
+\include{chapters/1_Introduction}
+\include{chapters/2_UnconstrainedOptimization}
+\include{chapters/3_ConvexOptimization}
 
 \clearpage
 
 \appendix
-\include{Sections/Appendix/LectureNotes}
-\include{Sections/Appendix/Formulas}
-\include{Sections/Appendix/Functions}
+\include{chapters/appendix/LectureNotes}
+\include{chapters/appendix/Formulas}
+\include{chapters/appendix/Functions}
 
 \printbibliography
+
+\printglossary
+\printglossary[type=\acronymtype]
 
 \end{document}

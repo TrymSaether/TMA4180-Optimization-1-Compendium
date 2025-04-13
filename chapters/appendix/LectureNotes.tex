@@ -162,12 +162,10 @@
 
 \begin{definition}{Nelder-Mead Algorithm}{nelder_mead}
   The Nelder-Mead algorithm is a heuristic search method used for minimizing an objective function without the need for derivatives. It operates on a simplex of \( n+1 \) points in \( \R^n \) and iteratively reflects, expands, contracts, or shrinks the simplex to converge to a local minimum.
-
 \end{definition}
 
 \begin{algorithm}[H]
   \caption{Nelder-Mead Algorithm}
-  \label{alg:nelder-mead}
   Initialize simplex with  \(n+1\) points\;
   \Repeat{convergence criteria are met}{
     Order the simplex points by their objective function values\;
@@ -386,10 +384,7 @@ First idea: require that  \(f(x_k + \alpha_k p_k) \leq f(x_k)\)  \(\rightsquigar
   In particular if  \(0 < c \leq \alpha_k \; \forall k \rightarrow \nabla f(x_k) \rightarrow 0\).
 \end{lemma}
 
-
-
 \section{Lecture 5 (20. Januar 2025)}
-
 \subsection*{Gradient Descent}
 
 
@@ -500,8 +495,8 @@ Choose  \(0 < c_1 < c_2 < 1\).
   \item \textbf{Curvature condition:}  \(\inner{\nabla f(x_k + \alpha p_k)}{p_k} \geq c_2 \inner{\nabla f(x_k)}{p_k}\). If this fails, increase  \(\alpha\) because it is too small.
   \item Wolfe conditions are more robust than Goldstein conditions.
 \end{itemize}
-\section{Lecture 6 (24. Januar 2025)}
 
+\section{Lecture 6 (24. Januar 2025)}
 \subsection*{Backtracking Linjesøk}
 Backtracking Line Search er en metode for å finne en passende skrittlengde \( \alpha \) i iterative optimeringsalgoritmer. Målet er å sikre at skrittet reduserer objektivfunksjonen \( f(\bm{x} + \alpha \bm{p}) \) tilstrekkelig, samtidig som det unngås for små eller ustabile skritt.
 
@@ -570,7 +565,6 @@ La \( f: \R^n \to \R \) være kontinuerlig deriverbar, og \( \bm{p} \in \R^n \) 
   \]
   Kondisjonstallet \( \kappa \approx 2500 \) forklarer treg konvergens for gradientdescent.
 \end{example}
-
 
 \section{Lecture 7 (27. Januar 2025)}
 
@@ -842,7 +836,7 @@ with \(\beta_k\) chosen so that \(\langle p_{k+1},\,Q\,p_k\rangle=0\). One can s
   \]
 \end{lemma}
 
-\section{Lecture 9 \date{3. Februar 2025}}
+\section{Lecture 9 \emph{3. Februar 2025}}
 
 \begin{definition}{Newton's Method}{newton-method}
   \[
@@ -895,7 +889,7 @@ where \( s_k = x_{k+1} - x_k \) and \( y_k = \nabla f(x_{k+1}) - \nabla f(x_k) \
 
 \clearpage
 
-\section{Lecture 10 \date{7. Februar 2025}}
+\section{Lecture 10 \emph{7. Februar 2025}}
 
 \subsection*{Læringsmål}
 \begin{enumerate}
@@ -1069,7 +1063,7 @@ Hvis \( f \) er strengt konveks (og dermed \(x_{k+1} \neq x_k \) for alle \( k \
   \end{minipage}
 \end{figure}
 
-\section{Lecture 11 \date{10. Februar 2025}}
+\section{Lecture 11 \emph{10. Februar 2025}}
 
 \subsection*{Læringsmål}
 \begin{enumerate}
@@ -1303,7 +1297,7 @@ Hvis \( f \) er strengt konveks (og dermed \(x_{k+1} \neq x_k \) for alle \( k \
   \end{itemize}
 \end{proposition}
 
-\section{Lecture 12 \date{14. February 2025}}
+\section{Lecture 12 \emph{14. February 2025}}
 
 \begin{proposition}{}{}
   Anta \(\Omega \neq \emptyset\) og konveks, med \(\symbf{x}^\star \in \Omega\).
@@ -1468,9 +1462,8 @@ Morover
 
 The vector \(\lambda^\star\) is called the \emph{Lagrange multiplier} for \(\symbf{x}^\star\).
 
-\section{Lecture 14 \date{14. February 2025}}
+\section{Lecture 14 \emph{14. February 2025}}
 
-% Inserting definition of Slater's condition with intuition
 \begin{definition}{Slater's Condition}{slater_condition}
   For a convex problem with inequality constraints
   \[
