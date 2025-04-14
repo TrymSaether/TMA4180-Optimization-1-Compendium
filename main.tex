@@ -1,18 +1,16 @@
 \documentclass[10pt, a4paper]{report}
 \usepackage{trymtex}
-\usepackage{forest}
 \usepackage[acronym,symbols,nogroupskip]{glossaries-extra}
 \usepackage[backend=biber]{biblatex}
 
 \makeglossaries
-\addbibresource{preamble/references.bib}
+\addbibresource{preamble/bib/references.bib}
 \setglossarystyle{listhypergroup}
 
-\include{preamble/glossary}
 
 \begin{document}
-
-\include{frontmatter/titlepage}
+\include{preamble/bib/glossary}
+\include{preamble/frontmatter/titlepage}
 
 \newpage
 
@@ -27,12 +25,8 @@
 \clearpage
 
 \appendix
-\include{chapters/appendix/LectureNotes}
-\include{chapters/appendix/Formulas}
-\include{chapters/appendix/Functions}
 
 \printbibliography
-
 \printglossary
 \printglossary[type=\acronymtype]
 

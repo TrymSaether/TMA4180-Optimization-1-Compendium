@@ -4,7 +4,7 @@
 Ubundet optimalisering (eller fri optimalisering) refererer til problemer uten eksplisitte restriksjoner på variablene \(\symbf{x}\), eller løsningsmengden \(\Omega\).
 Dette betyr at vi kan søke etter løsninger i hele \(\Omega = \R^n\) uten å måtte ta hensyn til begrensninger som kan hindre oss i å finne den beste løsningen.
 
-\paragraph{Ingen eksplisitte restriksjoner}
+\section{Introduksjon -- Ingen eksplisitte restriksjoner}
 Den tillatte løsningsmengden omfatter hele \(\R^n\), uten likhets- eller ulikhetsbetingelser som begrenser søkerommet.
 Siden det ikke finnes restriksjoner å ta hensyn til, blir både problemet og løsningsmetodene enklere.
 
@@ -17,7 +17,8 @@ Vi fokuserer nå på problemet med å minimere en \textit{objektfunksjon} \( f :
 For å finne den optimale løsningen \(\symbf{x}^\ast\) for problemet, må vi vurdere både globale og lokale løsninger/minimumspunkter.
 
 \chapter{Gradientbaserte metoder}
-
+\label{chap:gradient_based_methods}
+Gradientbaserte metoder er en klasse av numeriske algoritmer som benytter gradienten til objektfunksjonen for å finne minimum eller maksimum.
 \section{Steepest Descent}
 \label{sec:steepest_descent}
 Steepest Descent en en enkel metode for å minimere \(f: \mathbb{R}^n \to \mathbb{R}\) ved å følge den bratteste nedstigningsretningen \( \symbf{d}_k = -\nabla f(\symbf{x}_k)\) fra et gitt punkt \( \symbf{x}_k \).
@@ -604,128 +605,6 @@ Under passende betingelser viser Quasi-Newtons metoder superlineær konvergens:
 
 Selv om denne konvergensraten er langsommere enn Newtons kvadratiske konvergens, er kostnaden per iterasjon betydelig lavere, noe som gir en mer effektiv algoritme totalt sett, spesielt for store problemer.
 
-\section{Gradientfrie metoder}
-\label{sec:gradientfrie_metoder}
-
-Gradientfrie metoder er optimeringsalgoritmer som ikke benytter gradienter eller Hesse-matriser i søket etter et minimum.
-De egner seg spesielt godt i situasjoner der objektfunksjonen \( f : \mathbb{R}^n \to \mathbb{R} \) er:
-\begin{itemize}
-	\item ikke-differensierbar eller stykkevis glatt,
-	\item støyete, simulert eller svartboksbasert,
-	\item kostbar eller upraktisk å derivere.
-\end{itemize}
-
-I stedet for å bruke analytisk eller numerisk informasjon om deriverte, evaluerer slike metoder funksjonsverdier i ulike retninger eller punktkombinasjoner, og gjør fremskritt basert på hvilke punkter som gir forbedring.
-
-Gradientfrie metoder kan være svært effektive når informasjonen om objektfunksjonen er begrenset. De gir imidlertid sjelden noen garanti for å finne et globalt minimum, eller for konvergens i klassisk forstand.
-
-\subsection{Heuristiske metoder}
-
-En heuristisk metode er en algoritme som forsøker å finne en god (men ikke nødvendigvis optimal) løsning ved å bruke forenklede regler, prøve-og-feile-strategier eller strategier inspirert av natur og erfaring.
-
-De er spesielt utviklet for problemer der klassiske metoder feiler - for eksempel når funksjonen har mange lokale minima, er ikke-glatt, støyete eller kun tilgjengelig gjennom simulering.
-
-\paragraph{Egenskaper ved heuristiske metoder}
-
-\begin{itemize}
-	\item Utfører ofte globalt søk (f.eks. gjennom tilfeldige steg eller populasjoner).
-	\item Krever ikke deriverte eller Hessian.
-	\item Har lav til moderat regnekostnad.
-	\item Mangler garanti for optimalitet, men gir ofte svært gode løsninger i praksis.
-\end{itemize}
-
-\subsubsection{Nelder--Mead-algoritmen}
-\label{sec:nelder_mead}
-
-Nelder--Mead-algoritmen er en populær metode for å minimere funksjoner uten å bruke gradienter eller Hesse-matriser.
-Den er særlig nyttig når funksjonen er ikke-glatt, støyete eller utilgjengelig i lukket form.
-
-Algoritmen benytter \emph{simplex}\ref{def:simplex}, en generalisering av en trekant til høyere dimensjoner, og tilpasser denne over iterasjoner for å finne en lokal minimum.
-Nelder--Mead starter med et sett av \( n+1 \) punkter og itererer ved å \emph{reflektere}, \emph{utvide}, \emph{kontrahere} eller \emph{krympe} simplexet basert på funksjonsverdier i hjørnene.
-
-\begin{definition}{Nelder--Mead-algoritmen}{nelder_mead}
-	Nelder--Mead er en heuristisk søkemetode som benytter et simplex med \( n+1 \) hjørner i \( \mathbb{R}^n \) for å iterativt søke mot et lokalt minimum.
-	Algoritmen bruker refleksjon, ekspansjon, kontraksjon og krymping for å justere simplexet basert på funksjonsverdi i hvert hjørne.
-\end{definition}
-
-\begin{algorithm}[H]
-	\caption{Nelder--Mead-algoritme}
-	\label{alg:nelder-mead}
-	Initialiser simplex med \( n+1 \) punkter\;
-	\Repeat{konvergenskriteriene er oppfylt}{
-		Sorter simplex-punktene etter deres funksjonsverdi \( f(x_i) \)\;
-		Beregn tyngdepunktet av de \( n \) beste punktene\;
-		Reflekter det dårligste punktet gjennom tyngdepunktet for å få et nytt punkt \( x_r \)\;
-		\uIf{\( f(x_1) \leq f(x_r) < f(x_n) \)}{
-			Aksepter refleksjonen \( x_{n+1} \leftarrow x_r \)\;
-		}
-		\uElseIf{\( f(x_r) < f(x_1) \)}{
-			Prøv ekspansjon til punkt \( x_e \)\;
-			\If{\( f(x_e) < f(x_r) \)}{
-				\( x_{n+1} \leftarrow x_e \)\;
-			}
-			\Else{
-				\( x_{n+1} \leftarrow x_r \)\;
-			}
-		}
-		\uElseIf{\( f(x_r) \geq f(x_n) \)}{
-			Utfør en kontraksjon for å få punkt \( x_c \)\;
-			\If{\( f(x_c) < f(x_{n+1}) \)}{
-				\( x_{n+1} \leftarrow x_c \)\;
-			}
-			\Else{
-				Krymp hele simplexet mot det beste punktet \( x_1 \)\;
-			}
-		}
-	}
-\end{algorithm}
-
-\begin{figure}[H]
-	\centering
-	\begin{tikzpicture}[
-			scale=0.8,
-			x={(-0.5cm,-0.5cm)},
-			y={(1cm,0cm)},
-			z={(0cm,1cm)},
-			line join=round
-		]
-
-		% Axes
-		\draw[->] (0,0,0) -- (3,0,0) node[anchor=north east] {$x_1$};
-		\draw[->] (0,0,0) -- (0,3,0) node[anchor=north west] { $x_2$};
-		\draw[->] (0,0,0) -- (0,0,2) node[anchor=south] {$f(x_1,x_2)$};
-
-		% Contours on base
-		\draw[black!30] (0,0,0) ellipse (3 and 2);
-		\draw[black!30] (0,0,0) ellipse (2 and 1.5);
-		\draw[black!30] (0,0,0) ellipse (1 and 0.7);
-
-		% Initial simplex (blue solid)
-		\draw[blue, thick]
-		(1,1,1.5) -- (2,1,1.0) -- (1.5,2,1.3) -- cycle;
-
-		% Reflected simplex (red dashed)
-		\draw[red, thick, dashed]
-		(0.5,1,1.2) -- (1.8,1,0.9) -- (1.1,2.1,1.0) -- cycle;
-
-		% Contracted simplex (green dotted)
-		\draw[green!50!black, thick, dotted]
-		(1.2,1.1,1.1) -- (1.6,1.0,1.0) -- (1.3,1.7,1.05) -- cycle;
-
-	\end{tikzpicture}
-
-	\vspace{1em}
-	\begin{tikzpicture}[scale=1]
-		% Manual legend below the 3D figure
-		\draw[blue, thick] (0,1.2) -- (0.8,1.2) node[right, black] {Initial simplex};
-		\draw[red, thick, dashed] (0,0.6) -- (0.8,0.6) node[right, black] {Reflected simplex};
-		\draw[green!50!black, thick, dotted] (0,0) -- (0.8,0) node[right, black] {Contracted simplex};
-	\end{tikzpicture}
-
-	\caption{3D-visualisering av Nelder--Mead-algoritmen: blå trekant viser initialt simplex, rød viser refleksjon og grønn viser kontraksjon. Nivålinjene på basen representerer nivåsett av objektfunksjonen.}
-	\label{fig:nelder_mead_3d}
-\end{figure}
-
 \chapter{Gradientfrie metoder}
 \label{sec:gradientfrie_metoder}
 
@@ -756,13 +635,17 @@ De er spesielt utviklet for problemer der klassiske metoder feiler - for eksempe
 	\item Mangler garanti for optimalitet, men gir ofte svært gode løsninger i praksis.
 \end{itemize}
 
-\subsubsection{Nelder--Mead-algoritmen}
+\subsection{Nelder--Mead-algoritmen}
 \label{sec:nelder_mead}
 
 Nelder--Mead-algoritmen er en populær metode for å minimere funksjoner uten å bruke gradienter eller Hesse-matriser.
 Den er særlig nyttig når funksjonen er ikke-glatt, støyete eller utilgjengelig i lukket form.
 
-Algoritmen benytter \emph{simplex}\ref{def:simplex}, en generalisering av en trekant til høyere dimensjoner, og tilpasser denne over iterasjoner for å finne en lokal minimum.
+\begin{definition}{Simplex}{simplex}
+    Et \emph{simplex} er en geometrisk figur som er den n-dimensjonale generalisering av en trekant. I $\mathbb{R}^n$ består et simplex av $n+1$ hjørner som ikke ligger i samme $(n-1)$-dimensjonale rom.
+\end{definition}
+
+Algoritmen benytter simplex, og tilpasser denne over iterasjoner for å finne et lokalt minimum.
 Nelder--Mead starter med et sett av \( n+1 \) punkter og itererer ved å \emph{reflektere}, \emph{utvide}, \emph{kontrahere} eller \emph{krympe} simplexet basert på funksjonsverdier i hjørnene.
 
 \begin{definition}{Nelder--Mead-algoritmen}{nelder_mead}
@@ -847,6 +730,16 @@ Nelder--Mead starter med et sett av \( n+1 \) punkter og itererer ved å \emph{r
 	\caption{3D-visualisering av Nelder--Mead-algoritmen: blå trekant viser initialt simplex, rød viser refleksjon og grønn viser kontraksjon. Nivålinjene på basen representerer nivåsett av objektfunksjonen.}
 	\label{fig:nelder_mead_3d}
 \end{figure}
+
+\subsection{Andre gradientfrie metoder}
+
+I tillegg til Nelder-Mead finnes det flere andre gradientfrie metoder:
+
+\begin{itemize}
+    \item \textbf{Genetiske algoritmer}: Inspirert av naturlig seleksjon, bruker populasjoner av løsninger som "evolusjonerer" over generasjoner.
+    \item \textbf{Partikkelsverm-optimalisering (PSO)}: Inspirert av sosial atferd i fugleflokker eller fiskestimer, hvor partikler beveger seg i søkerommet.
+    \item \textbf{Simulert annealing}: Inspirert av metallets varmebehandling, tillater algoritmen å akseptere dårligere løsninger med en viss sannsynlighet for å unngå å bli fanget i lokale minima.
+\end{itemize}
 
 \chapter{Steglengdemetoder}
 \label{chap:step_length_methods}
@@ -1104,15 +997,27 @@ Backtracking Line Search er en metode for å finne en passende skrittlengde \(\a
 
 \section{Trust Region}
 \label{sec:trust_region}
-Når vi skal løse optimaliseringsproblemer på formen
-\[ \min_{x \in \mathbb{R}^n} f(x), \]
-er en vanlig strategi å lage en modell som tilnærmer $f(x)$ i nærheten av nåværende iterasjonspunkt $x_k$. 
-Trust-region metoder (på norsk også kalt tillitsområde-metoder) baserer seg på å begrense området hvor denne modellen antas å være en god tilnærming.
-Metoden velger hvert steg ved å løse delproblemet
+Trust Region metoder er en klasse av optimeringsalgoritmer som skiller seg fra linjesøkmetoder ved at de bestemmer både retning og steglengde samtidig. 
+Det grunnleggende prinsippet er å definere et \emph{tillitsområde} rundt den nåværende iterasjonen \(\symbf{x}_k\), hvor vi antar at den kvadratiske modellen \(m_k(\symbf{p})\) gir en god tilnærming av objektfunksjonen \(f(\symbf{x})\).
+
+I hver iterasjon løser metoden et begrenset optimeringsproblem av formen:
 \[
-	\min_{p \in \mathbb{R}^n} m_k(p) = f(x_k) + \nabla f(x_k)^T p + \frac{1}{2} p^T B_k p, \quad \text{slik at} \quad \|p\| \le \Delta_k,
+	\min_{\symbf{p} \in \mathbb{R}^n} m_k(\symbf{p}) = f_k + \symbf{g}_k^T\symbf{p} + \frac{1}{2}\symbf{p}^T\symbf{B}_k\symbf{p} \quad \text{slik at} \quad \|\symbf{p}\| \leq \Delta_k
 \]
-hvor $\Delta_k$ er radius av tillitsområdet.
+hvor:
+\begin{itemize}
+	\item $f_k = f(\symbf{x}_k)$ er funksjonsverdien i nåværende punkt
+	\item $\symbf{g}_k = \nabla f(\symbf{x}_k)$ er gradienten
+	\item $\symbf{B}_k$ er en symmetrisk matrise som approksimerer Hesse-matrisen $\nabla^2 f(\symbf{x}_k)$
+	\item $\Delta_k$ er radiusen til tillitsområdet
+\end{itemize}
+
+For optimeringsproblemer på formen \eqref{eq:unconstrained_optimization_problem} gir denne tilnærmingen flere fordeler:
+\begin{itemize}
+	\item Vi kan kontrollere kvaliteten på modellen ved å justere størrelsen på tillitsområdet
+	\item Metoden kan håndtere ikke-konvekse problemer mer robust enn linjesøkmetoder
+	\item Den kvadratiske modellen gir god lokal tilnærming når vi er nær et minimum
+\end{itemize}
 
 
 \begin{definition}{Trust Region}{trust_region}
@@ -1149,14 +1054,6 @@ hvor $\Delta_k$ er radius av tillitsområdet.
 	\caption{Løsning av trust region-underproblemet for forskjellige radier $\Delta_1$, $\Delta_2$, $\Delta_3$. For liten radius ($\Delta_1$) ligger løsningen på grensen, for medium radius ($\Delta_2$) også på grensen, mens for stor radius ($\Delta_3$) er løsningen den ubegrensede minimanten.}
 	\label{fig:trust_region_solutions}
 \end{figure}
-
-% Trust Region metoden er i motsetning til linjemetoden en tilnærming som bestemmer både retning og lengde samtidig. 
-% Den definerer et tillitsområde rundt den nåværende iterasjonen innenfor hvilket den antar at den kvadratiske modellen er en tilstrekkelig representasjon av objektfunksjonen.
-% I trust region-metoden løser vi underproblemet:
-% \[
-% 	\min_{\symbf{p} \in \mathbb{R}^n} m_k(\symbf{p}) = f_k + \symbf{g}_k^T\symbf{p} + \frac{1}{2}\symbf{p}^T\symbf{B}_k\symbf{p} \quad \text{slik at} \quad \|\symbf{p}\| \leq \Delta_k
-% \]
-% hvor $f_k = f(\symbf{x}_k)$, $\symbf{g}_k = \nabla f(\symbf{x}_k)$, og $\symbf{B}_k$ er en symmetrisk matrise som approksimerer Hesse-matrisen $\nabla^2 f(\symbf{x}_k)$.
 
 \subsection{Trust Region Algoritme}
 Det viktigste i en trust region-algoritme er hvordan man velger trust region-radius $\Delta_k$ ved hver iterasjon. Dette valget baseres på forholdet $\rho_k$:
