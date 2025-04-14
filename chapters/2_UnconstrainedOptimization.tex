@@ -16,11 +16,10 @@ Vi fokuserer nå på problemet med å minimere en \textit{objektfunksjon} \( f :
 
 For å finne den optimale løsningen \(\symbf{x}^\ast\) for problemet, må vi vurdere både globale og lokale løsninger/minimumspunkter.
 
-\chapter{Gradientbaserte metoder}
-\label{chap:gradient_based_methods}
+\chapter{Gradientbaserte metoder}\label{chap:gradient_based_methods}
 Gradientbaserte metoder er en klasse av numeriske algoritmer som benytter gradienten til objektfunksjonen for å finne minimum eller maksimum.
-\section{Steepest Descent}
-\label{sec:steepest_descent}
+
+\section{Steepest Descent}\label{sec:steepest_descent}
 Steepest Descent en en enkel metode for å minimere \(f: \mathbb{R}^n \to \mathbb{R}\) ved å følge den bratteste nedstigningsretningen \( \symbf{d}_k = -\nabla f(\symbf{x}_k)\) fra et gitt punkt \( \symbf{x}_k \).
 \begin{definition}{Steepest Descent}{steepest_descent}
 	Steepest Descent-algoritmen oppdaterer iterasjonen \( \symbf{x}_k \) ved å ta et skritt i retning av den negative gradienten:
@@ -91,7 +90,7 @@ Vi kan bruke den vektede normen $\norm*{\cdot}_Q$ til å utrykke feilen $\symbf{
 
 \begin{align*}
 	\frac{1}{2} \norm{\symbf{x} - \symbf{x}^\ast}_Q^2 & = f(\symbf{x}) - f(\symbf{x}^\ast)                                                                                                                                                                                    \\
-	\norm{\symbf{e}_k}_Q^2                             & = \norm*{\symbf{x}_k - \symbf{x}^\ast}_Q^2                                                                                                                                                                            \\
+	\norm{\symbf{e}_k}_Q^2                            & = \norm*{\symbf{x}_k - \symbf{x}^\ast}_Q^2                                                                                                                                                                            \\
 	\norm*{\symbf{x}_{k+1} - \symbf{x}^\ast}_Q^2      & = \left(1 - \overbrace{\frac{\left[\nabla f_k^\top \nabla f_k\right]^2}{\left(\nabla f_k^\top Q \nabla f_k\right)\left(\nabla f_k^\top Q^{-1} \nabla f_k\right)}}^{C}\right) \norm*{\symbf{x}_k - \symbf{x}^\ast}_Q^2
 \end{align*}
 er den eksakte konvergenshastigheten til $f$ for hver iterasjon, men siden konstantleddet \(C\) kan være vanskelig å tolke/bestemme kan vi heller bruke kondisjonstallet til \(Q\), siden det gir maksimal øvre grensen for konvergenshastigheten:
@@ -642,7 +641,7 @@ Nelder--Mead-algoritmen er en populær metode for å minimere funksjoner uten å
 Den er særlig nyttig når funksjonen er ikke-glatt, støyete eller utilgjengelig i lukket form.
 
 \begin{definition}{Simplex}{simplex}
-    Et \emph{simplex} er en geometrisk figur som er den n-dimensjonale generalisering av en trekant. I $\mathbb{R}^n$ består et simplex av $n+1$ hjørner som ikke ligger i samme $(n-1)$-dimensjonale rom.
+	Et \emph{simplex} er en geometrisk figur som er den n-dimensjonale generalisering av en trekant. I $\mathbb{R}^n$ består et simplex av $n+1$ hjørner som ikke ligger i samme $(n-1)$-dimensjonale rom.
 \end{definition}
 
 Algoritmen benytter simplex, og tilpasser denne over iterasjoner for å finne et lokalt minimum.
@@ -736,9 +735,9 @@ Nelder--Mead starter med et sett av \( n+1 \) punkter og itererer ved å \emph{r
 I tillegg til Nelder-Mead finnes det flere andre gradientfrie metoder:
 
 \begin{itemize}
-    \item \textbf{Genetiske algoritmer}: Inspirert av naturlig seleksjon, bruker populasjoner av løsninger som "evolusjonerer" over generasjoner.
-    \item \textbf{Partikkelsverm-optimalisering (PSO)}: Inspirert av sosial atferd i fugleflokker eller fiskestimer, hvor partikler beveger seg i søkerommet.
-    \item \textbf{Simulert annealing}: Inspirert av metallets varmebehandling, tillater algoritmen å akseptere dårligere løsninger med en viss sannsynlighet for å unngå å bli fanget i lokale minima.
+	\item \textbf{Genetiske algoritmer}: Inspirert av naturlig seleksjon, bruker populasjoner av løsninger som "evolusjonerer" over generasjoner.
+	\item \textbf{Partikkelsverm-optimalisering (PSO)}: Inspirert av sosial atferd i fugleflokker eller fiskestimer, hvor partikler beveger seg i søkerommet.
+	\item \textbf{Simulert annealing}: Inspirert av metallets varmebehandling, tillater algoritmen å akseptere dårligere løsninger med en viss sannsynlighet for å unngå å bli fanget i lokale minima.
 \end{itemize}
 
 \chapter{Steglengdemetoder}
@@ -997,7 +996,7 @@ Backtracking Line Search er en metode for å finne en passende skrittlengde \(\a
 
 \section{Trust Region}
 \label{sec:trust_region}
-Trust Region metoder er en klasse av optimeringsalgoritmer som skiller seg fra linjesøkmetoder ved at de bestemmer både retning og steglengde samtidig. 
+Trust Region metoder er en klasse av optimeringsalgoritmer som skiller seg fra linjesøkmetoder ved at de bestemmer både retning og steglengde samtidig.
 Det grunnleggende prinsippet er å definere et \emph{tillitsområde} rundt den nåværende iterasjonen \(\symbf{x}_k\), hvor vi antar at den kvadratiske modellen \(m_k(\symbf{p})\) gir en god tilnærming av objektfunksjonen \(f(\symbf{x})\).
 
 I hver iterasjon løser metoden et begrenset optimeringsproblem av formen:
@@ -1133,15 +1132,15 @@ Stegene karakteriseres gjennom en første-ordens nødvendig optimalitetsbetingel
 \begin{proof}{}{}
 	Hovedidéen i beviset av Teorem \ref{thm:trust_region_step} er å bruke Lagrange-multiplikatorer for å håndtere trust-region-betingelsen som en begrensning:
 
-\[
-	\min_p m_k(p), \quad \text{s.t.} \quad \|p\|^2 - \Delta_k^2 \leq 0.
-\]
+	\[
+		\min_p m_k(p), \quad \text{s.t.} \quad \|p\|^2 - \Delta_k^2 \leq 0.
+	\]
 
-Lagrangianen blir
-\[
-	\mathcal{L}(p,\lambda) = m_k(p) + \lambda(\|p\|^2 - \Delta_k^2),
-\]
-og første-ordens betingelser leder til ligningssystemet i teoremet.
+	Lagrangianen blir
+	\[
+		\mathcal{L}(p,\lambda) = m_k(p) + \lambda(\|p\|^2 - \Delta_k^2),
+	\]
+	og første-ordens betingelser leder til ligningssystemet i teoremet.
 \end{proof}
 
 \begin{theorem}{Karakterisering av Trust Region-løsningen}{trust_region_solution}
@@ -1153,7 +1152,7 @@ og første-ordens betingelser leder til ligningssystemet i teoremet.
 	\begin{align}
 		(\symbf{B} + \lambda\symbf{I})\symbf{p}^\ast & = -\symbf{g},                   \\
 		\lambda(\Delta - \|\symbf{p}^\ast\|)         & = 0,                            \\
-		(\symbf{B} + \lambda\symbf{I})            & \text{ er positiv semidefinit.}
+		(\symbf{B} + \lambda\symbf{I})               & \text{ er positiv semidefinit.}
 	\end{align}
 	hvor $\lambda \geq 0$ er en Lagrange-multiplikator.
 \end{theorem}
@@ -1197,32 +1196,32 @@ For å bevise teoremet, har vi bruk for følgende lemma:
 	\begin{enumerate}
 		\item \textbf{Hvis \(\symbf{B}\) er positiv semidefinit, er enhver \(\symbf{p}\) som tilfredsstiller \(\symbf{B}\symbf{p} = -\symbf{g}\) en global minimerer av \(m\):}
 
-		Anta at \(\symbf{p}\) tilfredsstiller \(\symbf{B}\symbf{p} = -\symbf{g}\). For enhver \(\symbf{w} \in \mathbb{R}^n\) har vi:
-		\[
-		m(\symbf{p} + \symbf{w}) = m(\symbf{p}) + \symbf{w}^\top \symbf{B} \symbf{w}.
-		\]
-		Siden \(\symbf{B}\) er positiv semidefinit, følger det at \(\symbf{w}^\top \symbf{B} \symbf{w} \geq 0\). Dermed er \(m(\symbf{p} + \symbf{w}) \geq m(\symbf{p})\), og \(\symbf{p}\) er en global minimerer.
+		      Anta at \(\symbf{p}\) tilfredsstiller \(\symbf{B}\symbf{p} = -\symbf{g}\). For enhver \(\symbf{w} \in \mathbb{R}^n\) har vi:
+		      \[
+			      m(\symbf{p} + \symbf{w}) = m(\symbf{p}) + \symbf{w}^\top \symbf{B} \symbf{w}.
+		      \]
+		      Siden \(\symbf{B}\) er positiv semidefinit, følger det at \(\symbf{w}^\top \symbf{B} \symbf{w} \geq 0\). Dermed er \(m(\symbf{p} + \symbf{w}) \geq m(\symbf{p})\), og \(\symbf{p}\) er en global minimerer.
 
 		\item \textbf{\(m\) oppnår et minimum hvis og bare hvis \(\symbf{B}\) er positiv semidefinit og \(\symbf{g}\) er i bildet til \(\symbf{B}\):}
 
-		\begin{itemize}
-			\item \textit{Hvis-delen:} Hvis \(\symbf{B}\) er positiv semidefinit og \(\symbf{g}\) er i bildet til \(\symbf{B}\), finnes det en \(\symbf{p}\) slik at \(\symbf{B}\symbf{p} = -\symbf{g}\). Fra punkt (1) følger det at \(m\) oppnår et minimum.
-			\item \textit{Bare hvis-delen:} Anta at \(m\) oppnår et minimum i \(\symbf{p}\). Da må \(\nabla m(\symbf{p}) = \symbf{B}\symbf{p} + \symbf{g} = 0\), som impliserer at \(\symbf{g}\) er i bildet til \(\symbf{B}\). Videre må \(\nabla^2 m(\symbf{p}) = \symbf{B}\) være positiv semidefinit for at \(\symbf{p}\) skal være et minimum.
-		\end{itemize}
+		      \begin{itemize}
+			      \item \textit{Hvis-delen:} Hvis \(\symbf{B}\) er positiv semidefinit og \(\symbf{g}\) er i bildet til \(\symbf{B}\), finnes det en \(\symbf{p}\) slik at \(\symbf{B}\symbf{p} = -\symbf{g}\). Fra punkt (1) følger det at \(m\) oppnår et minimum.
+			      \item \textit{Bare hvis-delen:} Anta at \(m\) oppnår et minimum i \(\symbf{p}\). Da må \(\nabla m(\symbf{p}) = \symbf{B}\symbf{p} + \symbf{g} = 0\), som impliserer at \(\symbf{g}\) er i bildet til \(\symbf{B}\). Videre må \(\nabla^2 m(\symbf{p}) = \symbf{B}\) være positiv semidefinit for at \(\symbf{p}\) skal være et minimum.
+		      \end{itemize}
 
 		\item \textbf{\(m\) har en unik minimerer hvis og bare hvis \(\symbf{B}\) er positiv definit:}
 
-		\begin{itemize}
-			\item \textit{Hvis-delen:} Hvis \(\symbf{B}\) er positiv definit, er \(\symbf{B}\symbf{p} = -\symbf{g}\) et lineært system med en unik løsning. Dermed har \(m\) en unik minimerer.
-			\item \textit{Bare hvis-delen:} Anta at \(\symbf{B}\) ikke er positiv definit. Da finnes det en \(\symbf{w} \neq 0\) slik at \(\symbf{w}^\top \symbf{B} \symbf{w} = 0\). Dette impliserer at \(m(\symbf{p} + \symbf{w}) = m(\symbf{p})\), så minimereren er ikke unik, hvilket gir en motsigelse.
-		\end{itemize}
+		      \begin{itemize}
+			      \item \textit{Hvis-delen:} Hvis \(\symbf{B}\) er positiv definit, er \(\symbf{B}\symbf{p} = -\symbf{g}\) et lineært system med en unik løsning. Dermed har \(m\) en unik minimerer.
+			      \item \textit{Bare hvis-delen:} Anta at \(\symbf{B}\) ikke er positiv definit. Da finnes det en \(\symbf{w} \neq 0\) slik at \(\symbf{w}^\top \symbf{B} \symbf{w} = 0\). Dette impliserer at \(m(\symbf{p} + \symbf{w}) = m(\symbf{p})\), så minimereren er ikke unik, hvilket gir en motsigelse.
+		      \end{itemize}
 	\end{enumerate}
 \end{proof}
 
 \begin{proof}{Bevis av teorem \ref{thm:trust_region_solution}}{}
 	Anta først at betingelsene er oppfylt med en \(\lambda \geq 0\). Fra Lemma \ref{lem:quadratic_minimization} følger det at \(\symbf{p}^\ast\) er et globalt minimum av \(m(\symbf{p}) + \frac{\lambda}{2} \|\symbf{p}\|^2\), og dermed også et globalt minimum av trust region-problemet.
-	
-	For motsatt retning, anta at \(\symbf{p}^\ast\) er en global løsning. Hvis \(\|\symbf{p}^\ast\| < \Delta\), er \(\symbf{p}^\ast\) en (ubundet) minimerer av \(m\), og \(\lambda = 0\) tilfredsstiller betingelsene. 
+
+	For motsatt retning, anta at \(\symbf{p}^\ast\) er en global løsning. Hvis \(\|\symbf{p}^\ast\| < \Delta\), er \(\symbf{p}^\ast\) en (ubundet) minimerer av \(m\), og \(\lambda = 0\) tilfredsstiller betingelsene.
 	Hvis \(\|\symbf{p}^\ast\| = \Delta\), følger det fra KKT-betingelsene at det finnes en \(\lambda \geq 0\) slik at \((\symbf{B} + \lambda \symbf{I})\symbf{p}^\ast = -\symbf{g}\) og \((\symbf{B} + \lambda \symbf{I})\) er positiv semidefinit.
 \end{proof}
 
@@ -1231,7 +1230,7 @@ For å bevise teoremet, har vi bruk for følgende lemma:
 Cauchy-punktet er det punktet langs retningen av den bratteste nedstigningen (steepest descent), som løser delproblemet enklest:
 
 \[
-	\symbf{p}_C = -\tau_k \frac{\Delta_k \nabla f(\symbf{x}_k)}{\norm*{\nabla f(\symbf{x}_k)}^2}, 
+	\symbf{p}_C = -\tau_k \frac{\Delta_k \nabla f(\symbf{x}_k)}{\norm*{\nabla f(\symbf{x}_k)}^2},
 	\quad
 	\tau_k = \frac{\norm*{\nabla f(\symbf{x}_k)}^2}{\nabla f(\symbf{x}_k)^\top \symbf{B}_k \nabla f(\symbf{x}_k)}.
 \]
