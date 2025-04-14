@@ -1,5 +1,6 @@
 \documentclass[10pt, a4paper]{report}
 \usepackage{trymtex}
+\usepackage{optidef}
 \usepackage[acronym,symbols,nogroupskip]{glossaries-extra}
 \usepackage[backend=biber]{biblatex}
 
@@ -10,14 +11,15 @@
 \includeonly{
     preamble/frontmatter/titlepage,
     preamble/bib/glossary,
-    chapters/1_Introduction,
-    % chapters/2_UnconstrainedOptimization,
-    % chapters/3_ConvexOptimization,
+    chapters/1/introduction,
+    % chapters/2/unconstrained_optimization,
+    % chapters/3/convex_optimization,
     % preamble/appendix/AlgorithmMap,
     % preamble/appendix/Formulas,
     % preamble/appendix/Functions,
     preamble/appendix/LectureNotes,
 }
+
 \begin{document}
 \include{preamble/bib/glossary}
 \include{preamble/frontmatter/titlepage}
@@ -25,9 +27,9 @@
 
 \clearpage
 
-\include{chapters/1_Introduction}
-\include{chapters/2_UnconstrainedOptimization}
-\include{chapters/3_ConvexOptimization}
+\include{chapters/1/introduction}
+\include{chapters/2/unconstrained_optimization}
+\include{chapters/3/convex_optimization}
 
 \clearpage
 
