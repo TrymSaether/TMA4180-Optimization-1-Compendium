@@ -65,6 +65,7 @@ Intuitivt er nivåsettet til en funksjon \( f \) i et punkt \( y \) mengden av a
 \end{definition}
 
 \subsection{Lukket mengde}
+En lukket mengde er en mengde som inneholder alle sine grensepunkter \enquote{$[$}, \enquote{$]$}.
 \begin{definition}{Lukket mengde}{closed_set}
 	En mengde \(A \subset \R^n\) er lukket hvis komplementet \(A^c\) er åpent.
 	\[
@@ -141,18 +142,11 @@ Konveksitet er et viktig begrep i optimering og matematikk generelt. Det referer
 \end{itemize}
 
 \begin{definition}{Konveks funksjon}{convex_function}
-	En funksjon \(f: \R^n \to \R\) er konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in [0, 1]\) har vi:
-
+	En funksjon \(f: \R^n \to \R\) er:
 	\begin{align*}
-		f(\lambda x + (1 - \lambda)y) & \leq \lambda f(x) + (1 - \lambda)f(y) \\
+		f(\lambda x + (1-\lambda)y) & \leq \lambda f(x) + (1-\lambda)f(y) \quad \forall x, y \in \R^n, \lambda \in [0, 1] \tag{Konveks}                  \\
+		f(\lambda x + (1-\lambda)y) & < \lambda f(x) + (1 - \lambda)f(y) \quad \forall x, y \in \R^n, \lambda \in (0, 1), x \neq y \tag{Strengt konveks}
 	\end{align*}
-\end{definition}
-
-\begin{definition}{Strengt konveks funksjon}{strictly_convex}
-	En funksjon \(f: \R^n \to \R\) er strengt konveks hvis for alle \(x, y \in \R^n\) og \(\lambda \in (0, 1)\) har vi:
-	\[
-		f(\lambda x + (1 - \lambda)y) < \lambda f(x) + (1 - \lambda)f(y)
-	\]
 \end{definition}
 
 \begin{remark}{Konveksitet med indre-produkt notasjon}{convex_inner_product}
@@ -263,7 +257,7 @@ Et simplex er en geometrisk figur som kan forstås som den enkleste formen i et 
 
 Optimering er et felt innen matematikken som handler om å finne den beste løsningen på et gitt problem, enten med eller uten restriksjoner på løsningsrommet.
 
-Målet i et \emph{optimeringsproblem} er å finne en variabel \(x^\star \in \Omega\) som minimerer eller maksimerer en gitt funksjon \(f: \Omega \to \R\), 
+Målet i et \emph{optimeringsproblem} er å finne en variabel \(x^\star \in \Omega\) som minimerer eller maksimerer en gitt funksjon \(f: \Omega \to \R\),
 kalt \emph{mål\-funksjonen} eller \emph{kostnads\-funksjonen}.
 
 \section{Optimeringsproblemer i \texorpdfstring{\(\R^d\)}{Rd}}
@@ -279,7 +273,7 @@ Mengden \(\Omega \subseteq \R^d\) betegner de tillatte løsningene og kalles oft
 
 \end{definition}
 
-Vi fokuserer hovedsakelig på minimeringsproblemer, siden maksimeringsproblemer enkelt kan omformuleres ved å erstatte \(f(x)\) med \(-f(x)\). 
+Vi fokuserer hovedsakelig på minimeringsproblemer, siden maksimeringsproblemer enkelt kan omformuleres ved å erstatte \(f(x)\) med \(-f(x)\).
 De fleste algoritmene vi diskuterer, er designet for å løse minimeringsproblemer.
 
 \section{Ubundet og Bundet optimering}
@@ -288,16 +282,16 @@ Ulike problemtyper oppstår ut fra hvordan denne mengden \(\Omega\) er definert,
 \begin{itemize}
 	\item \textbf{Ubundet optimering}: Dette er den enkleste typen, uten eksplisitte restriksjoner på variabelen \(x\). Her er \(\Omega = \R^d\), og vi søker å minimere \(f(x)\) over hele rommet.
 	\item \textbf{Betinget optimering}: Her pålegges løsningen restriksjoner, og den tillatte mengden \(\Omega \subset \R^d\) er definert ved:
-	\[
-		\Omega = \{ x \in \R^d \mid g_i(x) \leq 0, \, i \in \mathcal{I}, \quad h_j(x) = 0, \, j \in \mathcal{E} \}.
-	\]
-	\begin{itemize}
-		\item \textbf{Lineær programmering (LP)}: Når \(f\) og restriksjonene er lineære.
-		\item \textbf{Ikke-lineær programmering (NLP)}: Når én eller flere av \(f\), \(g_i\), eller \(h_j\) er ikke-lineære.
-		\item \textbf{Kvadratisk programmering (QP)}: Når \(f\) er kvadratisk og restriksjonene er lineære.
-	\end{itemize}
-	\item \textbf{Konveks optimering}: En spesialklasse der \(f\) og \(\Omega\) er konvekse. 
-	Dette forteller oss at enhver lokal løsning er global, løsningen er entydig hvis \(f\) er strengt konveks, og effektive algoritmer finnes.
+	      \[
+		      \Omega = \{ x \in \R^d \mid g_i(x) \leq 0, \, i \in \mathcal{I}, \quad h_j(x) = 0, \, j \in \mathcal{E} \}.
+	      \]
+	      \begin{itemize}
+		      \item \textbf{Lineær programmering (LP)}: Når \(f\) og restriksjonene er lineære.
+		      \item \textbf{Ikke-lineær programmering (NLP)}: Når én eller flere av \(f\), \(g_i\), eller \(h_j\) er ikke-lineære.
+		      \item \textbf{Kvadratisk programmering (QP)}: Når \(f\) er kvadratisk og restriksjonene er lineære.
+	      \end{itemize}
+	\item \textbf{Konveks optimering}: En spesialklasse der \(f\) og \(\Omega\) er konvekse.
+	      Dette forteller oss at enhver lokal løsning er global, løsningen er entydig hvis \(f\) er strengt konveks, og effektive algoritmer finnes.
 \end{itemize}
 
 \section{Globale og lokale løsninger}
@@ -341,8 +335,8 @@ En funksjon \(f: \Omega \subset \R^d \to \overline{\R}\) har en global løsning 
 
 \subsection{Lokale løsninger}
 En lokal løsning er den beste løsningen i et begrenset område rundt et punkt \(\symbf{x}^\star\).
-For å avgjøre om \(\symbf{x}^\star\) er en lokal løsning, må vi undersøke om det finnes bedre løsninger i nærheten. 
-De fleste metoder for dette baseres på Taylor-utvikling \ref{thm:taylor_theorem}.
+For å avgjøre om \(\symbf{x}^\star\) er en lokal løsning, må vi undersøke om det finnes bedre løsninger i nærheten.
+De fleste metoder for dette baseres på Taylor-utvikling \ref{thm:taylors_theorem}.
 
 
 \begin{definition}{Lokal løsning}{}
@@ -459,7 +453,7 @@ Når vi bruker iterative metoder for å finne minimum av en funksjon \(f\), øns
 	\[
 		\lim_{k \to \infty} \|\nabla f(\symbf{x}_k)\| = 0.
 	\]
-	
+
 	hvor \(\symbf{x}_k\) er iteratene generert av en optimaliseringsalgoritme, og \(\symbf{x}^\star\) tilfredsstiller de førsteordens nødvendige betingelsene \(\nabla f(\symbf{x}^\star) = 0\).
 
 \end{theorem}
@@ -476,10 +470,10 @@ For en konveks funksjon \(f\) er det stasjonære punktet \(\mathbf{x}^\star\) og
 \end{remark}
 
 \begin{example}{Eksistens og optimalitet}{}
-		For \( f(x) = x^2 + 2x \), som er kontinuerlig og koersiv, finnes et globalt minimum i \( x^* = -1 \) der \( f(-1) = -1 \).
+	For \( f(x) = x^2 + 2x \), som er kontinuerlig og koersiv, finnes et globalt minimum i \( x^* = -1 \) der \( f(-1) = -1 \).
 \end{example}
 \begin{example}{Eksistens og optimalitet}{}
-			
+
 	For \( f(x) = x^2 \), har vi \( \nabla f(x) = 2x \). I \( x^* = 0 \) er \( \nabla f(0) = 0 \) og \( \nabla^2 f(x) = 2 > 0 \), som oppfyller SOSC.
 
 \end{example}
