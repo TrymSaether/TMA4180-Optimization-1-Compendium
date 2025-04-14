@@ -1,10 +1,10 @@
-\part{Ubundet optimering}
+\part{Ubetinget Optimering}
 \label{part:unconstrained_optimization}
 
-Ubundet optimalisering (eller fri optimalisering) refererer til problemer uten eksplisitte restriksjoner på variablene \(\symbf{x}\), eller løsningsmengden \(\Omega\).
+Ubetinget optimalisering (eller fri optimalisering) refererer til problemer uten eksplisitte restriksjoner på variablene \(\symbf{x}\), eller løsningsmengden \(\Omega\).
 Dette betyr at vi kan søke etter løsninger i hele \(\Omega = \R^n\) uten å måtte ta hensyn til begrensninger som kan hindre oss i å finne den beste løsningen.
 
-\section{Introduksjon -- Ingen eksplisitte restriksjoner}
+\chapter*{Introduksjon}
 Den tillatte løsningsmengden omfatter hele \(\R^n\), uten likhets- eller ulikhetsbetingelser som begrenser søkerommet.
 Siden det ikke finnes restriksjoner å ta hensyn til, blir både problemet og løsningsmetodene enklere.
 
@@ -16,9 +16,40 @@ Vi fokuserer nå på problemet med å minimere en \textit{objektfunksjon} \( f :
 
 For å finne den optimale løsningen \(\symbf{x}^\ast\) for problemet, må vi vurdere både globale og lokale løsninger/minimumspunkter.
 
-\chapter{Gradientbaserte metoder}\label{chap:gradient_based_methods}
+\chapter{Gradientbaserte metoder}
+\label{chap:gradient_based_methods}
 Gradientbaserte metoder er en klasse av numeriske algoritmer som benytter gradienten til objektfunksjonen for å finne minimum eller maksimum.
+Disse metodene kan kategoriseres etter hvilken ordens derivert de bruker:
 
+\begin{itemize}
+	\item \textbf{Førsteordens metoder}: Bruker bare gradientinformasjon (f.eks. Steepest Descent)
+	\item \textbf{Andreordens metoder}: Bruker både gradient og Hesse-matrise (f.eks. Newtons metode)
+\end{itemize}
+
+Man klassifiserer også gradientbaserte metoder i to hovedkategorier, \emph{linjesøkmetoder} og \emph{trust region-metoder}. 
+I linjesøkmetoder bestemmer vi først søkeretningen, deretter hvor langt vi skal gå i den retningen.
+I trust region-metoder bestemmer vi først hvor langt vi kan gå (trust region-radiusen), deretter bestemmer vi både retning og steglengde samtidig.
+
+\begin{forest}
+	for tree={
+		align=center,
+		parent anchor=south,
+		child anchor=north
+	}
+	[Gradientbaserte\\ metoder
+		[Førsteordens\\ metoder
+			[Steepest\\ Descent]
+			[Konjugert\\ Gradient]
+		]
+		[Andreordens\\ metoder
+			[Newtons\\ metode]
+			[Quasi-Newton\\ metoder]
+		]
+	]
+\end{forest}
+
+\medskip
+Både første- og andreordens metoder kan implementeres med enten linjesøk eller trust region strategier.
 \section{Steepest Descent}\label{sec:steepest_descent}
 Steepest Descent en en enkel metode for å minimere \(f: \mathbb{R}^n \to \mathbb{R}\) ved å følge den bratteste nedstigningsretningen \( \symbf{d}_k = -\nabla f(\symbf{x}_k)\) fra et gitt punkt \( \symbf{x}_k \).
 \begin{definition}{Steepest Descent}{steepest_descent}
@@ -148,11 +179,12 @@ Skrittlengden \(\alpha_k\) kan bestemmes ved linjesøk, eller andre metoder for 
 
 \begin{algorithm}[H]
 	\SetAlgoLined
-	\KwIn{Startpunkt \( \symbf{x}_0 \), toleranse \( \epsilon \), maks antall iterasjoner \( K \)}
-	\KwOut{Omtrentelig løsning \( \symbf{x}^\ast \)}
-	\For{\( k = 0, 1, 2, \ldots, K\)}{
+	\KwIn{Startpunkt \( \symbf{x}_0 \), tol. \( \epsilon > 0 \), maks iter. \( K_{max} \)}
+	\KwOut{Løsning \( \approx \symbf{x}^\ast \)}
+	Start Skritt \(\alpha_0 = 1\)\;
+	\For{\( k = 0, 1, 2, \ldots, K_{max}\)}{
 	\(\symbf{d}_k = -[\nabla^2 f(\symbf{x}_k)]^{-1}\,\nabla f(\symbf{x}_k)\)\;
-	Finn skrittlengde \(\alpha_k\) (f.eks.\ ved linjesøk-metode)\;
+	Finn Ny Skritt \(\alpha_k\) (f.eks.\ ved linjesøk-metoder)\;
 	\(\symbf{x}_{k+1} = \symbf{x}_k + \alpha_k \symbf{d}_k\)\;
 	\If{\(\|\nabla f(\symbf{x}_{k+1})\| < \epsilon\)}{
 		\Return \(\symbf{x}_{k+1}\)\;

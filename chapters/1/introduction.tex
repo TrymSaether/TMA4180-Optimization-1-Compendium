@@ -1,42 +1,74 @@
 \part{Optimeringsproblemer og Optimalitet}
 \label{part:introduction}
-\chapter{Forhåndskunnskaper}
+
+\chapter{Matematisk bakgrunn}
 \label{chap:mathematical_background}
 
-\section{Vektorrom og produkter}
+\section{Grunnleggende lineær algebra}
+\subsection{Vektor operasjoner}
 
-\subsection{Ytre og indre produkter}
-\begin{definition}{Ytre produkt}{outer_product}
-	Gitt to vektorer \( \symbf{a} \in \R^m \) og \( \symbf{b} \in \R^n \), er det ytre produktet definert som:
+\subsubsection{Indre produkt}
+Det indre produktet, også kjent som skalarprodukt, er en operasjon som tar to vektorer og gir et tall. 
+Dette tallet representerer på mange måter hvordan vektorene "overlapper" med hverandre, og er spesielt nyttig for å måle avstander og vinkler mellom vektorer.
+
+\begin{definition}{Indre produkt}{inner_product}
+	Gitt to vektorer \( \symbf{u}, \symbf{v} \in \R^n \), er det indre produktet definert som:
+
 	\[
-		\symbf{a} \otimes \symbf{b} = \symbf{a} \symbf{b}^\top =
+		\symbf{u} \cdot \symbf{v} = \symbf{u}^\top \symbf{v} = \sum_{i=1}^{n} u_i v_i
+	\]
+
+\end{definition}
+
+\begin{remark}{Projeksjon}{projection}
+	Projeksjonen av vektoren \( \symbf{u} \) på vektoren \( \symbf{v} \) er gitt ved:
+	\[
+		\operatorname{proj}_{\symbf{v}}(\symbf{u}) = \frac{\symbf{u} \cdot \symbf{v}}{\norm{\symbf{v}}^2} \symbf{v}
+	\]
+	Dette gir oss en ny vektor som er parallell med \( \symbf{v} \) og representerer den delen av \( \symbf{u} \) som "går i retning" av \( \symbf{v} \).
+\end{remark}
+
+\subsubsection{Ytre produkt (tensorprodukt)}
+Ytre produktet er en operasjon som tar to vektorer og lager en matrise.
+\begin{definition}{Ytre produkt}{outer_product}
+	Gitt to vektorer \( \symbf{u} \in \R^m \) og \( \symbf{v} \in \R^n \), er det ytre produktet definert som:
+	\[
+		\symbf{u} \otimes \symbf{v} = \symbf{u} \; \symbf{v}^\top =
 		\begin{bmatrix}
-			a_1b_1 & a_1b_2 & \cdots & a_1b_n \\
-			a_2b_1 & a_2b_2 & \cdots & a_2b_n \\
+			u_1v_1 & u_1v_2 & \cdots & u_1v_n \\
+			u_2v_1 & u_2v_2 & \cdots & u_2v_n \\
 			\vdots & \vdots & \ddots & \vdots \\
-			a_mb_1 & a_mb_2 & \cdots & a_mb_n
+			u_mv_1 & u_mv_2 & \cdots & u_mv_n
 		\end{bmatrix}
 	\]
 \end{definition}
 
-\begin{definition}{Indre produkt}{inner_product}
-	Gitt to vektorer \( \symbf{a}, \symbf{b} \in \R^n \), er det indre produktet definert som:
+\subsubsection{Norm}
+Norm er et mål på størrelsen eller lengden av en vektor. Den mest brukte normen er den euklidiske normen, som er definert under.
 
+\begin{definition}{Norm}{norm}
+	Gitt en vektor \( \symbf{x} \in \R^n \), er normen definert som:
 	\[
-		\symbf{a} \cdot \symbf{b} = \symbf{a}^\top \symbf{b} = \sum_{i=1}^{n} a_i b_i
+		\norm{\symbf{x}} = \sqrt{\symbf{x}^\top \symbf{x}} = \sqrt{\sum_{i=1}^{n} x_i^2}
 	\]
-
 \end{definition}
 
-\section{Mengder}
+Andre viktige normer inkluderer:
+\begin{align*}
+	\tag{Euklidisk norm} \norm{\symbf{x}}_2 &= \sqrt{\sum_{i=1}^{n} x_i^2} \\
+	\tag{Manhattan norm} \norm{\symbf{x}}_1 &= \sum_{i=1}^{n} |x_i| \\
+	\tag{Max norm} \norm{\symbf{x}}_\infty &= \max_{i=1,\ldots,n} |x_i|
+\end{align*}
 
+
+\section{Mengder}
 \subsection{Baller}
 En åpen ball i \(\R^d\) er en mengde av punkter \(\mathbf{x}\) som ligger innenfor en viss avstand \(r\) fra et sentrum \(\mathbf{x_0}\).
 
 Den er definert ved hjelp av den euklidiske normen \(\norm{\cdot}\), som måler avstanden mellom to punkter i rommet.
 
 \begin{definition}{Åpen Ball}{open_ball}
-	En åpen ball \(B(\mathbf{x}_0, r)\) i \(\R^d\) med sentrum \(\mathbf{x_0}\) og radius \(r\) er definert som:
+	En åpen ball \(B(\mathbf{x}_0, r)\) i \(\R^d\) med sentrum \(\mathbf{x}_0\) og radius \(r\) er definert som:
 	\[
 		B(\mathbf{x}_0, r) = \{ \mathbf{x} \in \R^d : \norm{\mathbf{x} - \mathbf{x}_0} < r\}
 	\]
@@ -204,6 +236,49 @@ Konveksitet er et viktig begrep i optimering og matematikk generelt. Det referer
 	\end{itemize}
 \end{remark}
 
+\section{Ekvivalente utsagn for konvekse funksjoner}
+
+La \(f:\mathbb{R}^n \to \mathbb{R}\) være en funksjon. Følgende utsagn er ekvivalente:
+\begin{table}[H]
+	\centering
+	\small
+	\begin{tabularx}{\textwidth}{|X|X|X|}
+		\rowcolor{rem-color!25}
+		\textbf{Ekvivalente Utsagn} & \textbf{Matematisk Definisjon} & \textbf{Forklaring og Intuisjon} \\
+		\hline
+		Geometrisk & 
+		\( f(\lambda \symbf{x} + (1-\lambda)\symbf{y}) \le \lambda f(\symbf{x}) + (1-\lambda)f(\symbf{y}) \)  
+		for alle \( \symbf{x},\symbf{y} \) i domenet og \( \lambda \in [0,1] \)
+		& Grafen til \( f \) ligger under eller på sekantlinjene som forbinder to punkter på grafen. \\
+		\hline
+		Epi-graf &
+		\(\operatorname{epi}(f) = \{ (\symbf{x},t)\in\mathbb{R}^n\times\mathbb{R} : f(\symbf{x})\le t \}\) er konveks.
+		& Enhver konveks kombinasjon av punkter i epi-grafen tilhører også epi-grafen. \\
+		\hline
+		Første orden &
+		\( f(\symbf{y}) \ge f(\symbf{x}) + \nabla f(\symbf{x})^\top (\symbf{y}-\symbf{x}) \)
+		(gjelder dersom \( f \) er deriverbar)
+		& Tangentplanet i ethvert punkt underestimerer \( f \) globalt, for alle \( \symbf{x},\symbf{y} \) i domenet. \\
+		\hline
+		Global optimalitet &
+		Hvis \( f \) er konveks, er hvert lokalt minimum et globalt minimum.
+		& En konsekvens av konveksitet: en konveks funksjon kan ikke ha ``isolerte'' lokale minima. (Merk at enkelte ikke-konvekse, quasi-konvekse funksjoner også kan ha denne egenskapen.) \\\hline
+		Andre orden &
+		\( \nabla^2 f(\symbf{x}) \succeq 0 \) for alle \( \symbf{x} \) i domenet 
+		(dersom \( f \) er to ganger deriverbar)
+		& Hessianmatrisen er positiv semidefinit, noe som via Taylorutvidelsen tilsier at funksjonen ikke ``bøyer'' seg nedover. \\
+		\hline
+		Subgradient &
+		For alle \( \symbf{x} \) er \( \partial f(\symbf{x}) \neq \varnothing \) og for hvert \( s \in \partial f(\symbf{x}) \) gjelder 
+		\( f(\symbf{y}) \ge f(\symbf{x}) + s^\top (\symbf{y}-\symbf{x}) \)
+		& Selv om \( f \) ikke er deriverbar, gir tilstedeværelsen av subgradienter en lineær underestimering som karakteriserer konveksitet. 
+		\\
+		\hline
+	\end{tabularx}
+	\caption{Ekvivalente karakteriseringer av konvekse funksjoner, ordnet etter kompleksitet.}
+	\label{tab:convex_equivalence}
+\end{table}
+
 \section{Geometriske objekter}
 \subsection{Simplex}
 Et simplex er en geometrisk figur som kan forstås som den enkleste formen i et gitt antall dimensjoner. For eksempel er et 0-simplex et punkt, et 1-simplex er en linje, et 2-simplex er en trekant, og så videre.
@@ -252,142 +327,8 @@ Et simplex er en geometrisk figur som kan forstås som den enkleste formen i et 
 	\end{figure}
 \end{definition}
 
-\chapter{Hva er optimering?}
-\label{chap:what_is_optimization}
-
-Optimering er et felt innen matematikken som handler om å finne den beste løsningen på et gitt problem, enten med eller uten restriksjoner på løsningsrommet.
-
-Målet i et \emph{optimeringsproblem} er å finne en variabel \(x^\star \in \Omega\) som minimerer eller maksimerer en gitt funksjon \(f: \Omega \to \R\),
-kalt \emph{mål\-funksjonen} eller \emph{kostnads\-funksjonen}.
-
-\section{Optimeringsproblemer i \texorpdfstring{\(\R^d\)}{Rd}}
-
-Mengden \(\Omega \subseteq \R^d\) betegner de tillatte løsningene og kalles ofte \emph{søkeområdet} eller den \emph{tillatte mengden (eng. feasible set)}.
-
-\begin{definition}{Optimeringsproblemet \((P)\)}{def:optimization_problem}
-
-	La \(f: \Omega \to \R\) være en funksjon vi ønsker å minimere eller maksimere, der \(\Omega \subseteq \R^d\) er mengden av tillatte (mulige) løsninger.
-	\[
-		\min_{x \in \Omega} f(x) \quad \text{eller} \quad \max_{x \in \Omega} f(x) \tag{P}
-	\]
-
-\end{definition}
-
-Vi fokuserer hovedsakelig på minimeringsproblemer, siden maksimeringsproblemer enkelt kan omformuleres ved å erstatte \(f(x)\) med \(-f(x)\).
-De fleste algoritmene vi diskuterer, er designet for å løse minimeringsproblemer.
-
-\section{Ubundet og Bundet optimering}
-Ulike problemtyper oppstår ut fra hvordan denne mengden \(\Omega\) er definert, og hvilke egenskaper funksjonen \(f\) har. Nedenfor gir vi en oversikt over de mest sentrale klassene av optimeringsproblemer:
-
-\begin{itemize}
-	\item \textbf{Ubundet optimering}: Dette er den enkleste typen, uten eksplisitte restriksjoner på variabelen \(x\). Her er \(\Omega = \R^d\), og vi søker å minimere \(f(x)\) over hele rommet.
-	\item \textbf{Betinget optimering}: Her pålegges løsningen restriksjoner, og den tillatte mengden \(\Omega \subset \R^d\) er definert ved:
-	      \[
-		      \Omega = \{ x \in \R^d \mid g_i(x) \leq 0, \, i \in \mathcal{I}, \quad h_j(x) = 0, \, j \in \mathcal{E} \}.
-	      \]
-	      \begin{itemize}
-		      \item \textbf{Lineær programmering (LP)}: Når \(f\) og restriksjonene er lineære.
-		      \item \textbf{Ikke-lineær programmering (NLP)}: Når én eller flere av \(f\), \(g_i\), eller \(h_j\) er ikke-lineære.
-		      \item \textbf{Kvadratisk programmering (QP)}: Når \(f\) er kvadratisk og restriksjonene er lineære.
-	      \end{itemize}
-	\item \textbf{Konveks optimering}: En spesialklasse der \(f\) og \(\Omega\) er konvekse.
-	      Dette forteller oss at enhver lokal løsning er global, løsningen er entydig hvis \(f\) er strengt konveks, og effektive algoritmer finnes.
-\end{itemize}
-
-\section{Globale og lokale løsninger}
-\label{sec:global_and_local_solutions}
-I optimeringsproblemer er det viktig å skille mellom globale og lokale løsninger. En global løsning er den beste løsningen i hele søkeområdet, mens en lokal løsning er den beste løsningen i et begrenset område rundt et punkt.
-
-
-\subsection{Globale løsninger}
-En global løsning er den beste løsningen i hele søkeområdet \(\Omega\). Dette betyr at det ikke finnes noen annen løsning i hele \(\Omega\) som gir en bedre verdi for funksjonen \(f\).
-
-\begin{definition}{Globale løsninger}{global_solution}
-
-	\medskip
-	For en funksjon \(f: \Omega \to \R\) sier vi at \(\symbf{x}^\star \in \Omega\) er en global løsning av minimeringsproblemet~\eqref{eq:global_minimization_problem} hvis:
-
-	\begin{align*}
-		f(\symbf{x}^\star) & \leq f(\symbf{x}) \quad \forall \symbf{x} \in \Omega \tag{Global}                                      \\
-		f(\symbf{x}^\star) & < f(\symbf{x}) \quad \forall \symbf{x} \in \Omega, \symbf{x} \neq \symbf{x}^\star \tag{Strengt Global}
-	\end{align*}
-\end{definition}
-
-\subsubsection{Eksistens av globale løsninger}
-
-En funksjon \(f: \Omega \subset \R^d \to \overline{\R}\) har en global løsning (minimum) i \(\Omega\) hvis den er:
-
-\begin{itemize}
-	\item \textbf{Nedre semi-kontinuerlig}: For alle \(x \in \Omega\) og alle sekvenser \((x_n)\) som konvergerer mot \(x\):
-	      \[
-		      f(x) \leq \liminf_{n \to \infty} f(x_n).
-	      \]
-	\item \textbf{Koersiv}: Det finnes en konstant \(M > 0\) slik at
-	      \[
-		      f(x) \geq M \quad \forall x \in \Omega.
-	      \]
-	      Dette sikrer at \(f\) ikke går mot \(-\infty\) når \(x\) går mot uendelig.
-\end{itemize}
-
-\begin{theorem}{Eksistens av globale løsninger}{existence_of_global_solution}
-	La \(f: \Omega \subset \R^d \to \overline{\R}\) være nedre semi-kontinuerlig og koersiv på \(\Omega\). Da har \(f\) en global løsning (minimum) i \(\Omega\).
-\end{theorem}
-
-\subsection{Lokale løsninger}
-En lokal løsning er den beste løsningen i et begrenset område rundt et punkt \(\symbf{x}^\star\).
-For å avgjøre om \(\symbf{x}^\star\) er en lokal løsning, må vi undersøke om det finnes bedre løsninger i nærheten.
-De fleste metoder for dette baseres på Taylor-utvikling \ref{thm:taylors_theorem}.
-
-
-\begin{definition}{Lokal løsning}{}
-	La \(f: \Omega \to \R\) være en funksjon.
-
-	Vi sier at \(x^\star \in \Omega\) er en lokal løsning av optimeringsproblemet hvis, for en viss \(\varepsilon > 0\):
-
-	\begin{align*}
-		f(\symbf{x}^\star) & \leq f(\symbf{x}) \quad \forall \; \symbf{x} \in B(\symbf{x}^\star, \varepsilon) \cap \Omega,                                                  \\
-		f(\symbf{x}^\star) & < f(\symbf{x}) \quad \forall \; \symbf{x} \in B(\symbf{x}^\star, \varepsilon) \cap \Omega, \symbf{x} \neq \symbf{x}^\star. \tag{Strengt lokal}
-	\end{align*}
-
-	hvor \(B(\symbf{x}^\star, \varepsilon)\) er en åpen kule med sentrum \(\symbf{x}^\star\) og radius \(\varepsilon\)~\ref{def:open_ball}.
-\end{definition}
-
-\subsubsection{Taylors teorem}
-Taylor-utvikling er en metode for å tilnærme en funksjon ved hjelp av dens deriverte.
-Den gir oss en måte å uttrykke funksjonen som en sum av dens verdier og deriverte i et punkt, noe som kan være nyttig for å analysere oppførselen til funksjonen i nærheten av det punktet.
-
-Ved hjelp av Taylor-utvikling kan vi avgjøre om \(\symbf{x}^\star\) er en lokal løsning ved å sjekke om gradienten \(\nabla f(\symbf{x}^\star) = 0\) og Hesse-matrisen \(\nabla^2 f(\symbf{x}^\star)\)
-
-\begin{theorem}{Taylors teorem}{taylors_theorem}
-	Anta at \(f: \R^n \to \R\) med \(\mathbf{p}\in\R^n\), og la \(t\in[0,1]\).
-
-	\medskip
-
-	Hvis \(f\in\Ccal^1\) (én gang kontinuerlig deriverbar):
-	\[
-		f(\mathbf{x} + \mathbf{p}) = f(\mathbf{x}) + \nabla f(\mathbf{x}+t\mathbf{p})^\top \mathbf{p},
-	\]
-
-	Hvis \(f \in \Ccal^2\) (to ganger kontinuerlig deriverbar):
-
-	\begin{align*}
-		\nabla f(\mathbf{x} + \mathbf{p}) = \nabla f(\mathbf{x}) + \int_0^1 \nabla^2 f(\mathbf{x}+t\mathbf{p})\mathbf{p} dt, \\
-		\boxed{f(\mathbf{x} + \mathbf{p}) = f(\mathbf{x}) + \nabla f(\mathbf{x})^\top \mathbf{p} + \frac{1}{2}\mathbf{p}^\top \nabla^2 f(\mathbf{x}+t\mathbf{p})\mathbf{p}}
-	\end{align*}
-\end{theorem}
-
-\subsubsection{Isolerte lokale løsninger}
-En isolert lokal løsning er en lokal løsning der det ikke finnes andre løsninger i nærheten. Dette betyr at det er en viss avstand fra \(\symbf{x}^\star\) til alle andre løsninger.
-
-\begin{lemma}{Isolert lokal løsning}{isolated_local_solution}
-	La \(f: \Omega \to \R\) være en funksjon.
-
-	Hvis \(\symbf{x}^\star \in \Omega\) er en isolert lokal løsning, finnes det en \(\varepsilon > 0\) slik at:
-
-	\[
-		f(\symbf{x}^\star) \leq f(\symbf{x}) \quad \forall \; \symbf{x} \in B(\symbf{x}^\star, \varepsilon) \cap \Omega, \symbf{x} \neq \symbf{x}^\star.
-	\]
-\end{lemma}
+\input{chapters/1/convexity}
+\input{chapters/1/problem}
 
 \chapter{Optimalitetsbetingelser}
 \label{chap:optimality_conditions}
@@ -477,7 +418,3 @@ For en konveks funksjon \(f\) er det stasjonære punktet \(\mathbf{x}^\star\) og
 	For \( f(x) = x^2 \), har vi \( \nabla f(x) = 2x \). I \( x^* = 0 \) er \( \nabla f(0) = 0 \) og \( \nabla^2 f(x) = 2 > 0 \), som oppfyller SOSC.
 
 \end{example}
-
-
-
-
