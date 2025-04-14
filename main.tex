@@ -7,13 +7,20 @@
 \addbibresource{preamble/bib/references.bib}
 \setglossarystyle{listhypergroup}
 
-
+\includeonly{
+    preamble/frontmatter/titlepage,
+    preamble/bib/glossary,
+    chapters/1_Introduction,
+    % chapters/2_UnconstrainedOptimization,
+    % chapters/3_ConvexOptimization,
+    % preamble/appendix/AlgorithmMap,
+    % preamble/appendix/Formulas,
+    % preamble/appendix/Functions,
+    preamble/appendix/LectureNotes,
+}
 \begin{document}
 \include{preamble/bib/glossary}
 \include{preamble/frontmatter/titlepage}
-
-\newpage
-
 \tableofcontents
 
 \clearpage
@@ -25,6 +32,10 @@
 \clearpage
 
 \appendix
+\include{preamble/appendix/AlgorithmMap}
+\include{preamble/appendix/Formulas}
+\include{preamble/appendix/Functions}
+\include{preamble/appendix/LectureNotes}
 
 \printbibliography
 \printglossary
