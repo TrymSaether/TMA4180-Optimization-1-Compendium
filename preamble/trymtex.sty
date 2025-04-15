@@ -15,6 +15,9 @@
 \usepackage{ragged2e}        % Better text alignment
 \usepackage{enumitem}        % Customize lists
 \usepackage{suffix}          % Command suffix support
+\usepackage[autostyle, english=american]{csquotes}  % Smart quotes
+\usepackage[acronym,symbols,nogroupskip]{glossaries-extra}  % Glossary support
+\usepackage[backend=biber]{biblatex}  % Bibliography management
 
 % =============================================
 % 3. TABLE & FIGURE SUPPORT
@@ -88,7 +91,7 @@
 \setmainfont{IBM Plex Serif}
 \setsansfont{IBM Plex Sans}
 \setmonofont{IBM Plex Mono}
-\setmathfont{STIX Two Math}[Scale=MatchLowercase]
+\setmathfont{STIX Two Math}
 
 % Algorithm support
 \usepackage[lined,boxed,commentsnumbered,linesnumbered]{algorithm2e}
@@ -126,7 +129,6 @@
 
 % ToC configuration
 \usepackage{tocloft} % Customize ToC
-\usepackage{suffix} 
 \renewcommand{\cftsubsubsecfont}{\normalfont} 
 \renewcommand{\cftsubsubsecleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftsubsubsecafterpnum}{\hspace*{2em}}
@@ -469,14 +471,19 @@
 % =============================================
 % 7. GRAPHICS & TIKZ
 % =============================================
-\usetikzlibrary{arrows.meta, positioning}
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
+\usepackage{forest}          % Tree diagrams
+\usepackage{optidef}         % Optimization problem definitions
 
-% =============================================
-% X. CUSTOM COMMANDS & PACKAGES
-% =============================================
-\usepackage[autostyle, english=american]{csquotes}  % Smart quotes
-
+% Load all TikZ libraries in one place
+\usetikzlibrary{
+    arrows.meta,
+    backgrounds,
+    positioning,
+    calc,
+    decorations.pathreplacing,
+    3d
+}
 
 \endinput

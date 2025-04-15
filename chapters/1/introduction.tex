@@ -44,38 +44,51 @@ Ytre produktet er en operasjon som tar to vektorer og lager en matrise.
 \end{definition}
 
 \subsubsection{Norm}
-Norm er et mål på størrelsen eller lengden av en vektor. Den mest brukte normen er den euklidiske normen, som er definert under.
+En norm er en funksjon som måler \enquote{størrelsen} eller \enquote{lengden} av matematiske objekter som vektorer. 
+Den generaliserer ideen om absolutt verdi til høyere dimensjoner.
 
 \begin{definition}{Norm}{norm}
-	Gitt en vektor \( \symbf{x} \in \R^n \), er normen definert som:
+	En norm på et vektorrom \(V\) er en funksjon \(\norm{\cdot}: V \to \R\) som oppfyller:
+	\begin{enumerate}
+		\item \textbf{Positivitet:} \(\norm{\symbf{x}} \geq 0\) og \(\norm{\symbf{x}} = 0\) hvis og bare hvis \(\symbf{x} = 0\)
+		\item \textbf{Homogenitet:} \(\norm{\alpha \symbf{x}} = |\alpha| \norm{\symbf{x}}\) for alle \(\alpha \in \R\)
+		\item \textbf{Trekantulikhet:} \(\norm{\symbf{x} + \symbf{y}} \leq \norm{\symbf{x}} + \norm{\symbf{y}}\)
+	\end{enumerate}
+\end{definition}
+
+\begin{remark}{Viktige normer}{important_norms}
+	De mest brukte normene i \(\R^n\) er:
+	\begin{align*}
+		\tag{Euklidisk norm} \norm{\symbf{x}}_2 &= \sqrt{\sum_{i=1}^{n} x_i^2} \\
+		\tag{Manhattan norm} \norm{\symbf{x}}_1 &= \sum_{i=1}^{n} |x_i| \\
+		\tag{Max norm} \norm{\symbf{x}}_\infty &= \max_{i=1,\ldots,n} |x_i|
+	\end{align*}
+	Den euklidiske normen er den mest vanlige og svarer til vår intuitive forståelse av avstand.
+\end{remark}
+
+\section{Mengder}
+
+\subsection{Baller}
+En ball i \(\R^d\) er en mengde av punkter som ligger innenfor en viss avstand fra et sentrumspunkt. Den kan være åpen eller lukket, avhengig av om grensen er inkludert eller ikke.
+Den er definert ved den euklidiske normen\eqref{eq:euclidean_norm}.
+\subsection{Åpen ball}
+En åpen ball i \(\R^d\) er mengden av punkter innenfor en gitt avstand fra et sentrum, uten å inkludere grensen.
+
+\begin{definition}{Åpen Ball}{open_ball}
+	En åpen ball \(B(\mathbf{x}_0, r)\) i \(\R^d\) med sentrum \(\mathbf{x}_0\) og radius \(r\) er:
 	\[
-		\norm{\symbf{x}} = \sqrt{\symbf{x}^\top \symbf{x}} = \sqrt{\sum_{i=1}^{n} x_i^2}
+		B(\mathbf{x}_0, r) = \{ \mathbf{x} \in \R^d : \norm{\mathbf{x} - \mathbf{x}_0} < r \}
 	\]
 \end{definition}
 
-Andre viktige normer inkluderer:
-\begin{align*}
-	\tag{Euklidisk norm} \norm{\symbf{x}}_2 &= \sqrt{\sum_{i=1}^{n} x_i^2} \\
-	\tag{Manhattan norm} \norm{\symbf{x}}_1 &= \sum_{i=1}^{n} |x_i| \\
-	\tag{Max norm} \norm{\symbf{x}}_\infty &= \max_{i=1,\ldots,n} |x_i|
-\end{align*}
+\subsection{Lukket ball}
+En lukket ball i \(\R^d\) inkluderer også punktene på grensen.
 
-
-\section{Mengder}
-\subsection{Baller}
-En åpen ball i \(\R^d\) er en mengde av punkter \(\mathbf{x}\) som ligger innenfor en viss avstand \(r\) fra et sentrum \(\mathbf{x_0}\).
-
-Den er definert ved hjelp av den euklidiske normen \(\norm{\cdot}\), som måler avstanden mellom to punkter i rommet.
-
-\begin{definition}{Åpen Ball}{open_ball}
-	En åpen ball \(B(\mathbf{x}_0, r)\) i \(\R^d\) med sentrum \(\mathbf{x}_0\) og radius \(r\) er definert som:
+\begin{definition}{Lukket Ball}{closed_ball}
+	En lukket ball \(\overline{B}(\mathbf{x}_0, r)\) i \(\R^d\) med sentrum \(\mathbf{x}_0\) og radius \(r\) er:
 	\[
-		B(\mathbf{x}_0, r) = \{ \mathbf{x} \in \R^d : \norm{\mathbf{x} - \mathbf{x}_0} < r\}
+		\overline{B}(\mathbf{x}_0, r) = \{ \mathbf{x} \in \R^d : \norm{\mathbf{x} - \mathbf{x}_0} \leq r \}
 	\]
-	\begin{itemize}
-		\item \(B(\mathbf{x}_0, r)\) er åpen hvis den ikke inkluderer grensen.
-		\item \(B(\mathbf{x}_0, r)\) er lukket hvis den inkluderer grensen.
-	\end{itemize}
 \end{definition}
 
 \subsection{Nivåsett}
@@ -329,6 +342,17 @@ Et simplex er en geometrisk figur som kan forstås som den enkleste formen i et 
 
 \input{chapters/1/convexity}
 \input{chapters/1/problem}
+
+\section{Veldefinerthet}
+\begin{definition}{Veldefinert funksjon}{well_defined}
+    La $f: X \to Y$ være en funksjon. Vi sier at $f$ er veldefinert hvis:
+    \begin{enumerate}
+        \item For hvert $x \in X$ eksisterer det nøyaktig én verdi $f(x) \in Y$.
+        \item Funksjonen er entydig bestemt, det vil si at hvis $x_1 = x_2$ så er $f(x_1) = f(x_2)$.
+    \end{enumerate}
+    
+    En operator eller en transformasjon er veldefinert hvis den tilfredsstiller de samme kravene: hver innverdi gir nøyaktig én utverdi, og like innverdier gir like utverdier.
+\end{definition}
 
 \chapter{Optimalitetsbetingelser}
 \label{chap:optimality_conditions}

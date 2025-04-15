@@ -1,51 +1,31 @@
+% !TeX root = main.tex
 \documentclass[10pt, a4paper]{report}
-\usepackage{preamble/trymtex}
-\usepackage{optidef}
-\usepackage[acronym,symbols,nogroupskip]{glossaries-extra}
-\usepackage[backend=biber]{biblatex}
-\usepackage{forest}
-\usetikzlibrary{
-    backgrounds,
-    positioning,
-    arrows.meta,
-    calc,
-    decorations.pathreplacing,
-    3d
-}
-\usetikzlibrary{arrows.meta}
+\usepackage{trymtex}
 
 \makeglossaries
 \addbibresource{preamble/bib/references.bib}
 \setglossarystyle{listhypergroup}
 
 \includeonly{
-     preamble/frontmatter/titlepage,
-     preamble/bib/glossary,
-%     chapters/1/introduction,
-%     % chapters/2/unconstrained_optimization,
-        chapters/3/constrained_optimization,
-%     % preamble/appendix/AlgorithmMap,
-%     % preamble/appendix/Formulas,
-%     % preamble/appendix/Functions,
-%     preamble/appendix/LectureNotes,
+preamble/frontmatter/titlepage,
+preamble/bib/glossary,
+% chapters/1/introduction,
+% chapters/2/unconstrained_optimization,
+chapters/3/constrained_optimization,
 }
 
 \begin{document}
+
 \include{preamble/bib/glossary}
 \include{preamble/frontmatter/titlepage}
-\tableofcontents
 
-\clearpage
+\tableofcontents
 
 \include{chapters/1/introduction}
 \include{chapters/2/unconstrained_optimization}
 \include{chapters/3/constrained_optimization}
 
-\clearpage
-
 \appendix
-\include{preamble/appendix/Formulas}
-\include{preamble/appendix/Functions}
 \include{preamble/appendix/LectureNotes}
 
 \printbibliography
