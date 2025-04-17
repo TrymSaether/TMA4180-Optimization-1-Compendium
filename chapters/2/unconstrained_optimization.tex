@@ -4,19 +4,252 @@
 Ubetinget optimalisering (eller fri optimalisering) refererer til problemer uten eksplisitte restriksjoner på variablene \(\symbf{x}\), eller løsningsmengden \(\Omega\).
 Dette betyr at vi kan søke etter løsninger i hele \(\Omega = \R^n\) uten å måtte ta hensyn til begrensninger som kan hindre oss i å finne den beste løsningen.
 
-\chapter*{Introduksjon}
-Den tillatte løsningsmengden omfatter hele \(\R^n\), uten likhets- eller ulikhetsbetingelser som begrenser søkerommet.
-Siden det ikke finnes restriksjoner å ta hensyn til, blir både problemet og løsningsmetodene enklere.
+\chapter{Inntroduksjon til Ubetinget Optimalisering}
+\label{chap:unconstrained_optimization}
 
-Vi fokuserer nå på problemet med å minimere en \textit{objektfunksjon} \( f : \R^n \to \R \) over hele rommet \(\R^n\):
+\section{Definisjon og Problemstilling}
+Vi fokuserer nå på problemet med å minimere en \textit{objektfunksjon}
+\( f : \R^n \to \R \) over hele rommet \(\R^n\):
 
 \[
 	\min_{\symbf{x} \in \R^n} f(\symbf{x}) \tag{P} \label{eq:global_minimization_problem}
 \]
 
-For å finne den optimale løsningen \(\symbf{x}^\ast\) for problemet, må vi vurdere både globale og lokale løsninger/minimumspunkter.
+Den tillatte løsningsmengden omfatter hele \( \Omega = \R^n\).
+Siden det ikke finnes restriksjoner å ta hensyn til, blir både problemet og løsningsmetodene enklere sammenlignet med betingede optimeringsproblemer.
 
-\chapter{Gradientbaserte metoder}
+Vi fokuserer hovedsakelig på minimering, men alle metoder kan anvendes på maksimeringsproblemer ved å minimere \(-f(\symbf{x})\), siden \(\max_{\symbf{x}} f(\symbf{x}) = -\min_{\symbf{x}} (-f(\symbf{x}))\).
+
+\subsection{Motivasjon og Anvendelser}
+Ubetinget optimering oppstår naturlig i mange praktiske problemer:
+
+\begin{itemize}
+	\item \textbf{Tilpasning av modeller til data} (kurvetilpasning, regresjonsanalyse)
+	\item \textbf{Maskinlæring} (trening av nevrale nettverk, logistisk regresjon)
+	\item \textbf{Vitenskapelige beregninger} (simulering, minste kvadraters metode)
+	\item \textbf{Bildebehandling} (filtrering, rekonstruksjon)
+	\item \textbf{Økonomisk optimering} (porteføljeoptimering, kostnadsminimering)
+\end{itemize}
+
+I mange tilfeller kan også betingede optimeringsproblemer omformuleres som ubetingede problemer ved hjelp av straffefunksjoner eller barrierefunksjoner.
+
+\section{Grunnleggende Konsepter}
+
+\subsection{Lokale og Globale Optima}
+
+Et viktig skille i optimeringsteori er mellom lokale og globale optima.
+
+\begin{definition}{Globalt minimum}{global_minimum}
+	Et punkt \(\symbf{x}^\ast \in \R^n\) er et \textit{globalt minimum} for funksjonen \(f\) hvis
+	\[
+		f(\symbf{x}^\ast) \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in \R^n
+	\]
+\end{definition}
+
+\begin{definition}{Lokalt minimum}{local_minimum}
+	Et punkt \(\symbf{x}^\ast \in \R^n\) er et \textit{lokalt minimum} for funksjonen \(f\) hvis det finnes en åpen omegn \(U\) rundt \(\symbf{x}^\ast\) slik at
+	\[
+		f(\symbf{x}^\ast) \leq f(\symbf{x}) \quad \text{for alle} \quad \symbf{x} \in U
+	\]
+\end{definition}
+
+Vi sier at minimumet er \textit{strengt} hvis ulikhetene over holder strengt for alle $\symbf{x} \neq \symbf{x}^\ast$.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+				xlabel={$x$},
+				ylabel={$f(x)$},
+				xmin=-3, xmax=4,
+				ymin=-0.5, ymax=5,
+				samples=100,
+				smooth,
+				domain=-3:4,
+				width=0.8\textwidth,
+				height=5cm
+			]
+			\addplot[blue, thick] {0.2*x^4-2*x^2+0.5*x+3};
+			\draw[dashed] (axis cs:-1.8,0) -- (axis cs:-1.8,1.7);
+			\draw[dashed] (axis cs:1.6,0) -- (axis cs:1.6,1.2);
+			\draw[dashed] (axis cs:0,0) -- (axis cs:0,3);
+
+			\node at (axis cs:-1.8,1.35) [anchor=east] {Lokalt minimum};
+			\node at (axis cs:1.6,0.9) [anchor=west] {Globalt minimum};
+			\node at (axis cs:0,3.3) [anchor=north] {Lokalt maksimum};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Eksempel på en funksjon med både lokale og globale ekstremalpunkter}
+	\label{fig:local_vs_global}
+\end{figure}
+
+Figur \ref{fig:local_vs_global} viser en funksjon med både lokale og globale ekstremalpunkter. I praksis er det generelt vanskelig å garantere at et funnet minimum er globalt, spesielt for ikke-konvekse funksjoner.
+
+\subsection{Stasjonære Punkter}
+
+For differensierbare funksjoner er et nødvendig vilkår for et lokalt minimum at gradienten er null.
+
+\begin{definition}{Stasjonært punkt}{stationary_point}
+	Et punkt \(\symbf{x}^\ast \in \R^n\) kalles et \textit{stasjonært punkt} for \(f\) hvis \(f\) er differensierbar ved \(\symbf{x}^\ast\) og
+	\[
+		\nabla f(\symbf{x}^\ast) = \symbf{0}
+	\]
+\end{definition}
+
+Stasjonære punkter kan være:
+\begin{itemize}
+	\item Lokale minima
+	\item Lokale maksima
+	\item Sadelpunkter
+\end{itemize}
+
+For å skille mellom disse typene, bruker vi andreordens informasjon.
+
+\subsection{Konveksitet}
+
+Konvekse funksjoner spiller en spesiell rolle i optimering fordi lokale minima også er globale minima.
+
+\begin{definition}{Konveks funksjon}{convex_function}
+	En funksjon \(f: \R^n \to \R\) er \textit{konveks} hvis for alle \(\symbf{x}, \symbf{y} \in \R^n\) og alle \(\lambda \in [0,1]\) gjelder
+	\[
+		f(\lambda \symbf{x} + (1-\lambda)\symbf{y}) \leq \lambda f(\symbf{x}) + (1-\lambda)f(\symbf{y})
+	\]
+	Funksjonen er \textit{strengt konveks} hvis ulikheten over er streng for alle \(\symbf{x} \neq \symbf{y}\) og \(\lambda \in (0,1)\).
+\end{definition}
+
+For differensierbare funksjoner har vi følgende karakterisering:
+
+\begin{proposition}{Karakterisering av differensierbare konvekse funksjoner}{differentiable_convex}
+	La \(f: \R^n \to \R\) være en differensierbar funksjon. Da er \(f\) konveks hvis og bare hvis for alle \(\symbf{x}, \symbf{y} \in \R^n\) gjelder
+	\[
+		f(\symbf{y}) \geq f(\symbf{x}) + \nabla f(\symbf{x})^T (\symbf{y} - \symbf{x})
+	\]
+\end{proposition}
+
+For to ganger differensierbare funksjoner har vi en enda enklere karakterisering:
+
+\begin{proposition}{Karakterisering med Hesse-matrisen}{hessian_convex}
+	La \(f: \R^n \to \R\) være to ganger kontinuerlig differensierbar. Da er \(f\) konveks hvis og bare hvis Hesse-matrisen \(\nabla^2 f(\symbf{x})\) er positiv semidefinit for alle \(\symbf{x} \in \R^n\).
+
+	Funksjonen er strengt konveks hvis og bare hvis Hesse-matrisen er positiv definit for alle \(\symbf{x} \in \R^n\).
+\end{proposition}
+
+\section{Optimalitetskriterier}
+
+\subsection{Førsteordens Nødvendige Betingelse}
+
+\begin{theorem}{Førsteordens nødvendige betingelse}{first_order_necessary}
+	Anta at \(f: \R^n \to \R\) er kontinuerlig differensierbar og at \(\symbf{x}^\ast\) er et lokalt minimum for \(f\). Da er \(\symbf{x}^\ast\) et stasjonært punkt, dvs.
+	\[
+		\nabla f(\symbf{x}^\ast) = \symbf{0}
+	\]
+\end{theorem}
+
+\subsection{Andreordens Betingelser}
+
+\begin{theorem}{Andreordens nødvendige betingelse}{second_order_necessary}
+	Anta at \(f: \R^n \to \R\) er to ganger kontinuerlig differensierbar og at \(\symbf{x}^\ast\) er et lokalt minimum for \(f\). Da er Hesse-matrisen \(\nabla^2 f(\symbf{x}^\ast)\) positiv semidefinit.
+\end{theorem}
+
+\begin{theorem}{Andreordens tilstrekkelig betingelse}{second_order_sufficient}
+	Anta at \(f: \R^n \to \R\) er to ganger kontinuerlig differensierbar, \(\nabla f(\symbf{x}^\ast) = \symbf{0}\) og Hesse-matrisen \(\nabla^2 f(\symbf{x}^\ast)\) er positiv definit. Da er \(\symbf{x}^\ast\) et strengt lokalt minimum for \(f\).
+\end{theorem}
+
+\section{Konvergens og Konvergenshastighet \texorpdfstring{\(\symbf{x}_k \to \symbf{x}^\ast\)}{x\_k to x\_ast}}
+\label{sec:convergence}
+
+I studiet av numeriske metoder for ubetinget optimering er det viktig å forstå både om og hvor raskt metodene konvergerer. Vi definerer ulike typer konvergensrater:
+
+\begin{definition}{Konvergensrater}{convergence_rates}
+	Anta at sekvensen \(\{\symbf{x}_k\}\) konvergerer mot \(\symbf{x}^\ast\). Vi sier at konvergensen er:
+	\begin{itemize}
+		\item \textbf{Lineær} hvis det finnes en konstant \(r \in (0,1)\) slik at
+		      \[
+			      \lim_{k \to \infty} \frac{\|\symbf{x}_{k+1} - \symbf{x}^\ast\|}{\|\symbf{x}_k - \symbf{x}^\ast\|} = r
+		      \]
+
+		\item \textbf{Superlineær} hvis
+		      \[
+			      \lim_{k \to \infty} \frac{\|\symbf{x}_{k+1} - \symbf{x}^\ast\|}{\|\symbf{x}_k - \symbf{x}^\ast\|} = 0
+		      \]
+
+		\item \textbf{Kvadratisk} hvis det finnes en konstant \(M > 0\) slik at
+		      \[
+			      \lim_{k \to \infty} \frac{\|\symbf{x}_{k+1} - \symbf{x}^\ast\|}{\|\symbf{x}_k - \symbf{x}^\ast\|^2} = M
+		      \]
+	\end{itemize}
+\end{definition}
+
+Kvadratisk konvergens betyr i praksis at antall korrekte sifre omtrent dobles i hver iterasjon, mens lineær konvergens betyr at antall korrekte sifre øker med en konstant for hver iterasjon.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{semilogyaxis}[
+				xlabel={Iterasjoner},
+				ylabel={Feil $\|\symbf{x}_k - \symbf{x}^\ast\|$},
+				xmin=0, xmax=10,
+				ymin=1e-12, ymax=1,
+				width=0.8\textwidth,
+				height=6cm,
+				legend pos=south west,
+				grid=both,
+				minor grid style={gray!25},
+				major grid style={gray!25}
+			]
+			\addplot[blue, thick, mark=*] coordinates {
+					(0, 0.5)
+					(1, 0.4)
+					(2, 0.32)
+					(3, 0.256)
+					(4, 0.2048)
+					(5, 0.16384)
+					(6, 0.131072)
+					(7, 0.1048576)
+					(8, 0.08388608)
+					(9, 0.067108864)
+				};
+			\addlegendentry{Lineær ($r=0.8$)}
+
+			\addplot[red, thick, mark=square*] coordinates {
+					(0, 0.5)
+					(1, 0.25)
+					(2, 0.0625)
+					(3, 0.00390625)
+					(4, 1.52588e-5)
+					(5, 2.32831e-10)
+					(6, 5.42101e-20)
+					(7, 2.93873e-39)
+					(8, 8.63617e-78)
+					(9, 7.45832e-155)
+				};
+			\addlegendentry{Kvadratisk}
+
+			\addplot[green!60!black, thick, mark=triangle*] coordinates {
+					(0, 0.5)
+					(1, 0.25)
+					(2, 0.0833333)
+					(3, 0.0138889)
+					(4, 0.000992063)
+					(5, 2.48016e-5)
+					(6, 1.55009e-7)
+					(7, 2.40637e-10)
+					(8, 5.79065e-16)
+					(9, 3.35458e-27)
+				};
+			\addlegendentry{Superlineær}
+
+		\end{semilogyaxis}
+	\end{tikzpicture}
+	\caption{Sammenligning av konvergensrater: lineær, superlineær og kvadratisk konvergens}
+	\label{fig:convergence_rates}
+\end{figure}
+
+Figur \ref{fig:convergence_rates} illustrerer ulike konvergensrater. Bemerk at en logaritmisk skala brukes på y-aksen for å bedre visualisere de dramatiske forskjellene i konvergenshastighet.
+
+I de påfølgende kapitler vil vi studere numeriske metoder for å løse ubetingede optimeringsproblemer og analysere deres konvergensegenskaper.
+
+\chapter{Gradient metoder}
 \label{chap:gradient_based_methods}
 Gradientbaserte metoder er en klasse av numeriske algoritmer som benytter gradienten til objektfunksjonen for å finne minimum eller maksimum.
 Disse metodene kan kategoriseres etter hvilken ordens derivert de bruker:
@@ -26,24 +259,24 @@ Disse metodene kan kategoriseres etter hvilken ordens derivert de bruker:
 	\item \textbf{Andreordens metoder}: Bruker både gradient og Hesse-matrise (f.eks. Newtons metode)
 \end{itemize}
 
-Man klassifiserer også gradientbaserte metoder i to hovedkategorier, \emph{linjesøkmetoder} og \emph{trust region-metoder}. 
+Man klassifiserer også gradientbaserte metoder i to hovedkategorier, \emph{linjesøkmetoder} og \emph{trust region-metoder}.
 I linjesøkmetoder bestemmer vi først søkeretningen, deretter hvor langt vi skal gå i den retningen.
 I trust region-metoder bestemmer vi først hvor langt vi kan gå (trust region-radiusen), deretter bestemmer vi både retning og steglengde samtidig.
 
 \begin{forest}
 	for tree={
-		align=center,
-		parent anchor=south,
-		child anchor=north
+	align=center,
+	parent anchor=south,
+	child anchor=north
 	}
 	[Gradientbaserte\\ metoder
 		[Førsteordens\\ metoder
-			[Steepest\\ Descent]
-			[Konjugert\\ Gradient]
+				[Steepest\\ Descent]
+				[Konjugert\\ Gradient]
 		]
 		[Andreordens\\ metoder
-			[Newtons\\ metode]
-			[Quasi-Newton\\ metoder]
+				[Newtons\\ metode]
+				[Quasi-Newton\\ metoder]
 		]
 	]
 \end{forest}
@@ -114,26 +347,38 @@ Det gir oss den eksakte optimale steglengden \(\alpha_k\) for Steepest Descent-a
 \begin{equation*}
 	\symbf{x}_{k+1} = \symbf{x}_k - \alpha_k \nabla f(\symbf{x}_k) = \symbf{x}_k - \left(\frac{\nabla f_k^\top \nabla f_k}{\nabla f_k^\top Q \nabla f_k}\right) \nabla f_k
 \end{equation*}\label{eq:steepest_descent_update}
+\subsection{Konvergenshastighet for Steepest Descent}
+For å analysere konvergenshastigheten til Steepest Descent-algoritmen, vil vi undersøke hvordan feilen reduseres for hver iterasjon. Vi fokuserer først på det kvadratiske tilfellet med en positiv definit Hesse-matrise $Q$.
 
+La oss definere feilen ved iterasjon $k$ som $\symbf{e}_k = \symbf{x}_k - \symbf{x}^\ast$, der $\symbf{x}^\ast$ er den eksakte løsningen. For en kvadratisk funksjon gjelder følgende forhold:
+\[
+	\frac{1}{2} \|\symbf{e}_k\|_Q^2 = \frac{1}{2} \|\symbf{x}_k - \symbf{x}^\ast\|_Q^2 = f(\symbf{x}_k) - f(\symbf{x}^\ast).
+\]
 
-\subsection{Konvergenshastighet til Steepest Descent}
-Vi kan bruke den vektede normen $\norm*{\cdot}_Q$ til å utrykke feilen $\symbf{e} = \symbf{x} - \symbf{x}^\ast$ til Steepest Descent-algoritmen~\eqref{eq:steepest_descent_update} som vi deretter kan bruke den til å analysere konvergenshastigheten, som vi nå definerer som \(C\).
+Med eksakt linjesøk kan vi, basert på oppdateringsformelen~\eqref{eq:steepest_descent_update}, vise at feilen avtar lineært:
+\[
+	\|\symbf{e}_{k+1}\|_Q^2 = (1 - C) \|\symbf{e}_k\|_Q^2,
+\]
+hvor reduksjonsfaktoren $C$ er gitt ved:
+\[
+	C = \frac{[\nabla f_k^\top \nabla f_k]^2}{(\nabla f_k^\top Q \nabla f_k)(\nabla f_k^\top Q^{-1} \nabla f_k)}.
+\]
 
-\begin{align*}
-	\frac{1}{2} \norm{\symbf{x} - \symbf{x}^\ast}_Q^2 & = f(\symbf{x}) - f(\symbf{x}^\ast)                                                                                                                                                                                    \\
-	\norm{\symbf{e}_k}_Q^2                            & = \norm*{\symbf{x}_k - \symbf{x}^\ast}_Q^2                                                                                                                                                                            \\
-	\norm*{\symbf{x}_{k+1} - \symbf{x}^\ast}_Q^2      & = \left(1 - \overbrace{\frac{\left[\nabla f_k^\top \nabla f_k\right]^2}{\left(\nabla f_k^\top Q \nabla f_k\right)\left(\nabla f_k^\top Q^{-1} \nabla f_k\right)}}^{C}\right) \norm*{\symbf{x}_k - \symbf{x}^\ast}_Q^2
-\end{align*}
-er den eksakte konvergenshastigheten til $f$ for hver iterasjon, men siden konstantleddet \(C\) kan være vanskelig å tolke/bestemme kan vi heller bruke kondisjonstallet til \(Q\), siden det gir maksimal øvre grensen for konvergenshastigheten:
+Dette uttrykket kan være komplisert å beregne direkte, men vi kan etablere en øvre grense ved hjelp av kondisjonstallet til $Q$:
 
 \begin{theorem}{Konvergenshastighet for Steepest Descent}{steepest_descent_convergence}
-	Når Steepest Descent-metoden med eksakte linjesøk~\eqref{eq:steepest_descent_update} anvendes på den sterkt konvekse kvadratiske funksjonen~\eqref{eq:quadratic_function} med normen \(\norm{\cdot}_Q\), så er konvergenshastigheten \(C\) gitt ved:
+	Når Steepest Descent-metoden med eksakte linjesøk anvendes på en sterkt konveks kvadratisk funksjon~\eqref{eq:quadratic_function}, er konvergenshastigheten begrenset av:
 	\[
-		\norm{\symbf{x}_{k+1} - \symbf{x}^\ast}_Q^2 \leq \left(\frac{\lambda_n - \lambda_1}{\lambda_n + \lambda_1}\right)^2 \norm{\symbf{x}_k - \symbf{x}^\ast}_Q^2,
+		\norm{\symbf{x}_{k+1} - \symbf{x}^\ast}_Q^2 \leq \left(\frac{\kappa - 1}{\kappa + 1}\right)^2 \norm{\symbf{x}_k - \symbf{x}^\ast}_Q^2,
 	\]
-	hvor \(0 < \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_n\) er egenverdiene til \(Q\).
+	hvor $\kappa = \frac{\lambda_n}{\lambda_1}$ er kondisjonstallet til $Q$, med $0 < \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_n$ som egenverdiene til $Q$.
 \end{theorem}
-Beviset til dette teoremet kan man finne i \cite{luenberger1984linear}.
+
+Dette resultatet viser at konvergenshastigheten til Steepest Descent i stor grad avhenger av kondisjonstallet $\kappa$. Når $\kappa$ er stort (dårlig kondisjonert problem), nærmer faktoren $\frac{\kappa - 1}{\kappa + 1}$ seg 1, hvilket resulterer i svært langsom konvergens.
+
+For den generelle, ikke-kvadratiske situasjonen kan vi forvente lignende lineær konvergensatferd nær løsningen, men med konstanten bestemt av kondisjonstallet til Hesse-matrisen ved løsningspunktet.
+
+En detaljert utledning av dette resultatet finnes i \cite{luenberger1984linear}.
 
 \subsection{Konvergens ved generelle funksjoner}
 For generelle, ikke-kvadratiske funksjoner \(f : \mathbb{R}^n \to \mathbb{R}\), gjelder fremdeles en lineær konvergensrate for Steepest Descent-metoden dersom \(f\) er to ganger kontinuerlig deriverbar og linjesøket er eksakt.
@@ -633,152 +878,17 @@ Under passende betingelser viser Quasi-Newtons metoder superlineær konvergens:
 \[
 	\lim_{k \to \infty} \frac{\|\symbf{x}_{k+1} - \symbf{x}^\ast\|}{\|\symbf{x}_k - \symbf{x}^\ast\|} = 0
 \]
-
 Selv om denne konvergensraten er langsommere enn Newtons kvadratiske konvergens, er kostnaden per iterasjon betydelig lavere, noe som gir en mer effektiv algoritme totalt sett, spesielt for store problemer.
 
-\chapter{Gradientfrie metoder}
-\label{sec:gradientfrie_metoder}
-
-Gradientfrie metoder er optimeringsalgoritmer som ikke benytter gradienter eller Hesse-matriser i søket etter et minimum.
-De egner seg spesielt godt i situasjoner der objektfunksjonen \( f : \mathbb{R}^n \to \mathbb{R} \) er:
-\begin{itemize}
-	\item ikke-differensierbar eller stykkevis glatt,
-	\item støyete, simulert eller svartboksbasert,
-	\item kostbar eller upraktisk å derivere.
-\end{itemize}
-
-I stedet for å bruke analytisk eller numerisk informasjon om deriverte, evaluerer slike metoder funksjonsverdier i ulike retninger eller punktkombinasjoner, og gjør fremskritt basert på hvilke punkter som gir forbedring.
-
-Gradientfrie metoder kan være svært effektive når informasjonen om objektfunksjonen er begrenset. De gir imidlertid sjelden noen garanti for å finne et globalt minimum, eller for konvergens i klassisk forstand.
-
-\subsection{Heuristiske metoder}
-
-En heuristisk metode er en algoritme som forsøker å finne en god (men ikke nødvendigvis optimal) løsning ved å bruke forenklede regler, prøve-og-feile-strategier eller strategier inspirert av natur og erfaring.
-
-De er spesielt utviklet for problemer der klassiske metoder feiler - for eksempel når funksjonen har mange lokale minima, er ikke-glatt, støyete eller kun tilgjengelig gjennom simulering.
-
-\paragraph{Egenskaper ved heuristiske metoder}
-
-\begin{itemize}
-	\item Utfører ofte globalt søk (f.eks. gjennom tilfeldige steg eller populasjoner).
-	\item Krever ikke deriverte eller Hessian.
-	\item Har lav til moderat regnekostnad.
-	\item Mangler garanti for optimalitet, men gir ofte svært gode løsninger i praksis.
-\end{itemize}
-
-\subsection{Nelder--Mead-algoritmen}
-\label{sec:nelder_mead}
-
-Nelder--Mead-algoritmen er en populær metode for å minimere funksjoner uten å bruke gradienter eller Hesse-matriser.
-Den er særlig nyttig når funksjonen er ikke-glatt, støyete eller utilgjengelig i lukket form.
-
-\begin{definition}{Simplex}{simplex}
-	Et \emph{simplex} er en geometrisk figur som er den n-dimensjonale generalisering av en trekant. I $\mathbb{R}^n$ består et simplex av $n+1$ hjørner som ikke ligger i samme $(n-1)$-dimensjonale rom.
-\end{definition}
-
-Algoritmen benytter simplex, og tilpasser denne over iterasjoner for å finne et lokalt minimum.
-Nelder--Mead starter med et sett av \( n+1 \) punkter og itererer ved å \emph{reflektere}, \emph{utvide}, \emph{kontrahere} eller \emph{krympe} simplexet basert på funksjonsverdier i hjørnene.
-
-\begin{definition}{Nelder--Mead-algoritmen}{nelder_mead}
-	Nelder--Mead er en heuristisk søkemetode som benytter et simplex med \( n+1 \) hjørner i \( \mathbb{R}^n \) for å iterativt søke mot et lokalt minimum.
-	Algoritmen bruker refleksjon, ekspansjon, kontraksjon og krymping for å justere simplexet basert på funksjonsverdi i hvert hjørne.
-\end{definition}
-
-\begin{algorithm}[H]
-	\caption{Nelder--Mead-algoritme}
-	\label{alg:nelder-mead}
-	Initialiser simplex med \( n+1 \) punkter\;
-	\Repeat{konvergenskriteriene er oppfylt}{
-		Sorter simplex-punktene etter deres funksjonsverdi \( f(x_i) \)\;
-		Beregn tyngdepunktet av de \( n \) beste punktene\;
-		Reflekter det dårligste punktet gjennom tyngdepunktet for å få et nytt punkt \( x_r \)\;
-		\uIf{\( f(x_1) \leq f(x_r) < f(x_n) \)}{
-			Aksepter refleksjonen \( x_{n+1} \leftarrow x_r \)\;
-		}
-		\uElseIf{\( f(x_r) < f(x_1) \)}{
-			Prøv ekspansjon til punkt \( x_e \)\;
-			\If{\( f(x_e) < f(x_r) \)}{
-				\( x_{n+1} \leftarrow x_e \)\;
-			}
-			\Else{
-				\( x_{n+1} \leftarrow x_r \)\;
-			}
-		}
-		\uElseIf{\( f(x_r) \geq f(x_n) \)}{
-			Utfør en kontraksjon for å få punkt \( x_c \)\;
-			\If{\( f(x_c) < f(x_{n+1}) \)}{
-				\( x_{n+1} \leftarrow x_c \)\;
-			}
-			\Else{
-				Krymp hele simplexet mot det beste punktet \( x_1 \)\;
-			}
-		}
-	}
-\end{algorithm}
-
-\begin{figure}[H]
-	\centering
-	\begin{tikzpicture}[
-			scale=0.8,
-			x={(-0.5cm,-0.5cm)},
-			y={(1cm,0cm)},
-			z={(0cm,1cm)},
-			line join=round
-		]
-
-		% Axes
-		\draw[->] (0,0,0) -- (3,0,0) node[anchor=north east] {$x_1$};
-		\draw[->] (0,0,0) -- (0,3,0) node[anchor=north west] { $x_2$};
-		\draw[->] (0,0,0) -- (0,0,2) node[anchor=south] {$f(x_1,x_2)$};
-
-		% Contours on base
-		\draw[black!30] (0,0,0) ellipse (3 and 2);
-		\draw[black!30] (0,0,0) ellipse (2 and 1.5);
-		\draw[black!30] (0,0,0) ellipse (1 and 0.7);
-
-		% Initial simplex (blue solid)
-		\draw[blue, thick]
-		(1,1,1.5) -- (2,1,1.0) -- (1.5,2,1.3) -- cycle;
-
-		% Reflected simplex (red dashed)
-		\draw[red, thick, dashed]
-		(0.5,1,1.2) -- (1.8,1,0.9) -- (1.1,2.1,1.0) -- cycle;
-
-		% Contracted simplex (green dotted)
-		\draw[green!50!black, thick, dotted]
-		(1.2,1.1,1.1) -- (1.6,1.0,1.0) -- (1.3,1.7,1.05) -- cycle;
-
-	\end{tikzpicture}
-
-	\vspace{1em}
-	\begin{tikzpicture}[scale=1]
-		% Manual legend below the 3D figure
-		\draw[blue, thick] (0,1.2) -- (0.8,1.2) node[right, black] {Initial simplex};
-		\draw[red, thick, dashed] (0,0.6) -- (0.8,0.6) node[right, black] {Reflected simplex};
-		\draw[green!50!black, thick, dotted] (0,0) -- (0.8,0) node[right, black] {Contracted simplex};
-	\end{tikzpicture}
-
-	\caption{3D-visualisering av Nelder--Mead-algoritmen: blå trekant viser initialt simplex, rød viser refleksjon og grønn viser kontraksjon. Nivålinjene på basen representerer nivåsett av objektfunksjonen.}
-	\label{fig:nelder_mead_3d}
-\end{figure}
-
-\subsection{Andre gradientfrie metoder}
-
-I tillegg til Nelder-Mead finnes det flere andre gradientfrie metoder:
-
-\begin{itemize}
-	\item \textbf{Genetiske algoritmer}: Inspirert av naturlig seleksjon, bruker populasjoner av løsninger som "evolusjonerer" over generasjoner.
-	\item \textbf{Partikkelsverm-optimalisering (PSO)}: Inspirert av sosial atferd i fugleflokker eller fiskestimer, hvor partikler beveger seg i søkerommet.
-	\item \textbf{Simulert annealing}: Inspirert av metallets varmebehandling, tillater algoritmen å akseptere dårligere løsninger med en viss sannsynlighet for å unngå å bli fanget i lokale minima.
-\end{itemize}
-
-\chapter{Steglengdemetoder}
+\chapter{Optimal Steglengde \texorpdfstring{\(\alpha\)}{alpha}}
 \label{chap:step_length_methods}
-Steglengdemetoder er en viktig del av optimeringsalgoritmer, spesielt i gradientbaserte metoder.
+Steglengdemetoder er en viktig del av optimeringsalgoritmer, spesielt i gradientbaserte metoder som Newtons metode og Quasi-Newton-metoder.
+
 De har som mål å bestemme den optimale steglengden \(\alpha\) for å minimere objektfunksjonen \(f\) langs en gitt retning \(p\).
+
 Disse metodene er avgjørende for å sikre at algoritmen konvergerer mot en løsning på en effektiv måte.
 
-\section{Linjesøk}\label{sec:line_search}
+\section{Linjesøk Metoder}
 Linjesøk har som mål å finne en optimal steglengde \(\alpha_k\) i en gitt retning \(p_k\) for å minimere objektfunksjonen \(f\).
 
 \begin{definition}{Linjesøk}{line_search}
@@ -1023,8 +1133,6 @@ Backtracking Line Search er en metode for å finne en passende skrittlengde \(\a
 	Dette resultatet viser at hvis vi har en sekvens av iterasjoner \( \{ \symbf{x}_k \} \) som tilfredsstiller Wolfe-betingelsene, og hvis nivåsettet \( \mathcal{L} \) er begrenset og lukket (kompakt), så vil gradienten konvergere mot null.
 
 \end{theorem}
-
-
 
 \section{Trust Region}
 \label{sec:trust_region}
@@ -1296,4 +1404,142 @@ Dogleg--metoden kombinerer retningene fra Newton-steget og Cauchy-punktet i en b
 \begin{itemize}
 	\item \textbf{Trust region}: Først bestemmes hvor langt vi kan gå (radius \( \Omega_k \)), deretter bestemmes retningen og steglengden samtidig.
 	\item \textbf{Linjesøk}: Først bestemmes retningen \( p_k \), deretter bestemmes hvor langt vi skal gå i den retningen (steplengde \( \alpha_k \)).
+\end{itemize}
+
+\chapter{Gradientfrie metoder}
+\label{sec:gradientfrie_metoder}
+
+Gradientfrie metoder er optimeringsalgoritmer som ikke benytter gradienter eller Hesse-matriser i søket etter et minimum.
+De egner seg spesielt godt i situasjoner der objektfunksjonen \( f : \mathbb{R}^n \to \mathbb{R} \) er:
+\begin{itemize}
+	\item ikke-differensierbar eller stykkevis glatt,
+	\item støyete, simulert eller svartboksbasert,
+	\item kostbar eller upraktisk å derivere.
+\end{itemize}
+
+I stedet for å bruke analytisk eller numerisk informasjon om deriverte, evaluerer slike metoder funksjonsverdier i ulike retninger eller punktkombinasjoner, og gjør fremskritt basert på hvilke punkter som gir forbedring.
+
+Gradientfrie metoder kan være svært effektive når informasjonen om objektfunksjonen er begrenset. De gir imidlertid sjelden noen garanti for å finne et globalt minimum, eller for konvergens i klassisk forstand.
+
+\subsection{Heuristiske metoder}
+
+En heuristisk metode er en algoritme som forsøker å finne en god (men ikke nødvendigvis optimal) løsning ved å bruke forenklede regler, prøve-og-feile-strategier eller strategier inspirert av natur og erfaring.
+
+De er spesielt utviklet for problemer der klassiske metoder feiler - for eksempel når funksjonen har mange lokale minima, er ikke-glatt, støyete eller kun tilgjengelig gjennom simulering.
+
+\paragraph{Egenskaper ved heuristiske metoder}
+
+\begin{itemize}
+	\item Utfører ofte globalt søk (f.eks. gjennom tilfeldige steg eller populasjoner).
+	\item Krever ikke deriverte eller Hessian.
+	\item Har lav til moderat regnekostnad.
+	\item Mangler garanti for optimalitet, men gir ofte svært gode løsninger i praksis.
+\end{itemize}
+
+\subsection{Nelder--Mead-algoritmen}
+\label{sec:nelder_mead}
+
+Nelder--Mead er en populær algoritme  for å minimere funksjoner uten å bruke gradienter eller Hesse-matriser.
+Den er særlig nyttig når funksjonen er \emph{ikke-glatt}, \emph{støyete} eller \emph{utilgjengelig i lukket form}.
+
+Algoritmen bruker et \textbf{simplex}~\ref{def:simplex} (et geometrisk objekt med \( n+1 \) hjørner i \( n \)-dimensjonalt rom) i \( \mathbb{R}^n \) for å iterativt søke mot et lokalt minimum.
+
+\begin{minipage}[t]{0.56\textwidth}
+	Metoden manipulerer simplexen ved hjelp av \textbf{4 operasjoner}:
+	\noindent
+	\begin{itemize}
+		\item \emph{Refleksjon}: Speiler det dårligste punktet gjennom tyngdepunktet
+		\item \emph{Ekspansjon}: Strekker simplekset i lovende retninger
+		\item \emph{Kontraksjon}: Krymper simplekset når refleksjon ikke gir forbedring
+		\item \emph{Krymping}: Reduserer hele simplekset mot beste punkt
+	\end{itemize}
+	Gjennom disse operasjonene tilpasser simplekset seg automatisk til funksjonens form og \enquote{Kryper} mot det lokale minimum uten behov for deriverte.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\textwidth}
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[
+				scale=1.0,
+				x={(-0.5cm,-0.5cm)},
+				y={(1cm,0cm)},
+				z={(0cm,1cm)},
+				line join=round
+			]
+
+			% Axes
+			\draw[->] (0,0,0) -- (3,0,0) node[anchor=north east] {$x_1$};
+			\draw[->] (0,0,0) -- (0,3,0) node[anchor=north west] {$x_2$};
+			\draw[->] (0,0,0) -- (0,0,2) node[anchor=south] {$f(x_1,x_2)$};
+
+			% Contours on base 
+			\draw[black!30] (0,0,0) ellipse (3 and 2);
+			\draw[black!30] (0,0,0) ellipse (2 and 1.5);
+			\draw[black!30] (0,0,0) ellipse (1 and 0.7);
+
+			% Initial simplex (blue solid) - scaled up by 1.5
+			\draw[blue, thick]
+			(1.5,1.5,2.25) -- (3,1.5,1.5) -- (2.25,3,1.95) -- cycle;
+
+			% Reflected simplex (red dashed) - scaled up by 1.5
+			\draw[red, thick, dashed]
+			(0.75,1.5,1.8) -- (2.7,1.5,1.35) -- (1.65,3.15,1.5) -- cycle;
+
+			% Contracted simplex (green dotted) - scaled up by 1.5
+			\draw[green!50!black, thick, dotted]
+			(1.8,1.65,1.65) -- (2.4,1.5,1.5) -- (1.95,2.55,1.575) -- cycle;
+
+			% Key points only - scaled up by 1.5
+			\fill[blue] (1.5,1.5,2.25) circle (1.2pt) node[above right] {$x_k$};
+			\fill[red] (0.75,1.5,1.8) circle (1.2pt) node[above right] {$x_r$};
+			\fill[green!50!black] (1.8,1.65,1.65) circle (1.2pt) node[above right] {$x_c$};
+
+		\end{tikzpicture}
+		\caption{Nelder-Mead algoritmen: Initialt (blå), reflektert (rød) og kontrahert (grønn) simplex med objektfunksjonens nivålinjer.}
+		\label{fig:nelder_mead_3d}
+	\end{figure}
+\end{minipage}
+
+
+\begin{algorithm}[H]
+	\caption{Nelder--Mead-algoritme}
+	\label{alg:nelder-mead}
+	Initialiser simplex med \( n+1 \) punkter\;
+	\Repeat{konvergenskriteriene er oppfylt}{
+		Sorter simplex-punktene etter deres funksjonsverdi \( f(x_i) \)\;
+		Beregn tyngdepunktet av de \( n \) beste punktene\;
+		Reflekter det dårligste punktet gjennom tyngdepunktet for å få et nytt punkt \( x_r \)\;
+		\uIf{\( f(x_1) \leq f(x_r) < f(x_n) \)}{
+			Aksepter refleksjonen \( x_{n+1} \leftarrow x_r \)\;
+		}
+		\uElseIf{\( f(x_r) < f(x_1) \)}{
+			Prøv ekspansjon til punkt \( x_e \)\;
+			\If{\( f(x_e) < f(x_r) \)}{
+				\( x_{n+1} \leftarrow x_e \)\;
+			}
+			\Else{
+				\( x_{n+1} \leftarrow x_r \)\;
+			}
+		}
+		\uElseIf{\( f(x_r) \geq f(x_n) \)}{
+			Utfør en kontraksjon for å få punkt \( x_c \)\;
+			\If{\( f(x_c) < f(x_{n+1}) \)}{
+				\( x_{n+1} \leftarrow x_c \)\;
+			}
+			\Else{
+				Krymp hele simplexet mot det beste punktet \( x_1 \)\;
+			}
+		}
+	}
+\end{algorithm}
+
+
+\subsection{Andre gradientfrie metoder}
+
+I tillegg til Nelder-Mead finnes det flere andre gradientfrie metoder:
+
+\begin{itemize}
+	\item \textbf{Genetiske algoritmer}: Inspirert av naturlig seleksjon, bruker populasjoner av løsninger som "evolusjonerer" over generasjoner.
+	\item \textbf{Partikkelsverm-optimalisering (PSO)}: Inspirert av sosial atferd i fugleflokker eller fiskestimer, hvor partikler beveger seg i søkerommet.
+	\item \textbf{Simulert annealing}: Inspirert av metallets varmebehandling, tillater algoritmen å akseptere dårligere løsninger med en viss sannsynlighet for å unngå å bli fanget i lokale minima.
 \end{itemize}

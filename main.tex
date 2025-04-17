@@ -1,29 +1,32 @@
-% !TeX root = main.tex
 \documentclass[10pt, a4paper]{report}
-\usepackage{trymtex}
-
-\makeglossaries
-\addbibresource{preamble/bib/references.bib}
-\setglossarystyle{listhypergroup}
+\usepackage{preamble/trymtex}
+\usepackage{preamble/colors}
 
 \includeonly{
-preamble/frontmatter/titlepage,
-preamble/bib/glossary,
-% chapters/1/introduction,
-% chapters/2/unconstrained_optimization,
-chapters/3/constrained_optimization,
+    preamble/frontmatter/titlepage,
+    chapters/1/introduction,
+    chapters/2/unconstrained_optimization,
+    chapters/3/constrained_optimization,
+    preamble/appendix/LectureNotes,
+    preamble/bib/references,
+    preamble/bib/glossary,
 }
+\makeglossaries
+\addbibresource{preamble/bib/references.bib}
+\include{preamble/bib/glossary}
+\setglossarystyle{listhypergroup}
+
 
 \begin{document}
 
-\include{preamble/bib/glossary}
 \include{preamble/frontmatter/titlepage}
 
 \tableofcontents
 
 \include{chapters/1/introduction}
 \include{chapters/2/unconstrained_optimization}
-\include{chapters/3/constrained_optimization}
+\include{chapters/3/convex_optimization}
+\include{chapters/4/constrained_optimization}
 
 \appendix
 \include{preamble/appendix/LectureNotes}

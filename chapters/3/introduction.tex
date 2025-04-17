@@ -1,0 +1,87 @@
+\chapter{Constrained Optimization over Convex Sets}
+
+\section{Problem Formulation}
+We consider optimization problems where we minimize a differentiable function $f: \mathbb{R}^n \to \mathbb{R}$ over a convex feasible set $\Omega \subseteq \mathbb{R}^n$:
+\begin{mini*}
+    {x \in \Omega}{f(x)}{}{}
+\end{mini*}
+
+The feasible region $\Omega$ can be defined in several ways:
+\begin{itemize}
+    \item Explicitly as a convex set, e.g., $\Omega = \{x : \|x\| \leq 1\}$
+    \item Through equality constraints: $\Omega = \{x : h(x) = 0\}$ where $h$ is a system of affine functions
+    \item Through inequality constraints: $\Omega = \{x : g(x) \leq 0\}$ where $g$ is a system of convex functions
+    \item Combinations of the above
+\end{itemize}
+
+\section{Feasible Directions}
+At a feasible point $x \in \Omega$, a direction $d \in \mathbb{R}^n$ is called:
+\begin{itemize}
+    \item A \textbf{feasible direction} if there exists $\alpha > 0$ such that $x + td \in \Omega$ for all $t \in (0, \alpha]$.
+    \item A \textbf{descent direction} if $\nabla f(x)^T d < 0$.
+\end{itemize}
+
+The key insight is that if $d$ is both feasible and a descent direction at $x$, then moving along $d$ from $x$ will reduce the objective value while staying within the feasible region.
+
+\subsection{Cone of Feasible Directions}
+The cone of feasible directions at $x \in \Omega$ is defined as:
+\[
+\mathcal{F}_\Omega(x) = \{d \in \mathbb{R}^n : \exists \alpha > 0 \text{ s.t. } x + td \in \Omega \text{ for all } t \in (0, \alpha] \}
+\]
+
+For convex sets, this cone has useful properties that facilitate optimization algorithms.
+
+\section{First-Order Optimality Conditions}
+
+\subsection{Necessary Conditions}
+A necessary condition for $x^* \in \Omega$ to be a local minimum is:
+\[
+\nabla f(x^*)^T d \geq 0 \quad \text{for all feasible directions } d \text{ at } x^*
+\]
+This generalizes the first-order condition $\nabla f(x^*) = 0$ from unconstrained optimization.
+
+\subsection{Sufficient Conditions}
+If $f$ is convex and $\Omega$ is a convex set, then the necessary condition becomes sufficient for global optimality:
+\[
+\nabla f(x^*)^T (y - x^*) \geq 0 \quad \text{for all } y \in \Omega
+\]
+This is a generalization of the first-order characterization of convex functions.
+
+\section{Projections on Convex Sets}
+For any point $x \in \mathbb{R}^n$ and a closed convex set $\Omega$, the projection of $x$ onto $\Omega$ is defined as:
+\[
+P_\Omega(x) = \arg\min_{y \in \Omega} \|y - x\|_2
+\]
+
+\subsection{Properties of Projections}
+\begin{itemize}
+    \item The projection onto a closed convex set always exists and is unique.
+    \item $x = P_\Omega(x)$ if and only if $x \in \Omega$.
+    \item Geometric characterization: $P_\Omega(x)$ is the unique point $y \in \Omega$ such that $(x - y)^T(z - y) \leq 0$ for all $z \in \Omega$.
+\end{itemize}
+
+\subsection{Projected Gradient Method}
+A natural extension of the gradient descent method for constrained optimization is the projected gradient method:
+\[
+x_{k+1} = P_\Omega(x_k - \alpha_k \nabla f(x_k))
+\]
+where $\alpha_k$ is the step size.
+
+The projected gradient method has convergence guarantees similar to gradient descent when applied to convex functions and convex feasible sets.
+
+\begin{algorithm}[H]
+    \caption{Projected Gradient Method}
+    \begin{algorithmic}[1]
+        \State Choose initial point $x_0 \in \Omega$ and stopping tolerance $\epsilon > 0$
+        \For{$k = 0, 1, 2, \ldots$}
+            \State Compute gradient $\nabla f(x_k)$
+            \State Choose step size $\alpha_k > 0$ (e.g., by line search)
+            \State Update $x_{k+1} = P_\Omega(x_k - \alpha_k \nabla f(x_k))$
+            \If{$\|x_{k+1} - x_k\| < \epsilon$}
+                \State \textbf{return} $x_{k+1}$
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+This method is particularly useful when projections onto the feasible set can be computed efficiently, as in the case of boxes, balls, or polyhedra.

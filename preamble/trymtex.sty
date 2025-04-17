@@ -7,7 +7,10 @@
 % =============================================
 \usepackage{fontspec}         % Font selection for LuaLaTeX
 \usepackage[final]{microtype} % Micro-typographic refinements
-\usepackage[norsk,english]{babel} % Language support
+\usepackage[english,norsk]{babel} % Language support - norsk default value
+\usepackage{import}          % Import support for standalone files
+\usepackage{standalone}
+\usepackage{xcolor}          % Required for colors
 
 % =============================================
 % 2. TEXT & TYPOGRAPHY
@@ -16,7 +19,6 @@
 \usepackage{enumitem}        % Customize lists
 \usepackage{suffix}          % Command suffix support
 \usepackage[autostyle, english=american]{csquotes}  % Smart quotes
-\usepackage[acronym,symbols,nogroupskip]{glossaries-extra}  % Glossary support
 \usepackage[backend=biber]{biblatex}  % Bibliography management
 
 % =============================================
@@ -147,6 +149,10 @@
   pdfkeywords={LaTeX, modern, setup}
 }
 
+% Glossary setup (must be after hyperref)
+\usepackage[acronym,symbols,nogroupskip,hyperfirst=true]{glossaries-extra}  % Glossary support with hyperlinks
+\setglossarystyle{listhypergroup}  % Enable hyperlinks in glossary style
+
 % Section configuration
 \newcommand{\problem}[2]{\large{\textbf{Problem #1} \hfill \normalfont\normalsize\textit{#2}}}
 \newcommand{\subproblem}[1]{\normalsize{\textbf{(#1)}}}
@@ -156,14 +162,15 @@
 % =============================================
 
 % Color definitions
+% Theorem environments colors
 \definecolor{def-color}{HTML}{E40125}    % Bright red
 \definecolor{thm-color}{HTML}{1346E4}    % Royal blue
 \definecolor{lem-color}{HTML}{05C4D9}    % Light blue/cyan
-\definecolor{exm-color}{HTML}{21340A}    % Dark green
+\definecolor{exm-color}{HTML}{21340A}    % Very dark green
 \definecolor{rem-color}{HTML}{18B640}    % Medium green
 \definecolor{prop-color}{HTML}{9C27B0}    % Purple
 \definecolor{cor-color}{HTML}{FF5722}     % Deep Orange
-\definecolor{alg-color}{HTML}{FF8F00}     % Dark Orange
+\definecolor{alg-color}{HTML}{37474F}     % Dark blue-gray
 
 % Table colors
 \definecolor{filing-color}{HTML}{607D8B}    % Blue Grey
@@ -172,13 +179,6 @@
 \definecolor{yescolor}{RGB}{200, 255, 200}  % Light green
 \definecolor{nocolor}{RGB}{255, 200, 200}   % Light red
 \definecolor{headerblue}{RGB}{225, 238, 255}
-
-% Table commands
-\newcommand{\yes}{\cellcolor{yescolor} Yes}
-\newcommand{\no}{\cellcolor{nocolor} No}
-\newcommand{\algo}[1]{\parbox[t]{3cm}{\footnotesize\RaggedRight #1}}
-\newcolumntype{Y}{>{\footnotesize}c}  % Centered, small font for Yes/No
-\newcolumntype{Z}{>{\footnotesize\RaggedRight}X}  % Explanations column
 
 % NTNU color scheme
 \definecolor{ntnu-blue}{HTML}{00509e}
@@ -190,6 +190,34 @@
 \definecolor{ntnu-yellow}{HTML}{F7D019}   
 \definecolor{ntnu-purple}{HTML}{482776}   
 \definecolor{ntnu-turquoise}{HTML}{3CBFBE}
+
+% Table commands
+\newcommand{\yes}{\cellcolor{yescolor} Yes}
+\newcommand{\no}{\cellcolor{nocolor} No}
+\newcommand{\algo}[1]{\parbox[t]{3cm}{\footnotesize\RaggedRight #1}}
+\newcolumntype{Y}{>{\footnotesize}c}  % Centered, small font for Yes/No
+\newcolumntype{Z}{>{\footnotesize\RaggedRight}X}  % Explanations column
+
+% Language-dependent theorem names
+\addto\captionsenglish{%
+  \def\definitionname{Definition}%
+  \def\theoremname{Theorem}%
+  \def\lemmaname{Lemma}%
+  \def\examplename{Example}%
+  \def\remarkname{Remark}%
+  \def\propositionname{Proposition}%
+  \def\corollaryname{Corollary}%
+}
+
+\addto\captionsnorsk{%
+  \def\definitionname{Definisjon}%
+  \def\theoremname{Teorem}%
+  \def\lemmaname{Lemma}%
+  \def\examplename{Eksempel}%
+  \def\remarkname{Bemerkning}%
+  \def\propositionname{Proposisjon}%
+  \def\corollaryname{Korollar}%
+}
 
 % Theorem environments
 \tcbset{
@@ -203,7 +231,7 @@
       sharp corners
     }
 }
-\newtcbtheorem{definition}{Definition}{%
+\newtcbtheorem{definition}{\definitionname}{%
   enhanced jigsaw,
   colback=def-color!10,
   colframe=def-color!80!black,
@@ -220,7 +248,7 @@
   breakable
 }{def:}
 
-\newtcbtheorem{theorem}{Theorem}{%
+\newtcbtheorem{theorem}{\theoremname}{%
   enhanced jigsaw,
   colback=thm-color!10,
   colframe=thm-color!80!black,
@@ -245,7 +273,7 @@
   breakable
 }{thm:}
 
-\newtcbtheorem{lemma}{Lemma}{%
+\newtcbtheorem{lemma}{\lemmaname}{%
   enhanced jigsaw,
   colback=lem-color!10,
   colframe=lem-color!80!black,
@@ -279,7 +307,7 @@
   breakable
 }{lem}
 
-\newtcbtheorem{example}{Example}{%
+\newtcbtheorem{example}{\examplename}{%
   base theorem style,
   colback=white,
   colframe=white,
@@ -290,7 +318,7 @@
   coltitle=exm-color
 }{exm:}
 
-\newtcbtheorem{remark}{Remark}{%
+\newtcbtheorem{remark}{\remarkname}{%
   base theorem style,
   colback=white,
   colframe=white,
@@ -301,7 +329,7 @@
   coltitle=black
 }{rem:}
 
-\newtcbtheorem{proposition}{Proposition}{
+\newtcbtheorem{proposition}{\propositionname}{
   enhanced jigsaw,
   colback=prop-color!10,
   colframe=prop-color!80!black,
@@ -325,7 +353,7 @@
   breakable
 }{prop:}
 
-\newtcbtheorem{corollary}{Corollary}{%
+\newtcbtheorem{corollary}{\corollaryname}{%
   enhanced jigsaw,
   colback=cor-color!10,
   colframe=cor-color!80!black,
@@ -430,45 +458,6 @@
 }
 
 % =============================================
-% 6.5 THEOREM ENVIRONMENT ALTERNATE SYNTAX SUPPORT
-% =============================================
-
-% First, load etoolbox if not already loaded
-\RequirePackage{etoolbox}
-
-% Make all theorem environments support both syntax styles
-\makeatletter
-% Define a command that creates the starred version only if it doesn't exist
-\newcommand{\create@amsthm@style}[1]{%
-  \@ifundefined{#1*}{%
-    \expandafter\NewDocumentEnvironment\expandafter{#1*}\expandafter{%
-      \expandafter O\expandafter{\expandafter}\expandafter m\expandafter}%
-      {\begin{#1}{##1}{##2}}%
-      {\end{#1}}%
-  }{}%
-}
-
-% Patch newtcbtheorem to auto-create starred versions
-\@ifundefined{patched@newtcbtheorem}{%
-  \let\orig@newtcbtheorem\newtcbtheorem
-  \renewcommand{\newtcbtheorem}[4]{%
-    \orig@newtcbtheorem{#1}{#2}{#3}{#4}%
-    \create@amsthm@style{#1}%
-  }%
-  \global\let\patched@newtcbtheorem\@empty
-}{}
-
-% Create starred versions for all existing theorem environments
-\create@amsthm@style{definition}
-\create@amsthm@style{theorem}
-\create@amsthm@style{lemma}
-\create@amsthm@style{example}
-\create@amsthm@style{remark}
-\create@amsthm@style{proposition}
-\create@amsthm@style{corollary}
-\makeatother
-
-% =============================================
 % 7. GRAPHICS & TIKZ
 % =============================================
 \usepackage{pgfplots}
@@ -482,6 +471,7 @@
     backgrounds,
     positioning,
     calc,
+    shapes.geometric,
     decorations.pathreplacing,
     3d
 }
