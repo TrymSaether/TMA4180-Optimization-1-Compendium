@@ -1,0 +1,80 @@
+\documentclass[tikz,border=5mm]{standalone}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+
+\begin{document}
+
+\begin{tikzpicture}[
+node distance=10mm and 0mm,
+every node/.style={font=\footnotesize},
+decision/.style={diamond, draw, fill=blue!20, text width=3.5cm, align=center, inner sep=2pt},
+process/.style={rectangle, draw, fill=green!20, text width=2.5cm, align=center, minimum height=8mm},
+io/.style={trapezium, trapezium left angle=70, trapezium right angle=110,
+                     draw, fill=yellow!20, text width=3.5cm, align=center, minimum height=8mm},
+arrow/.style={-{Stealth[scale=1.0]}, thick}
+]
+
+% Start node
+\node (start) [io] {Start: Identify optimization problem};
+
+% Unconstrained branch
+\node (dec1) [decision, below=of start] {Unconstrained?};
+\node (u_grad) [process, below=of dec1] {Check stationarity: \(\nabla f(x^*)=0\)};
+\node (u_hess) [decision, below=of u_grad] {Check Hessian \(\nabla^2f(x^*)\)};
+\node (u_pd) [process, below left=of u_hess] {PD ⇒ Strict local min};
+\node (u_psd) [process, below right=of u_hess] {PSD ⇒ Local min};
+
+% Equality branch
+\node (dec2) [decision, right=40mm of dec1] {Equality constrained?};
+\node (e_licq) [process, below=of dec2] {Check LICQ: \(\nabla c(x^*)\) linearly independent};
+\node (e_kkt) [process, below=of e_licq] {Solve KKT: \(\nabla_xL=0,\;c(x)=0\)};
+\node (e_hess) [decision, below=of e_kkt] {Reduced Hessian PD? \(\nabla^2_{xx}L(x^*,\lambda^*)\)};
+\node (e_pd) [process, below left=of e_hess] {Yes ⇒ Strict local min};
+\node (e_psd) [process, below right=of e_hess] {No ⇒ Local min};
+
+% Inequality branch  
+\node (dec3) [decision, right=40mm of dec2] {Inequality constrained?};
+\node (i_cq) [process, below=of dec3] {Check LICQ/MFCQ: \(\nabla c(x^*)\) linearly independent};
+\node (i_kkt) [process, below=of i_cq] {Solve KKT: \(\nabla_xL=0,\;c\ge0,\;\lambda\ge0,\;\lambda c=0\)};
+\node (i_conv) [decision, below=of i_kkt] {Convex + Slater?\\ \(\nabla^2_{xx}L(x^*,\lambda^*)\) PD and \(c(x^*)>0\)};
+\node (i_glob) [process, below left=of i_conv] {Yes ⇒ Global min};
+\node (i_so) [process, below right=of i_conv] {No ⇒ Check SOSC};
+
+% Arrows
+\draw[arrow] (start) -- (dec1);
+
+% Unconstrained arrows
+\draw[arrow] (dec1) -- node[left]{yes} (u_grad);
+\draw[arrow] (u_grad) -- (u_hess);
+\draw[arrow] (u_hess) -- node[left]{yes} (u_pd);
+\draw[arrow] (u_hess) -- node[right]{no} (u_psd);
+
+% Equality arrows
+\draw[arrow] (dec1) -- node[above]{no} (dec2);
+\draw[arrow] (dec2) -- node[left]{yes} (e_licq);
+\draw[arrow] (e_licq) -- (e_kkt);
+\draw[arrow] (e_kkt) -- (e_hess);
+\draw[arrow] (e_hess) -- node[left]{yes} (e_pd);
+\draw[arrow] (e_hess) -- node[right]{no} (e_psd);
+
+% Inequality arrows
+\draw[arrow] (dec2) -- node[above]{no} (dec3);
+\draw[arrow] (dec3) -- node[left]{yes} (i_cq);
+\draw[arrow] (i_cq) -- (i_kkt);
+\draw[arrow] (i_kkt) -- (i_conv);
+\draw[arrow] (i_conv) -- node[left]{yes} (i_glob);
+\draw[arrow] (i_conv) -- node[right]{no} (i_so);
+
+% Legend
+\node [rectangle, draw, fill=white, below=20mm of i_so, text width=12cm, align=left, font=\scriptsize] {
+\textbf{Legend:}\\
+PD = Positive Definite\\
+PSD = Positive Semidefinite\\
+LICQ = Linear Independence Constraint Qualification\\
+MFCQ = Mangasarian-Fromovitz Constraint Qualification\\
+SOSC = Second Order Sufficient Conditions\\
+KKT = Karush-Kuhn-Tucker conditions
+};
+
+\end{tikzpicture}
+\end{document}
+

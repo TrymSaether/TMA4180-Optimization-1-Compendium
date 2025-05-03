@@ -1,0 +1,148 @@
+% ===================================================
+% Glossary
+% ===================================================
+\newglossaryentry{objective-function}
+{
+    name=målfunksjon,
+    description={En funksjon \( f\colon \mathbb{R}^n \to \mathbb{R} \) som skal minimeres eller maksimeres i et optimeringsproblem.},
+    symbol={\( f(x) \)}
+}
+
+\newglossaryentry{feasible-region}
+{
+    name=tillatt område,
+    description={Mengden av alle mulige punkter som tilfredsstiller alle bibetingelser i et optimeringsproblem.},
+    symbol={\( \mathcal{X} \)}
+}
+
+\newglossaryentry{constraint}
+{
+    name=bibetingelse,
+    description={En restriksjon \( g(x) \leq 0 \) eller \( h(x) = 0 \) som begrenser løsningsrommet i et optimeringsproblem.},
+    symbol={\( g(x) \leq 0 \), \( h(x) = 0 \)}
+}
+
+\newglossaryentry{local-minimum}
+{
+    name=lokalt minimum,
+    description={Et punkt \( x^* \) hvor funksjonsverdien er mindre enn eller lik verdiene i en liten omegn rundt punktet. Formelt: Det eksisterer en \( \delta > 0 \) slik at \( f(x^*) \leq f(x) \) for alle \( x \) med \( \|x - x^*\| < \delta \).},
+    symbol={\( x^* \) lokalt min}
+}
+
+\newglossaryentry{global-minimum}
+{
+    name=globalt minimum,
+    description={Et punkt \( x^* \) hvor funksjonsverdien er mindre enn eller lik verdien for alle andre punkter i definisjonsmengden. Formelt: \( f(x^*) \leq f(x) \) for alle \( x \) i definisjonsmengden.},
+    symbol={\( x^* \) globalt min}
+}
+
+
+\newglossaryentry{wolfe-conditions}
+{
+    name=Wolfe-betingelser,
+    description={Et sett med betingelser for å finne en passende steglengde i linjesøk. Består av tilstrekkelig reduksjonsbetingelse og krumningsbetingelse som sikrer effektiv konvergens i optimeringsalgoritmer.},
+    symbol={\( f(x_k + \alpha_k d_k) \leq f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k \) og \( \nabla f(x_k + \alpha_k d_k)^T d_k \geq c_2 \nabla f(x_k)^T d_k \)},
+    see={line-search}
+}
+\newglossaryentry{kkt-conditions}
+{
+    name=KKT-betingelser,
+    description={Nødvendige førsteordens betingelser for at en løsning skal være optimal i et optimeringsproblem med bibetingelser, oppkalt etter Karush, Kuhn og Tucker. Inkluderer stasjonaritetsbetingelsen, komplementær slakk, primal og dual gjennomførbarhet.},
+    symbol={\( \nabla f(x^*) + \sum_{i=1}^m \lambda_i \nabla g_i(x^*) = 0 \)},
+    see={}
+}
+\newglossaryentry{first-order-necessary-conditions}
+{
+    name=førsteordens nødvendige betingelser,
+    description={Betingelser som må være oppfylt for at et punkt skal være et lokalt minimum. For ubetinget optimering er betingelsen at gradienten er null. For optimering med bibetingelser inkluderer dette KKT-betingelsene.},
+    symbol={\( \nabla f(x^*) = 0 \)},
+    see={kkt-conditions}
+}
+
+\newglossaryentry{constraint-qualification}
+{
+    name=bibetingelseskvalifikasjon,
+    description={Betingelser som sikrer at KKT-betingelsene er nødvendige for optimalitet i problemer med bibetingelser. Eksempler inkluderer lineær uavhengighet av gradientene til aktive bibetingelser og Slaters betingelse for konvekse problemer.},
+    symbol={\( \nabla g_i(x^*) \) er lineært uavhengige},
+    see={slater-condition}
+}
+\newglossaryentry{gradient}
+{
+    name=gradient,
+    description={En vektor som gir retningen og størrelsen på den maksimale økningen av en funksjon i et gitt punkt. For en funksjon \( f(x) \) er gradienten gitt ved \( \nabla f(x) = (\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n}) \).},
+    symbol={\( \nabla f(x) \)}
+}
+
+\newglossaryentry{hessian}
+{
+    name=Hessian-matrise,
+    description={En kvadratisk matrise av andre partielle deriverte av en funksjon med flere variabler, som beskriver lokal krumning av funksjonen.},
+    symbol={\( \nabla^2 f(x) \) eller \( H(x) \)}
+}
+
+\newglossaryentry{lagrangian}
+{
+    name=Lagrangefunksjon,
+    description={En funksjon som kombinerer målfunksjonen og bibetingelser for å finne optimale punkter. For et problem med mål \( f(x) \) og bibetingelser \( g_i(x) \leq 0 \) og \( h_j(x) = 0 \), er Lagrangefunksjonen \( L(x, \lambda, \mu) = f(x) + \sum_{i} \lambda_i g_i(x) + \sum_{j} \mu_j h_j(x) \).},
+    symbol={\( L(x,\lambda,\mu) \)}
+}
+
+\newglossaryentry{lagrange-multiplier}
+{
+    name=lagrange-multiplikator,
+    description={Variable brukt i lagrangemetoden for å håndtere bibetingelser. For et problem med mål \( f(x) \) og bibetingelser \( g_i(x) \leq 0 \) og \( h_j(x) = 0 \), representerer \( \lambda_i \) og \( \mu_j \) skyggepriser eller sensitiviteten til optimum med hensyn til bibetingelsene.},
+    symbol={\( \lambda, \mu \)},
+}
+
+\newglossaryentry{slater-condition}
+{
+    name={Slaters betingelse},
+    description={En bibetingelseskvalifikasjon for konvekse optimeringsproblemer som krever eksistensen av minst ett strengt gjennomførbart punkt, dvs. et punkt som tilfredsstiller alle likhetsbibetingelser og alle ulikhetsbibetingelser med streng ulikhet.},
+    symbol={\( \exists x \) slik at \( g_i(x) < 0 \) for alle \( i \) og \( h_j(x) = 0 \) for alle \( j \)},
+    see={constraint-qualification}
+}
+
+\newglossaryentry{convex-function}
+{
+    name=konveks funksjon,
+    description={En funksjon \( f \) der linjesegmentet mellom to vilkårlige punkter på funksjonen aldri ligger under funksjonsgrafen. Matematisk: \( f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y) \) for alle \( x, y \) og \( \lambda \in [0,1] \).},
+    symbol={\( f \) er konveks}
+}
+
+\newglossaryentry{steepest-descent}
+{
+    name=bratteste nedstigning,
+    description={En metode for å finne minimum av en funksjon ved å følge den bratteste nedstigningen i gradienten. Dette innebærer å ta et skritt i retning av den negative gradienten for å minimere funksjonen.},
+    symbol={\( d_k = -\nabla f(x_k) \)},
+    see={gradient}
+}
+
+\newglossaryentry{newton-method}
+{
+    name=Newtons metode,
+    description={En andreordens optimeringsmetode som bruker både gradient og Hessian for å finne søkeretningen. For ubetinget optimering er søkeretningen gitt ved \( d_k = -[\nabla^2 f(x_k)]^{-1} \nabla f(x_k) \).},
+    symbol={\( d_k = -[\nabla^2 f(x_k)]^{-1} \nabla f(x_k) \)},
+    see={hessian}
+}
+
+\newglossaryentry{line-search}
+{
+    name=linjesøk,
+    description={En teknikk for å finne en passende steglengde langs en søkeretning i optimeringsalgoritmer. Målet er å finne en steglengde \( \alpha_k \) som gir tilstrekkelig reduksjon i funksjonen \( f(x_k + \alpha_k d_k) \).},
+    symbol={\( \alpha_k \)},
+    see={wolfe-conditions}
+}
+
+% ==================================================
+% Acronyms
+% ==================================================
+\newacronym{kkt}{KKT}{Karush-Kuhn-Tucker betingelser}
+\newacronym{gd}{GD}{Gradient Descent}
+\newacronym{ls}{LS}{Line Search}
+\newacronym{lp}{LP}{Lineær Programmering}
+\newacronym{nlp}{NLP}{Ikke-lineær Programmering}
+\newacronym{qp}{QP}{Kvadratisk Programmering}
+\newacronym{cg}{CG}{Conjugate Gradient}
+\newacronym{dfp}{DFP}{Davidon-Fletcher-Powell}
+\newacronym{sqp}{SQP}{Sequential Quadratic Programming}
+\newacronym{tr}{TR}{Trust Region}

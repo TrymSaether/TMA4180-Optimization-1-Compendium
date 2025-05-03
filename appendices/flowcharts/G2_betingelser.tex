@@ -1,0 +1,113 @@
+
+\begin{tikzpicture}[
+    node distance=0.8cm and 0.8cm,
+    every node/.style={draw, rectangle, rounded corners=3pt, align=center, font=\sffamily\scriptsize},
+    >=stealth, thick,
+    startstop/.style={rectangle, rounded corners, draw, fill=cor-color!15, text width=9em, minimum height=1em},
+    block/.style={rectangle, draw, fill=thm-color!10, text width=10em, rounded corners, minimum height=1em},
+    decision/.style={diamond, draw, fill=lem-color!10, text width=5em, text badly centered, inner sep=0pt, aspect=1.5}
+  ]
+
+  % Top-level problem
+  \node [startstop] (start) {
+    \textbf{Betinget Optimeringsproblem}\\[0.5ex]
+    Minimer \( f(x) \) gitt\\
+    \( c_i(x)=0,\;i\in E \);\\
+    \( c_j(x)\ge0,\;j\in I \)
+  };
+
+  % Decision: convex?
+  \node [decision, below=1.0cm of start] (convexq) {
+    Er problemet\\
+    \emph{konvekst}?
+  };
+
+  % --- Convex branch (left) ---
+  \node [block, below left=1.0cm and 2cm of convexq] (slater) {
+    \textbf{Sjekk Slaters Betingelse}\\[0.5ex]
+    (for konvekse problemer)\\
+    Sikrer sterk dualitet \& KKT gyldighet
+  };
+
+  \node [decision, below=1.0cm of slater] (cqok2) {
+    Slater\\oppfylt?
+  };
+
+  \node [block, below=1.0cm of cqok2] (cqsat2) {
+    \textbf{Slater's Betingelse:}\\[0.5ex]
+    Eksisterer et punkt \( \bar{x} \) der\\
+    \( c_j(\bar{x}) > 0 \) for \( j \in I \),\\
+    \( c_i(\bar{x}) = 0 \) for \( i \in E \),\\
+    og \( c_j(\bar{x}) \) er \emph{strikt} positiv
+  };
+
+  % --- Nonconvex branch (right) ---
+  \node [block, below right=1.0cm and 2cm of convexq] (licq) {
+    \textbf{Sjekk KK for ikke-konvekse:}\\[0.5ex]
+    \textbf{LICQ} eller MFCQ, osv.\\
+    Hvis ikke oppfylt, KKT gjelder kanskje ikke
+  };
+
+  \node [decision, below=1.0cm of licq] (cqok) {
+    KK\\oppfylt?
+  };
+
+  \node [block, below=1.0cm of cqok] (cqsat) {
+    \textbf{LICQ:}\\[0.5ex]
+    Eksisterer et punkt \( \bar{x} \) der\\
+    \( c_i(\bar{x}) = 0 \) for \( i \in E \)\\
+    \( c_j(\bar{x}) > 0 \) for \( j \in I \),\\
+    og \( \nabla c_i(\bar{x}) \) er lineært uavhengige
+  };
+
+  % Failure node (shared by both branches)
+  \node [block, below=1.0cm of convexq] (fail) {
+    \textbf{Ingen KK oppfylt:}\\[0.5ex]
+    KKT kan feile\\
+    Bruk alternative metoder
+  };
+
+  % --- Common branch: KKT, Second-order, Conclusion ---
+  \node [block, below=3.5cm of convexq] (kkt) {
+    \textbf{KKT-betingelser:}\\[0.5ex]
+    1. Stasjonaritet: \( \nabla f(x^*) + \sum_i \lambda_i \nabla c_i(x^*) = 0 \)\\
+    2. Primal gyldighet: \( c_i(x^*) = 0 \) eller \( c_j(x^*) \geq 0 \)\\
+    3. Dual gyldighet: \( \lambda_j \geq 0 \) for \( j \in I \)\\
+    4. Komplementær slakkhet: \( \lambda_j\,c_j(x^*) = 0 \)
+  };
+
+  \node [block, below=1.0cm of kkt] (second) {
+    \textbf{Andregrads-betingelser:}\\[0.5ex]
+    \emph{Nødvendig:} \( \nabla_{xx}^2 \mathcal{L}(x^*,\lambda^*) \succeq 0 \)\\[0.5ex]
+    \emph{Tilstrekkelig:} \( \nabla_{xx}^2 \mathcal{L}(x^*,\lambda^*) \succ 0 \)
+  };
+
+  \node [startstop, below=1.0cm of second] (conclude) {
+    \textbf{Konklusjon}\\[0.5ex]
+    Hvis KKT + 2.-grads betingelser holder,\\
+    \( \;x^* \) er lokalt minimum.\\[0.5ex]
+    Under konveksitet er \( \;x^* \) globalt minimum.
+  };
+
+  % -----------------
+  % Connections
+  \draw [->, thick] (start) -- (convexq);
+  \draw [->, thick] (convexq) -- node[above left, font=\tiny, fill=white] {Yes} (slater);
+  \draw [->, thick] (convexq) -- node[above right, font=\tiny, fill=white] {No} (licq);
+
+  % Convex branch
+  \draw [->, thick] (slater) -- (cqok2);
+  \draw [->, thick] (cqok2) -- node[font=\tiny, fill=white] {Yes} (cqsat2);
+  \draw [->, thick] (cqok2.east) -- ++(1,0) |- node[font=\tiny, fill=white] {No} (fail.west);
+  \draw [->, thick] (cqsat2.east) -- ++(0.5,0) |- (kkt.west);
+
+  % Nonconvex branch
+  \draw [->, thick] (licq) -- (cqok);
+  \draw [->, thick] (cqok) -- node[font=\tiny, fill=white] {Yes} (cqsat);
+  \draw [->, thick] (cqok.west) -- ++(-1,0) |- node[font=\tiny, fill=white] {No} (fail.east);
+  \draw [->, thick] (cqsat.west) -- ++(-0.5,0) |- (kkt.east);
+
+  % Common branch
+  \draw [->, thick] (kkt) -- (second);
+  \draw [->, thick] (second) -- (conclude);
+\end{tikzpicture}

@@ -1,0 +1,138 @@
+\begin{tikzpicture}[
+        node distance=0.8cm and 0.8cm,
+        every node/.style={draw, rectangle, rounded corners=3pt, align=center, font=\sffamily\scriptsize},
+        >=stealth, thick,
+        startstop/.style={rectangle, rounded corners, draw, fill=cor-color!15, text width=9em, minimum height=1em},
+        block/.style={rectangle, draw, fill=thm-color!10, text width=10em, rounded corners, minimum height=1em},
+        decision/.style={diamond, draw, fill=lem-color!10, text width=5em, text badly centered, inner sep=0pt, aspect=1.5}
+    ]
+
+    % Top-level problem
+    \node [startstop] (prob) {
+        \textbf{Problem}\\[0.5ex]
+        Minimer \(f(x)\)\\
+        med begrensninger \(c(x)\)\\
+        i mengde \(\mathcal{\Omega}\)
+    };
+
+    % Feasibility check
+    \node [decision, below=1.0cm of prob] (feas) {
+        Er feasible settet \(\mathcal{\Omega} \neq \emptyset\)? \\
+        \(\exists x\in\mathcal{\Omega}\):\\
+        \(c(x)=0\),\\
+        \(c(x)\ge0\)?
+    };
+    \node [block, left=2cm of feas] (nof) {
+        \textbf{Stopp:}\\[0.5ex]
+        \(\mathcal{\Omega}=\emptyset \implies \text{ingen løsning}\)
+    };
+
+    % Existence check
+    \node [decision, below=1.0cm of feas] (exist) {
+        Weierstrass:\\
+        \(\mathcal{\Omega}\) kompakt\\
+        og \(f\) kontinuerlig?
+        \textbf{eller}\\
+        \(f\) er coercive:\\
+        \(\lim_{\|x\|\to\infty} f(x) \to \infty\)?
+    };
+    \node [block, left=2cm of exist] (inf) {
+        \textbf{Advarsel:}\\[0.5ex]
+        Uten kompakthet eller koercivitet\\
+        kan kun \(\inf f\) eksistere
+    };
+
+    % Uniqueness check
+    \node [decision, below=1.0cm of exist] (unique) {
+        \(f\) eller \(\mathcal{L}\)\\
+        \emph{strengt} konveks (på \(\mathcal{\Omega}\))?\\
+        \(\nabla^2 f \succ 0\)?\\
+    };
+    \node [block, right=2cm of unique] (uniq) {
+        \textbf{Result:}\\[0.5ex]
+        Unik løsning\\
+        Sterk konveksitet: \(\mu I\preceq\nabla^2 f\)?\\
+        \(\implies \text{uniqueness}+\text{Well cond.}\)\\
+    };
+    % Convexity check
+    \node [decision, below=1.0cm of unique] (convq) {
+        \(f\) og \(\mathcal{\Omega}\)\\
+        konvekse?
+    };
+
+    % Convex branch
+    \node [decision, below left=1.0cm and 2cm of convq] (slater) {
+        Slater CQ\\
+        (hvis begrensninger)?\\
+        \(c_j(x) > 0 \; j \in I\)
+    };
+    % Slater's failure
+    \node [block, left=2cm of slater] (fail) {
+        \textbf{Stopp:}\\[0.5ex]
+        Slater CQ ikke oppfylt\\
+        KKT kan feile\\
+        \textit{Svak dualitet gjelder fortsatt:}\\
+        \(\max_{\lambda \ge 0} g(\lambda) \leq \min_{x} f(x)\)
+    };
+    \node [block, below=1.0cm of slater] (kktg) {
+        \textbf{KKT} \(\iff\)\\
+        Globalt Optimum \&\\
+        \textbf{Sterk Dualitet:}\\
+        \(\max_{\lambda \ge 0} g(\lambda) = \min_{x} f(x)\)\\
+    };
+    \node [block, below=1.5cm of kktg] (soc_conv_1) {
+        \emph{2. Ord. Tilstrekkelig:}\\[0.5ex]
+        \(\nabla_{xx}^2\mathcal{L} \succ 0\) (tilstrekkelig)\\
+    };
+
+
+    \node [startstop, below=1.0cm of soc_conv_1] (min_global) {
+        \textbf{Minimum!}\\
+        (Globalt)
+    };
+    % If Necessary then Local
+
+    % Non-convex branch
+    \node [decision, below right=1.0cm and 2cm of convq] (licq) {
+        LICQ / MFCQ\\
+        (hvis begrensninger)\\
+        \(\nabla c_i(x)\) lin. uavh.
+    };
+    \node [block, below=1.0cm of licq] (kktn) {
+        \textbf{KKT}:\\
+        Kun nødvendige\\
+        betingelser
+    };
+    \node [block, below=1.5cm of kktn] (soc_conv_2) {
+        \emph{2. Ord. Nødvendig:}\\[0.5ex]
+        \(\nabla_{xx}^2\mathcal{L} \succeq 0\) (nødvendig)\\
+    };
+
+    \node [startstop, below=1.0cm of soc_conv_2] (min_local) {
+        \textbf{Minimum!}\\
+        (Lokalt)
+    };
+    % 4. Add LICQ-fail path
+\node[block, right=2.1cm of licq] (fail_noncq) {CQ feiler\\KKT usikkert};
+\draw[->] (licq) -- node[above,font=\tiny]{Nei} (fail_noncq);
+
+    % Update arrows
+    \draw[->] (prob) -- (feas);
+    \draw[->] (feas) -- node[above, font=\tiny] {Nei} (nof);
+    \draw[->] (feas) -- node[right, font=\tiny] {Ja} (exist);
+    \draw[->] (exist) -- node[above, font=\tiny] {Nei} (inf);
+    \draw[->] (exist) -- node[right, font=\tiny] {Ja} (unique);
+    \draw[->] (unique) -- node[above, font=\tiny] {Ja} (uniq);
+    \draw[->] (unique) -- (convq);
+    \draw[->] (convq) -- node[above left, font=\tiny] {Ja} (slater);
+    \draw[->] (convq) -- node[above right, font=\tiny] {Nei} (licq);
+    \draw[->] (slater) -- node[left, font=\tiny] {Ja} (kktg);
+    \draw[->] (slater) -- node[above, font=\tiny] {Nei} (fail);
+    \draw[->] (licq) -- node[right, font=\tiny] {Ja} (kktn);
+    \draw[->] (kktg) -- (soc_conv_1);
+    \draw[->] (kktn) -- (soc_conv_2);
+    \draw[->] (soc_conv_1) -- (min_global);
+    \draw[->] (soc_conv_2) -- (min_local);
+
+    
+\end{tikzpicture}

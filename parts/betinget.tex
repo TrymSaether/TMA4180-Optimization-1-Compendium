@@ -1,0 +1,169 @@
+\part{Betinget Optimering}
+
+\chapter{Introduksjon til Betinget Optimering}
+
+Betinget optimering er en sentral del av optimeringsteori som handler om å finne optimale verdier for en funksjon når variablene må tilfredsstille spesifikke betingelser eller begrensninger.
+
+\section{Problemformulering}
+
+\chapter{Teori for Betinget Optimering}
+
+\section{Tangenskjegler}
+
+For generelle (muligens ikke-konvekse) mengder spiller tangenskjeglen en avgjørende rolle i optimalitetsbetingelser.
+
+\begin{definition}{Tangenskjegle}{tangent_cone}
+    For en mengde \( \Omega \subset \mathbb{R}^n \) og et punkt \( x \in \Omega \), er tangenskjeglen \( T_\Omega(x) \) definert som:
+    \[
+        T_\Omega(x) = \left\{ d \in \mathbb{R}^n : \exists \{x_k\} \subset \Omega, \{t_k\} \subset \mathbb{R}^+, t_k \downarrow 0, \lim_{k\to\infty} \frac{x_k - x}{t_k} = d \right\}
+    \]
+\end{definition}
+
+Tangenskjeglen generaliserer konseptet med mulige retninger til ikke-konvekse settinger. For konvekse mengder sammenfaller tangenskjeglen med kjeglen av mulige retninger.
+
+\section{Lineær Uavhengighetsbetingelse (LICQ)}
+
+I optimalisering med både likhets- og ulikhetsbetingelser:
+\begin{mini*}
+    {x}{f(x)}{}{}
+    \addConstraint{g_i(x)}{\leq 0,\quad}{i \in \mathcal{I}}
+    \addConstraint{h_j(x)}{= 0,\quad}{j \in \mathcal{E}}
+\end{mini*}
+
+møter vi ofte situasjoner der visse kvalifikasjonsbetingelser må være oppfylt for å sikre veloppførte optimalitetsbetingelser.
+
+\begin{definition}{Aktiv Mengde}{active_set}
+    For et mulig punkt \( x \), er den aktive mengden \( \mathcal{A}(x) \):
+    \[
+        \mathcal{A}(x) = \{i \in \mathcal{I} : g_i(x) = 0\} \cup \mathcal{E}
+    \]
+\end{definition}
+
+\begin{definition}{Lineær Uavhengighetsbetingelse (LICQ)}{licq}
+    For et mulig punkt \( x \), er LICQ oppfylt hvis settet av gradienter for aktive betingelser:
+    \[
+        \{\nabla g_i(x) : i \in \mathcal{A}(x) \cap \mathcal{I}\} \cup \{\nabla h_j(x) : j \in \mathcal{E}\}
+    \]
+    er lineært uavhengig.
+\end{definition}
+
+LICQ sikrer at betingelsene er veldefinerte og at Lagrange-multiplikatorene for den optimale løsningen er unike.
+
+\section{KKT-betingelser for Ikke-konvekse Problemer}
+
+\begin{theorem}{KKT Nødvendige Betingelser}{kkt_necessary}
+    La \( x^* \) være et lokalt minimum for optimaliseringsproblemet med begrensninger, og anta at LICQ er oppfylt i \( x^* \). Da eksisterer det unike Lagrange-multiplikatorer \( \lambda^* \in \mathbb{R}^{|\mathcal{I}|} \) og \( \mu^* \in \mathbb{R}^{|\mathcal{E}|} \) slik at:
+    \begin{align}
+        \nabla f(x^*) + \sum_{i \in \mathcal{I}} \lambda_i^* \nabla g_i(x^*) + \sum_{j \in \mathcal{E}} \mu_j^* \nabla h_j(x^*) & = 0 \tag{Stasjonaritet}                                           \\
+        g_i(x^*)                                                                                                                & \leq 0, \quad \forall i \in \mathcal{I} \tag{Primal Feasibilitet} \\
+        h_j(x^*)                                                                                                                & = 0, \quad \forall j \in \mathcal{E} \tag{Primal Feasibilitet}    \\
+        \lambda_i^*                                                                                                             & \geq 0, \quad \forall i \in \mathcal{I} \tag{Dual Feasibilitet}   \\
+        \lambda_i^* g_i(x^*)                                                                                                    & = 0, \quad \forall i \in \mathcal{I} \tag{Komplementær Slakkhet}
+    \end{align}
+\end{theorem}
+
+I motsetning til det konvekse tilfellet, er disse betingelsene kun nødvendige, men ikke tilstrekkelige for optimalitet i ikke-konvekse problemer.
+
+\section{Andreordens Nødvendige og Tilstrekkelige Betingelser}
+
+For ikke-konvekse problemer gir andreordens betingelser ytterligere informasjon om naturen til kritiske punkter.
+
+\begin{definition}{Kritisk Kjegle}{critical_cone}
+    For et punkt \( x^* \) som oppfyller KKT-betingelsene med multiplikatorer \( (\lambda^*, \mu^*) \), er den kritiske kjeglen \( \mathcal{C}(x^*, \lambda^*) \):
+    \[
+        \mathcal{C}(x^*, \lambda^*) = \{d \in T_\Omega(x^*) : \nabla g_i(x^*)^T d = 0 \text{ for alle } i \in \mathcal{A}(x^*) \text{ med } \lambda_i^* > 0\}
+    \]
+\end{definition}
+
+\begin{theorem}{Andreordens Nødvendig Betingelse}{second_order_necessary}
+    La \( x^* \) være et lokalt minimum som oppfyller LICQ, med tilhørende Lagrange-multiplikatorer \( (\lambda^*, \mu^*) \). Da gjelder:
+    \[
+        d^T \nabla^2_{xx} \mathcal{L}(x^*, \lambda^*, \mu^*) d \geq 0 \quad \forall d \in \mathcal{C}(x^*, \lambda^*)
+    \]
+    der \( \mathcal{L} \) er Lagrange-funksjonen.
+\end{theorem}
+
+\begin{theorem}{Andreordens Tilstrekkelig Betingelse}{second_order_sufficient}
+    La \( x^* \) være et punkt som oppfyller KKT-betingelsene med multiplikatorer \( (\lambda^*, \mu^*) \). Hvis:
+    \[
+        d^T \nabla^2_{xx} \mathcal{L}(x^*, \lambda^*, \mu^*) d > 0 \quad \forall d \in \mathcal{C}(x^*, \lambda^*) \setminus \{0\}
+    \]
+    da er \( x^* \) et strengt lokalt minimum.
+\end{theorem}
+
+\chapter{Metoder for betinget optimering}
+
+\section{Straffemetoder}
+En vanlig tilnærming for å håndtere betingelser i optimaliseringsproblemer er å legge til \emph{straffetermer} i målfunksjonen. Straffetermer gir store kostnader når betingelsene brytes, og leder løsningen gradvis mot det tillatte området.
+
+\begin{definition}{Straffemetode (Penalty Method)}{penalty_method}
+    Betrakt det generelle problemet
+    \[
+        \min_{x\in\mathbb{R}^n} f(x)
+        \quad
+        \text{s. t. }
+        g_i(x)\le0,\;i\in\mathcal I,
+        \;
+        h_j(x)=0,\;j\in\mathcal E.
+    \]
+    En straffefunksjon med parameter \(r>0\) kan defineres som
+    \[
+        P(x,r)
+        = f(x)
+        + r\sum_{i\in\mathcal I}\bigl[\max\{0,\,g_i(x)\}\bigr]^2
+        + r\sum_{j\in\mathcal E}\bigl[h_j(x)\bigr]^2.
+    \]
+    Minimering av \(P(x,r)\) for voksende \(r\) tvinger iteratene mot det egentlige begrensningssettet.
+\end{definition}
+
+\subsection{Kvadratiske straffemetoder}
+En spesiell variant er å straffe alle betingelser med kvadrater, også de som allerede er tilfredsstilt:
+\[
+    P_{\mathrm{quad}}(x,r)
+    = f(x)
+    + r\sum_{i\in\mathcal I} g_i(x)^2
+    + r\sum_{j\in\mathcal E} h_j(x)^2.
+\]
+Her økes \(r\) typisk etter hvert iterasjonstrinn for å redusere bruddene på betingelsene.
+
+\subsection{Barrieremetoder}
+Barrieremetoder introduserer en term som blir uendelig når man nærmer seg grensene for de ugyldige områdene. En populær barriere er den logaritmiske barrieren:
+
+\begin{definition}{Logaritmisk barrieremetode}{barrier_method}
+    For ulikhetsbetingelser \(g_i(x)\le0\) defineres
+    \[
+        B(x,\mu)
+        = f(x)
+        - \mu\sum_{i\in\mathcal I}\ln\bigl(-g_i(x)\bigr),
+        \quad \mu>0.
+    \]
+    Minimering av \(B(x,\mu)\) med synkende \(\mu\) følger den såkalte \emph{sentralveien} mot en KKT-løsning.
+\end{definition}
+
+I praksis velges en sekvens \(\{\mu_k\}\downarrow0\). For hvert \(\mu_k\) løses:
+\[
+    x^{(k)} = \arg\min_x B(x,\mu_k),
+\]
+og \(x^{(k)}\) initierer neste subproblem.
+
+\subsection{Augmenterte Lagrange-metoder}
+Augmenterte Lagrange-metoder kombinerer fordeler fra Lagrange-funksjonen og kvadratiske straffetermer:
+
+\begin{definition}{Augmentert Lagrange-funksjon}{augmented_lagrangian}
+    La \(\lambda\in\mathbb R^{|\mathcal E|}\) være Lagrange-multiplikatorer og \(r>0\) en straffeparameter. Den augmenterte Lagrange-funksjonen er
+    \[
+        \mathcal L_A(x,\lambda,r)
+        = f(x)
+        + \sum_{j\in\mathcal E}\lambda_j\,h_j(x)
+        + \tfrac r2\sum_{j\in\mathcal E} h_j(x)^2.
+    \]
+\end{definition}
+
+Algoritmisk oppdateres \(\lambda\) og \(r\) etter hvert subproblem:
+\[
+    x^{(k)} = \arg\min_x \mathcal L_A(x,\lambda^{(k)},r^{(k)}),
+    \quad
+    \lambda^{(k+1)} = \lambda^{(k)} + r^{(k)}\,h(x^{(k)}),
+    \quad
+    r^{(k+1)} \ge r^{(k)}.
+\]

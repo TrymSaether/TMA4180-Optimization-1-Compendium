@@ -8,3 +8,4 @@
 _minted*
 .DS_Store
 .vscode/
+**.log

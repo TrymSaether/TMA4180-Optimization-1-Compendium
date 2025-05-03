@@ -1,0 +1,151 @@
+Del I · Grunnlag
+	1. Matematisk Bakgrunn
+		1.1 Mengder, Funksjoner & Notasjon
+		1.2 Gjennomgang av Lineær Algebra
+		1.3 Grunnleggende Konveksitet
+		1.4 Geometriske Objekter (kuler, simplekser, osv.)
+	2. Optimeringsproblemer
+		2.1 Problemformulering
+		2.2 Problemklasser (LP, QP, NLP, osv.)
+		2.3 Globale vs Lokale Minima
+		2.4 Grunnleggende Optimalitetsbetingelser
+⸻
+Del II · Ubetinget Optimering
+	3. Grunnleggende Teori for Ubetinget Optimering
+		3.1 Problemformulering og egenskaper
+		3.2 Eksistens av løsninger
+		3.3 Stasjonære punkter
+			3.3.1 Definisjon og egenskaper
+			3.3.2 Gradient og Hessian
+			3.3.3 Stasjonære punkter i flere dimensjoner
+		3.4 Konvergensteori
+			3.4.1 Konvergens
+			3.4.2 Konvergenshastighet
+		3.3 Optimalitetsbetingelser
+			3.3.1 Nødvendige førsteordens betingelser
+			3.3.2 Andreordens betingelser (nødvendige og tilstrekkelige)
+		3.4 Taylor-ekspansjoner
+	4. Iterative Metoder og Søkeretninger
+		4.1 Iterativ struktur og konvergens
+		4.2 Nedstigningsretninger (Descent directions)
+			4.2.1 Gradientretningen (steepest descent)
+			4.2.2 Newtonretningen
+			4.2.3 Kvasi-Newton retninger
+		4.3 Egenskaper og valg av søkeretninger
+
+	5. Steglengdestrategier og Globalisering
+		5.1 Linjesøkmetoder
+			5.1.1 Eksakte linjesøk
+			5.1.2 Armijo-betingelsen
+			5.1.3 Wolfe- og Goldstein-betingelser
+		5.2 Tillitsregion-metoder (Trust region)
+			5.2.1 Grunnleggende prinsipper
+			5.2.2 Cauchy-punkt
+			5.2.3 Dogleg-metoden
+		5.3 Sammenlikning av strategier
+
+	6. Førsteordens Optimeringsmetoder
+		6.1 Gradientbaserte metoder
+			6.1.1 Bratteste-nedstigning (Steepest descent)
+			6.1.2 Konvergensanalyse og begrensninger
+			6.1.3 Momentumbaserte varianter
+		6.2 Konjugert gradientmetode
+			6.2.1 Motivasjon og utledning
+			6.2.2 Fletcher-Reeves og Polak-Ribière varianter
+			6.2.3 Prekondisjoneringstekniker
+			6.2.4 Konvergensegenskaper
+		6.3 Stokastiske gradientmetoder
+			6.3.1 SGD og mini-batch varianter
+			6.3.2 Adaptiv læringsrate
+
+	7. Andreordens Optimeringsmetoder
+		7.1 Newtons metode
+			7.1.1 Utledning og matematisk grunnlag
+			7.1.2 Implementasjonsdetaljer
+			7.1.3 Modifikasjoner for ikke-konvekse funksjoner
+			7.1.4 Konvergensanalyse
+		7.2 Kvasi-Newton-metoder
+			7.2.1 Secant-betingelsen og approksimering av Hessian
+			7.2.2 BFGS-oppdatering
+			7.2.3 DFP og SR1 oppdateringsformler
+			7.2.4 Begrenset-minne varianter (L-BFGS)
+		7.3 Hybridmetoder og praktiske betraktninger
+			7.3.1 Gauss-Newton for minste kvadraters problemer
+			7.3.2 Levenberg-Marquardt algoritmen
+			7.3.3 Valg av metode basert på problemstruktur
+
+	8. Derivatfrie Metoder
+		8.1 Finite differanser
+		8.2 Direkte søkemetoder
+			8.2.1 Nelder-Mead simpleks-metode
+			8.2.2 Mønstersøk (Pattern search)
+		8.3 Anvendelser og begrensninger
+⸻
+Del III · Konveks Optimering
+	9. Teori for Konveks Optimering
+		9.1 Konvekse Mengder
+			9.1.1 Definisjon og grunnleggende egenskaper
+			9.1.2 Geometriske eksempler (hyperplan, kuler, polyedre)
+			9.1.3 Operasjoner som bevarer konveksitet
+		9.2 Konvekse Funksjoner
+			9.2.1 Definisjoner og karakteriseringer
+			9.2.2 Første- og andreordens betingelser
+			9.2.3 Viktige klasser av konvekse funksjoner
+			9.2.4 Epigraf og subgradienter
+		9.3 Optimalitetsbetingelser
+			9.3.1 KKT-betingelser for konvekse problemer
+			9.3.2 Slaters betingelse og andre constraint qualifications
+		9.4 Dualitet
+			9.4.1 Lagrangian og Dualfunksjon
+			9.4.2 Svak og Sterk Dualitet
+			9.4.3 Sadelpunktstolkning
+			9.4.4 Legendre–Fenchel Transform
+			9.4.5 Dualt Problem og Komplementær Slackness
+
+	10. Anvendelser av Konveks Optimering
+		10.1 Konvekse Optimeringsproblemer
+			10.1.1 Standardformuleringer
+			10.1.2 Globale optimalitetsegenskaper
+		10.2 Lineær Programmering
+			10.2.1 Geometrisk tolkning og egenskaper
+			10.2.2 Primal-dual relasjoner
+			10.2.3 Anvendelsesområder
+		10.3 Kvadratisk Programmering
+			10.3.1 QP med likhetsbetingelser
+			10.3.2 QP med ulikhetsbetingelser
+			10.3.3 Praktiske anvendelser
+		10.4 Semidefinit Programmering
+			10.4.1 Grunnleggende formuleringer
+			10.4.2 Anvendelser i optimering og matematikk
+
+	11. Algoritmer for Konveks Optimering
+		11.1 Projeksjon på Konvekse Mengder
+			11.1.1 Projeksjonsegenskaper og unikhet
+			11.1.2 Beregningsmetoder for ulike mengdetyper
+			11.1.3 Anvendelser i optimering
+		11.2 Numeriske Løsningsmetoder
+			11.2.1 Gradientprojeksjonsmetoden
+			11.2.2 Indrepunktsmetoder
+			11.2.3 Proximale algoritmer
+		11.3 Metoder for Lineær Programmering
+			11.3.1 Simpleksmetoden
+			11.3.2 Indrepunktsmetoder for LP
+		11.4 Algoritmer for Kvadratisk og Semidefinit Programmering
+			11.4.1 Aktiv-mengde metoder for QP
+			11.4.2 Indrepunktsmetoder for SDP
+			11.4.3 Løsningsmetoder og implementasjoner
+
+⸻
+
+Del IV · Generell Betinget Optimering
+	12. Ikke-konveks Betinget Optimering
+		12.1 Tangent- & Lineariserte Kjegler
+		12.2 LICQ & Andre CQ-er
+		12.3 KKT for Ikke-konvekse Problemer
+		12.4 Andreordens Nødvendighet & Tilstrekkelighet
+	13. Numeriske Metoder for Betingede Problemer
+		13.1 Straff- & Eksakt Straffmetoder
+		13.2 Logaritmisk Barriere Indre-punkt
+		13.3 Augmentert Lagrangian
+		13.4 Sekvensiell Kvadratisk Programmering (SQP)
+		13.5 Merittfunksjoner & Maratos-effekten

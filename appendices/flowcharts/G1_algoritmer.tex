@@ -1,0 +1,87 @@
+
+\begin{forest}
+    for tree={
+    draw,
+    rounded corners,
+    align=center,
+    l sep=0.5em,    % Reduced further
+    s sep=0.5em,    % Reduced further
+    l sep=0.8em,    % Reduced from 1em
+    s sep=0.8em,    % Reduced from 1em
+    font=\small, % Changed from \small to \footnotesize
+    edge={->},
+    scale=0.8,
+    }
+    [{\textbf{Optimization Algorithms}}, fill=gray!20
+    [{\textbf{Unconstrained Optimization}\\ \(\min_{x \in \mathbb{R}^n} f(x)\)}, fill=blue!10
+    [{\textbf{First-Order Methods}\\(Use \(\nabla f(x)\))}, fill=green!10
+    [{\textbf{Gradient Descent}\\\(x_{k+1} = x_k - \alpha_k \nabla f(x_k)\)}
+      [{\textbf{Variants}}
+          [{\textbf{Steepest Descent}\\(Standard GD)}]
+          [{\textbf{Stochastic GD}\\ \(x_{k+1} = x_k - \alpha_k \nabla f_i(x_k)\)}]
+          [{\textbf{Mini-batch SGD}}]
+      ]
+    ]
+    [{\textbf{Momentum Methods}}
+      [{\textbf{Classical Momentum}\\\(v_{k+1} = \beta v_k - \alpha_k \nabla f(x_k)\)\\\(x_{k+1} = x_k + v_{k+1}\)}]
+      [{\textbf{Nesterov}\\\(x_{k+1} = x_k + \beta_k (x_k - x_{k-1}) - \alpha_k \nabla f(x_k + \beta_k(x_k - x_{k-1}))\)}]
+    ]
+    [{\textbf{Conjugate Gradient}\\\(d_k = -\nabla f(x_k) + \beta_k d_{k-1}\)\\\(\beta_k = \frac{\nabla f(x_k)^T \nabla f(x_k)}{\nabla f(x_{k-1})^T \nabla f(x_{k-1})}\) (FR)}]
+    [{\textbf{Adaptive Methods}}
+      [{\textbf{AdaGrad}}]
+      [{\textbf{RMSProp}}]
+      [{\textbf{Adam}}]
+    ]
+    ]
+    [{\textbf{Second-Order Methods}\\(Use \(\nabla^2 f(x)\))}, fill=orange!10
+    [{\textbf{Newton's Method}\\\(x_{k+1} = x_k - [\nabla^2 f(x_k)]^{-1} \nabla f(x_k)\)}]
+    [{\textbf{Quasi-Newton Methods}\\(Approximate Hessian)}
+      [{\textbf{BFGS}\\\(B_{k+1} = B_k + \frac{y_k y_k^T}{y_k^T s_k} - \frac{B_k s_k s_k^T B_k}{s_k^T B_k s_k}\)}]
+      [{\textbf{L-BFGS}\\(Limited-memory)}]
+      [{\textbf{DFP}}]
+      [{\textbf{SR1}}]
+    ]
+    ]
+    [{\textbf{Derivative-Free Methods}}, fill=red!10
+    [{\textbf{Direct Search}}
+      [{\textbf{Nelder-Mead Simplex}}]
+      [{\textbf{Pattern Search}}]
+    ]
+    [{\textbf{Evolutionary Algorithms}}
+      [{\textbf{Genetic Algorithms}}]
+      [{\textbf{Particle Swarm}}]
+    ]
+    ]
+    [{\textbf{Line Search Strategies}\\(How to choose \(\alpha_k\))}, fill=purple!10
+    [{\textbf{Exact Line Search}\\\(\alpha_k = \arg\min_{\alpha} f(x_k + \alpha d_k)\)}]
+    [{\textbf{Inexact Line Search}}
+      [{\textbf{Backtracking}\\(Armijo condition)}]
+      [{\textbf{Wolfe Conditions}\\\(f(x_k + \alpha_k d_k) \leq f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k\)\\\(|\nabla f(x_k + \alpha_k d_k)^T d_k| \leq c_2 |\nabla f(x_k)^T d_k|\)}]
+    ]
+    ]
+    ]
+    [{\textbf{Constrained Optimization}\\\(\min_{x \in \Omega} f(x)\)}, fill=yellow!10
+    [{\textbf{Equality Constraints}\\\(h(x) = 0\)}, fill=cyan!10
+    [{\textbf{Method of Lagrange Multipliers}\\\(\mathcal{L}(x, \lambda) = f(x) - \lambda^T h(x)\)}]
+    [{\textbf{Penalty Methods}\\\(\min_x f(x) + \mu \|h(x)\|^2\)}]
+    ]
+    [{\textbf{Inequality Constraints}\\ \(g(x) \leq 0\)}, fill=teal!10
+    [{\textbf{KKT Conditions}\\ \(\nabla f(x) + \lambda^T \nabla h(x) + \mu^T \nabla g(x) = 0\)\\\(\mu_i \geq 0, \mu_i g_i(x) = 0\)}]
+    [{\textbf{Active Set Methods}}]
+    [{\textbf{Interior Point Methods}\\(Barrier functions)}]
+    ]
+    [{\textbf{Convex Optimization}\\(Special structure)}, fill=lime!10
+    [{\textbf{Linear Programming}\\\(\min c^T x\) s.t. \(Ax \leq b\)}
+      [{\textbf{Simplex Method}}]
+    ]
+    [{\textbf{Quadratic Programming}\\ \(\min \frac{1}{2}x^T Q x + c^T x\) s.t. \(Ax \leq b\)}]
+    [{\textbf{SDP, SOCP, etc.}}]
+    ]
+    ]
+    [{\textbf{Convergence Criteria}}, fill=violet!10
+    [{\textbf{Gradient Norm}\\\(\|\nabla f(x_k)\| < \epsilon\)}]
+    [{\textbf{Function Value}\\\(|f(x_k) - f(x_{k-1})| < \epsilon\)}]
+    [{\textbf{Step Size}\\\(\|x_k - x_{k-1}\| < \epsilon\)}]
+    ]
+    ]
+  \end{forest}
