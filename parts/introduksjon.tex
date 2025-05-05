@@ -27,7 +27,7 @@ Dette tallet representerer på mange måter hvordan vektorene "overlapper" med h
 	Dette gir oss en ny vektor som er parallell med \( \symbf{v} \) og representerer den delen av \( \symbf{u} \) som "går i retning" av \( \symbf{v} \).
 \end{corollary}
 
-\subsubsection{Ytre produkt (tensorprodukt)}
+\subsubsection{Ytre produkt}
 Ytre produktet er en operasjon som tar to vektorer og lager en matrise.
 \begin{definition}{Ytre produkt}{outer_product}
 	Gitt to vektorer \( \symbf{u} \in \R^m \) og \( \symbf{v} \in \R^n \), er det ytre produktet definert som:
@@ -309,6 +309,7 @@ Det innebærer at når vi vurderer hvilke retninger vi kan søke i, ser vi bort 
 \end{proposition}
 
 \section{Funksjoner}
+
 \subsection{Veldefinerte funksjoner}
 En funksjon er veldefinert hvis den gir en entydig verdi for hver input--verdi.
 \begin{definition}{Veldefinert funksjon}{well_defined}
@@ -322,7 +323,7 @@ En funksjon er veldefinert hvis den gir en entydig verdi for hver input--verdi.
 \end{definition}
 
 \subsection{Nedre semi-kontinuerlige funksjoner}
-En nedre semikontinuerlig funksjon (\textit{lower semi-continuous function}) er en funksjon som ikke har plutselige "hopp nedover".
+En nedre semikontinuerlig funksjon (\emph{lower semi-continuous function (lsc)}) er en funksjon som ikke har plutselige "hopp nedover".
 
 Tenk deg at du nærmer deg et punkt \( \symbf{x_0} \) fra alle mulige retninger:
 \begin{itemize}
@@ -373,10 +374,10 @@ En koersiv funksjon er en funksjon som vokser mot uendelig når vi beveger oss m
 	\end{itemize}
 \end{definition}
 
-\begin{remark}{Intuisjon -- Infimum}{intuition_infimum}
-	Tenk på infimum som den \enquote{laveste støtten} eller \enquote{gulvet} under mengden. Det er den største verdien som fungerer som en nedre grense for alle elementer i mengden. Som et fysisk bilde: hvis elementene i mengden er baller som faller, er infimum den høyeste plattformen som ingen ball kan falle gjennom.
+Tenk på infimum som den \enquote{laveste støtten} eller \enquote{gulvet} under mengden. Det er den største verdien som fungerer som en nedre grense for alle elementer i mengden. Som et fysisk bilde: hvis elementene i mengden er baller som faller, er infimum den høyeste plattformen som ingen ball kan falle gjennom.
 
-	\textbf{Huskeregel:} \enquote{IN-fimum er den største verdien INNenfor eller rett under mengden} (tenk på \enquote{in} som \enquote{inn} eller \enquote{innunder}).
+\begin{remark}{Huskeregel}{}
+	\enquote{IN-fimum er den største verdien INNenfor eller rett under mengden} (tenk på \enquote{in} som \enquote{inn} eller \enquote{innunder}).
 \end{remark}
 
 \begin{example}{Eksempel på infimum}{}
@@ -427,13 +428,14 @@ En koersiv funksjon er en funksjon som vokser mot uendelig når vi beveger oss m
 		\item Hvis \(A\) ikke har et maksimum, er supremum det minste tallet som er større enn alle elementene i \(A\).
 	\end{itemize}
 \end{definition}
+Tenk på supremum som \enquote{taket} eller \enquote{den laveste hindringen} over mengden.
+Det er den minste verdien som fungerer som en øvre grense for alle elementer i mengden. 
 
-\begin{remark}{Intuisjon -- supremum}{intuition_supremum}
-	Tenk på supremum som \enquote{taket} eller \enquote{den laveste hindringen} over mengden. 
-	
-	Det er den minste verdien som fungerer som en øvre grense for alle elementer i mengden. Som et fysisk bilde: hvis elementene i mengden er hoppende baller, er supremum det laveste taket som ingen ball kan hoppe høyere enn.
 
-	\textbf{Huskeregel:} \enquote{SUP-remum er den minste verdien SUpra (over) mengden} (tenk på \enquote{sup} som i \enquote{super} eller \enquote{ovenfor}).
+
+\begin{remark}{Supremum huskeregel}{}	
+	\enquote{SUP-remum er den minste verdien SUpra (over) mengden} (tenk på \enquote{sup} som i \enquote{super} eller \enquote{ovenfor}).
+	Som et fysisk bilde: hvis elementene i mengden er hoppende baller, er supremum det laveste taket som ingen ball kan hoppe høyere enn.
 \end{remark}
 
 \begin{example}{Eksempel på supremum}{}
@@ -616,51 +618,6 @@ Et simplex er en geometrisk figur som kan forstås som den enkleste formen i et 
 	\end{figure}
 \end{definition}
 
-\subsection{Konveksitetekvivalenser}
-Alle de følgende karakteriseringene er ekvivalente, og kan brukes for å bevise konveksitet av en funksjon, eller mengde.
-
-La \(f: \R^n \to \R\) være en funksjon og \(C \subset \R^n\) være en mengde. Da er følgende ekvivalente:
-
-\begin{table}[H]
-	\centering
-	\small
-	\setlength{\tabcolsep}{6pt}
-	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-		\rowcolor{rem-color!25}
-		\textbf{Ekvivalente Utsagn} & \textbf{Matematisk Definisjon}                                                                                                                                                     & \textbf{Forklaring og Intuisjon} \\
-		\hline
-		Geometrisk                  &
-		\( f(\lambda \symbf{x} + (1-\lambda)\symbf{y}) \le \lambda f(\symbf{x}) + (1-\lambda)f(\symbf{y}) \)
-		for alle \( \symbf{x},\symbf{y} \) i domenet og \( \lambda \in [0,1] \)
-		                            & Grafen til \( f \) ligger under eller på sekantlinjene som forbinder to punkter på grafen.                                                                                                                            \\
-		\hline
-		Epi-graf                    &
-		\(\operatorname{epi}(f) = \{ (\symbf{x},t)\in\mathbb{R}^n\times\mathbb{R} : f(\symbf{x})\le t \}\) er konveks.
-		                            & Enhver konveks kombinasjon av punkter i epi-grafen tilhører også epi-grafen.                                                                                                                                          \\
-		\hline
-		Første orden                &
-		\( f(\symbf{y}) \ge f(\symbf{x}) + \nabla f(\symbf{x})^\top (\symbf{y}-\symbf{x}) \)
-		(gjelder dersom \( f \) er deriverbar)
-		                            & Tangentplanet i ethvert punkt underestimerer \( f \) globalt, for alle \( \symbf{x},\symbf{y} \) i domenet.                                                                                                           \\
-		\hline
-		Global optimalitet          &
-		Hvis \( f \) er konveks, er hvert lokalt minimum et globalt minimum.
-		                            & En konsekvens av konveksitet: en konveks funksjon kan ikke ha ``isolerte'' lokale minima. (Merk at enkelte ikke-konvekse, quasi-konvekse funksjoner også kan ha denne egenskapen.)                                    \\\hline
-		Andre orden                 &
-		\( \nabla^2 f(\symbf{x}) \succeq 0 \) for alle \( \symbf{x} \) i domenet
-		(dersom \( f \) er to ganger deriverbar)
-		                            & Hessianmatrisen er positiv semidefinit, noe som via Taylorutvidelsen tilsier at funksjonen ikke ``bøyer'' seg nedover.                                                                                                \\
-		\hline
-		Subgradient                 &
-		For alle \( \symbf{x} \) er \( \partial f(\symbf{x}) \neq \varnothing \) og for hvert \( s \in \partial f(\symbf{x}) \) gjelder
-		\( f(\symbf{y}) \ge f(\symbf{x}) + s^\top (\symbf{y}-\symbf{x}) \)
-		                            & Selv om \( f \) ikke er deriverbar, gir tilstedeværelsen av subgradienter en lineær underestimering som karakteriserer konveksitet.
-		\\
-		\hline
-	\end{tabularx}
-	\caption{Ekvivalente karakteriseringer av konvekse funksjoner, ordnet etter kompleksitet.}
-	\label{tab:convex_equivalence}
-\end{table}
 
 \chapter{Optimeringsproblemet}
 \label{chap:optimization_problem}

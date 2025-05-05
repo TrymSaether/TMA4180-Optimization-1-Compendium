@@ -66,7 +66,7 @@ Ulikhetsbetingelser krever at funksjonen ikke overskrider en grense:
 	g_i(x) \leq 0, \quad i = 1,\ldots,m.
 \end{equation*}
 
-Hver ulikhetsbetingelse definerer et halvrom i \( \mathbb{R}^n \). Et punkt er gyldig dersom det ligger i snittet av alle disse halvrommene. En betingelse \( g_i(x) \leq 0 \) sies å være aktiv ved et punkt \( x^* \) hvis \( g_i(x^*) = 0 \); ellers er den inaktiv.
+Hver ulikhetsbetingelse definerer et halvrom i \( \mathbb{R}^n \). Et punkt er gyldig dersom det ligger i snittet av alle disse halvrommene. En betingelse \( g_i(x) \leq 0 \) sies å være aktiv ved et punkt \( x^\star \) hvis \( g_i(x^\star) = 0 \); ellers er den inaktiv.
 
 \section{Tillatte Retninger}
 I et tillatt punkt \( x \in \Omega \), kalles en retning \( d \in \mathbb{R}^n \):
@@ -137,12 +137,12 @@ Denne kjeglen har viktige egenskaper:
 \end{itemize}
 
 \subsection{Optimalitetsbetingelser ved bruk av Tillatte Retninger}
-En nødvendig betingelse for at \(x^*\) skal være en lokal minimerer er:
+En nødvendig betingelse for at \(x^\star\) skal være en lokal minimerer er:
 \begin{equation}
-	\nabla f(x^*)^T d \geq 0 \quad \text{for alle } d \in \mathcal{F}_\Omega(x^*)
+	\nabla f(x^\star)^T d \geq 0 \quad \text{for alle } d \in \mathcal{F}_\Omega(x^\star)
 \end{equation}
 
-Dette generaliserer standard førsteordensbetingelse \(\nabla f(x^*) = 0\) fra ubegrenset optimering og danner grunnlaget for mange algoritmer for begrenset optimering.
+Dette generaliserer standard førsteordensbetingelse \(\nabla f(x^\star) = 0\) fra ubegrenset optimering og danner grunnlaget for mange algoritmer for begrenset optimering.
 
 \section{Egenskaper ved konvekse problemer}
 
@@ -160,7 +160,8 @@ Konvekse optimeringsproblemer har flere fordelaktige egenskaper:
 	\item Det finnes effektive algoritmer for å løse konvekse problemer
 \end{itemize}
 
-\chapter{Teori}\label{chap:konveks_teori}
+\chapter{Teori}
+\label{chap:konveks_teori}
 
 Konveksitet er avgjørende i optimering av flere viktige grunner:
 
@@ -173,7 +174,7 @@ Konveksitet er avgjørende i optimering av flere viktige grunner:
 
 	\item \textbf{Praktiske Anvendelser}: Mange praktiske problemer innen maskinlæring, kontrollteori, signalbehandling og finans kan formuleres som konvekse optimeringsproblemer eller tilnærmes av dem.
 
-	\item \textbf{Dualitetsteori}: Konveksitet muliggjør kraftige dualitetsresultater som gir alternative løsningsmetoder og sensitivitetsanalyse.
+	\item \textbf{Dualitet}: Konveksitet muliggjør kraftige dualitetsresultater som gir alternative løsningsmetoder og sensitivitetsanalyse.
 \end{itemize}
 
 Konvekse mengder og funksjoner spiller en sentral rolle i optimering fordi de gir problemer som er relativt enkle å analysere og (ofte) mye enklere å løse, både teoretisk og algoritmisk.
@@ -803,7 +804,83 @@ Hvis \( f: \mathbb{R}^n \to \mathbb{R} \) er konveks og \( h: \mathbb{R} \to \ma
 	\label{fig:operations_preserving_convexity}
 \end{figure}
 
+\begin{example}{Vanlige konvekse funksjoner}{common_convex_functions}
+	\begin{itemize}
+		\item \textbf{Lineære og affine funksjoner:} \( f(x) = c^Tx + \beta \)
+		\item \textbf{Normer:} \( f(x) = \|x\|_p \), \( p \geq 1 \)
+		\item \textbf{Kvadratiske former:} \( f(x) = x^T Q x \) med \( Q \succeq 0 \)
+		\item \textbf{Eksponentialfunksjoner:} \( f(x) = e^{\alpha x} \), \( f(x) = \exp(\langle \alpha, x \rangle) \)
+		\item \textbf{Log-barriere:} \( f(x) = -\log(x) \) for \( x > 0 \)
+		\item \textbf{Entropifunksjoner:} \( f(x) = x\log(x) \) for \( x > 0 \)
+		\item \textbf{Maksimumsfunksjoner:} \( f(x) = \max\{x_1, \dots, x_n\} \)
+	\end{itemize}
+\end{example}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|l|c|}
+		\hline
+		\textbf{Funksjon}                          & \textbf{Domene}       & \textbf{Konveksitet} \\
+		\hline
+		\( f(x) = c^Tx + b \)                      & \( \mathbb{R}^n \)    & Konveks og konkav    \\
+		\( f(x) = \|x\|_p \), \( p \geq 1 \)       & \( \mathbb{R}^n \)    & Konveks              \\
+		\( f(x) = x^TQx \), \( Q \succeq 0 \)      & \( \mathbb{R}^n \)    & Konveks              \\
+		\( f(x) = e^x \)                           & \( \mathbb{R} \)      & Konveks              \\
+		\( f(x) = -\log(x) \)                      & \( \mathbb{R}_{++} \) & Konveks              \\
+		\( f(x) = x\log(x) \)                      & \( \mathbb{R}_{++} \) & Konveks              \\
+		\( f(x) = 1/x \)                           & \( \mathbb{R}_{++} \) & Konveks              \\
+		\( f(x) = \max\{x_1, x_2, \ldots, x_n\} \) & \( \mathbb{R}^n \)    & Konveks              \\
+		\hline
+	\end{tabular}
+	\caption{Eksempler på vanlige konvekse funksjoner}
+	\label{tab:convex_functions}
+\end{table}
+
 \section{Konveksitetsekvivalenser}
+Alle de følgende karakteriseringene er ekvivalente, og kan brukes for å bevise konveksitet av en funksjon, eller mengde.
+
+La \(f: \R^n \to \R\) være en funksjon og \(C \subset \R^n\) være en mengde. Da er følgende ekvivalente:
+
+\begin{table}[H]
+	\centering
+	\small
+	\setlength{\tabcolsep}{6pt}
+	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+		\rowcolor{rem-color!25}
+		\textbf{Ekvivalente Utsagn} & \textbf{Matematisk Definisjon}                                                                                                                                                     & \textbf{Forklaring og Intuisjon} \\
+		\hline
+		Geometrisk                  &
+		\( f(\lambda \symbf{x} + (1-\lambda)\symbf{y}) \le \lambda f(\symbf{x}) + (1-\lambda)f(\symbf{y}) \)
+		for alle \( \symbf{x},\symbf{y} \) i domenet og \( \lambda \in [0,1] \)
+		                            & Grafen til \( f \) ligger under eller på sekantlinjene som forbinder to punkter på grafen.                                                                                                                            \\
+		\hline
+		Epi-graf                    &
+		\(\operatorname{epi}(f) = \{ (\symbf{x},t)\in\mathbb{R}^n\times\mathbb{R} : f(\symbf{x})\le t \}\) er konveks.
+		                            & Enhver konveks kombinasjon av punkter i epi-grafen tilhører også epi-grafen.                                                                                                                                          \\
+		\hline
+		Første orden                &
+		\( f(\symbf{y}) \ge f(\symbf{x}) + \nabla f(\symbf{x})^\top (\symbf{y}-\symbf{x}) \)
+		(gjelder dersom \( f \) er deriverbar)
+		                            & Tangentplanet i ethvert punkt underestimerer \( f \) globalt, for alle \( \symbf{x},\symbf{y} \) i domenet.                                                                                                           \\
+		\hline
+		Global optimalitet          &
+		Hvis \( f \) er konveks, er hvert lokalt minimum et globalt minimum.
+		                            & En konsekvens av konveksitet: en konveks funksjon kan ikke ha ``isolerte'' lokale minima. (Merk at enkelte ikke-konvekse, quasi-konvekse funksjoner også kan ha denne egenskapen.)                                    \\\hline
+		Andre orden                 &
+		\( \nabla^2 f(\symbf{x}) \succeq 0 \) for alle \( \symbf{x} \) i domenet
+		(dersom \( f \) er to ganger deriverbar)
+		                            & Hessianmatrisen er positiv semidefinit, noe som via Taylorutvidelsen tilsier at funksjonen ikke ``bøyer'' seg nedover.                                                                                                \\
+		\hline
+		Subgradient                 &
+		For alle \( \symbf{x} \) er \( \partial f(\symbf{x}) \neq \varnothing \) og for hvert \( s \in \partial f(\symbf{x}) \) gjelder
+		\( f(\symbf{y}) \ge f(\symbf{x}) + s^\top (\symbf{y}-\symbf{x}) \)
+		                            & Selv om \( f \) ikke er deriverbar, gir tilstedeværelsen av subgradienter en lineær underestimering som karakteriserer konveksitet.
+		\\
+		\hline
+	\end{tabularx}
+	\caption{Ekvivalente karakteriseringer av konvekse funksjoner, ordnet etter kompleksitet.}
+	\label{tab:convex_equivalence}
+\end{table}
 
 Følgende tabell oppsummerer ulike måter å karakterisere konvekse funksjoner på:
 
@@ -812,44 +889,44 @@ Følgende tabell oppsummerer ulike måter å karakterisere konvekse funksjoner p
 	\begin{tabular}{|p{3cm}|p{6cm}|p{5cm}|}
 		\hline
 		\rowcolor{blue!15}
-		\textbf{Karakterisering}                                     & \textbf{Matematisk formulering} & \textbf{Intuisjon} \\
+		\textbf{Karakterisering}                                        & \textbf{Matematisk formulering} & \textbf{Intuisjon} \\
 		\hline
-		\textbf{Definisjon}                                          &
+		\textbf{Definisjon}                                             &
 		$f(\theta x + (1-\theta)y) \leq \theta f(x) + (1-\theta)f(y)$ \newline
-		for alle $x,y \in \mathcal{D}$, $\theta \in [0,1]$           &
-		Funksjonen ligger under linjesegmentet mellom to punkter på grafen                                                  \\
+		for alle $x,y \in \mathcal{D}$, $\theta \in [0,1]$              &
+		Funksjonen ligger under linjesegmentet mellom to punkter på grafen                                                     \\
 		\hline
-		\textbf{Førsteordens betingelse}                             &
+		\textbf{Førsteordens betingelse}                                &
 		$f(y) \geq f(x) + \nabla f(x)^T(y-x)$ \newline
-		for alle $x,y \in \mathcal{D}$                               &
-		Funksjonen ligger over alle sine tangentplan                                                                        \\
+		for alle $x,y \in \mathcal{D}$                                  &
+		Funksjonen ligger over alle sine tangentplan                                                                           \\
 		\hline
-		\textbf{Andreordens betingelse}                              &
-		$\nabla^2 f(x) \succeq 0$ for alle $x \in \mathcal{D}$       &
-		Hessianen er positiv semidefinitt overalt (krumningen er ikke-negativ i alle retninger)                             \\
+		\textbf{Andreordens betingelse}                                 &
+		$\nabla^2 f(x) \succeq 0$ for alle $x \in \mathcal{D}$          &
+		Hessianen er positiv semidefinitt overalt (krumningen er ikke-negativ i alle retninger)                                \\
 		\hline
-		\textbf{Epigraf}                                             &
+		\textbf{Epigraf}                                                &
 		$\text{epi}(f) = \{(x,t) \in \mathcal{D} \times \mathbb{R} : f(x) \leq t\}$ \newline
-		er en konveks mengde                                         &
-		Området over grafen er en konveks mengde                                                                            \\
+		er en konveks mengde                                            &
+		Området over grafen er en konveks mengde                                                                               \\
 		\hline
 		\rowcolor{blue!5}
-		\multicolumn{3}{|l|}{\textbf{Avanserte karakteriseringer}}                                                          \\
+		\multicolumn{3}{|l|}{\textbf{Avanserte karakteriseringer}}                                                             \\
 		\hline
-		\textbf{Jensens ulikhet}                                     &
+		\textbf{Jensens ulikhet}                                        &
 		$f(\mathbb{E}[X]) \leq \mathbb{E}[f(X)]$ \newline
-		eller $f(\sum_i \lambda_i x_i) \leq \sum_i \lambda_i f(x_i)$ &
-		Forventet verdi av en konveks funksjon er minst like stor som funksjonen evaluert ved forventningsverdien           \\
+		eller $f(\sum_i \lambda_i x_i) \leq \sum_i \lambda_i f(x_i)$    &
+		Forventet verdi av en konveks funksjon er minst like stor som funksjonen evaluert ved forventningsverdien              \\
 		\hline
-		\textbf{Konveks konjugat}                                    &
-		$f^*(y) = \sup_{x} \{y^Tx - f(x)\}$ \newline
-		$(f^*)^* = f$ for konvekse, nedre halvkontinuerlige $f$      &
-		Legendre-Fenchel transformasjon gir dualitetsrepresentasjon av konvekse funksjoner                                  \\
+		\textbf{Konveks konjugat}                                       &
+		$f^\star(y) = \sup_{x} \{y^Tx - f(x)\}$ \newline
+		$(f^\star)^\star = f$ for konvekse, nedre halvkontinuerlige $f$ &
+		Legendre-Fenchel transformasjon gir dualitetsrepresentasjon av konvekse funksjoner                                     \\
 		\hline
-		\textbf{Subgradient}                                         &
+		\textbf{Subgradient}                                            &
 		$\partial f(x) = \{g : f(y) \geq f(x) + g^T(y-x) \text{ for alle } y\}$ \newline
-		er ikke-tom for alle $x \in \text{int}(\mathcal{D})$         &
-		Generaliserer gradient-konseptet til ikke-deriverbare konvekse funksjoner                                           \\
+		er ikke-tom for alle $x \in \text{int}(\mathcal{D})$            &
+		Generaliserer gradient-konseptet til ikke-deriverbare konvekse funksjoner                                              \\
 		\hline
 	\end{tabular}
 	\caption{Ekvivalente karakteriseringer av konvekse funksjoner}
@@ -1008,43 +1085,9 @@ Følgende tabell oppsummerer ulike måter å karakterisere konvekse funksjoner p
 	\label{tab:optimization_theory}
 \end{table}
 
-\section{Eksempler på konvekse funksjoner}
+\section{Kjegler}
 
-\begin{example}{Vanlige konvekse funksjoner}{common_convex_functions}
-	\begin{itemize}
-		\item \textbf{Lineære og affine funksjoner:} \( f(x) = c^Tx + \beta \)
-		\item \textbf{Normer:} \( f(x) = \|x\|_p \), \( p \geq 1 \)
-		\item \textbf{Kvadratiske former:} \( f(x) = x^T Q x \) med \( Q \succeq 0 \)
-		\item \textbf{Eksponentialfunksjoner:} \( f(x) = e^{\alpha x} \), \( f(x) = \exp(\langle \alpha, x \rangle) \)
-		\item \textbf{Log-barriere:} \( f(x) = -\log(x) \) for \( x > 0 \)
-		\item \textbf{Entropifunksjoner:} \( f(x) = x\log(x) \) for \( x > 0 \)
-		\item \textbf{Maksimumsfunksjoner:} \( f(x) = \max\{x_1, \dots, x_n\} \)
-	\end{itemize}
-\end{example}
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|l|l|c|}
-		\hline
-		\textbf{Funksjon}                          & \textbf{Domene}       & \textbf{Konveksitet} \\
-		\hline
-		\( f(x) = c^Tx + b \)                      & \( \mathbb{R}^n \)    & Konveks og konkav    \\
-		\( f(x) = \|x\|_p \), \( p \geq 1 \)       & \( \mathbb{R}^n \)    & Konveks              \\
-		\( f(x) = x^TQx \), \( Q \succeq 0 \)      & \( \mathbb{R}^n \)    & Konveks              \\
-		\( f(x) = e^x \)                           & \( \mathbb{R} \)      & Konveks              \\
-		\( f(x) = -\log(x) \)                      & \( \mathbb{R}_{++} \) & Konveks              \\
-		\( f(x) = x\log(x) \)                      & \( \mathbb{R}_{++} \) & Konveks              \\
-		\( f(x) = 1/x \)                           & \( \mathbb{R}_{++} \) & Konveks              \\
-		\( f(x) = \max\{x_1, x_2, \ldots, x_n\} \) & \( \mathbb{R}^n \)    & Konveks              \\
-		\hline
-	\end{tabular}
-	\caption{Eksempler på vanlige konvekse funksjoner}
-	\label{tab:convex_functions}
-\end{table}
-
-\section{Tangent-- og Normal Kjegler}
-
-\subsection{Tangetkjegle}
+\subsection{Tangentkjegle}
 Tangetkjeglen \(T_{\Omega}(x)\) ved et punkt \(x \in \Omega\) er mengden av alle retninger som kan beskrives som:
 \begin{equation*}
 	T_{\Omega}(x) = \{d \in \mathbb{R}^n \mid \nabla g_i(x)^T d \leq 0 \text{ for alle aktive } g_i,\ \nabla h_j(x)^T d = 0 \text{ for alle } h_j\}.
@@ -1058,7 +1101,7 @@ Normalkjeglen \(N_{\Omega}(x)\) er definert som mengden av vektorer som er ortog
 \end{equation*}
 Både tangent- og normalkjegle er viktige for å formulere de første ordens nødvendige betingelsene (KKT-betingelsene) som skal diskuteres i neste kapittel.
 
-\section{Separerende og Støttende Hyperplan}
+\section{Hyperplan}
 
 \subsection{Separerende Hyperplan Teorem}
 \begin{theorem}{Separerende Hyperplan Teorem}{separating_hyperplane_theorem}
@@ -1225,6 +1268,88 @@ En viktig forbindelse eksisterer mellom støttende hyperplan og subgradienter av
 	\label{fig:subgradient_supporting}
 \end{figure}
 
+\section{Farkas' lemma}
+Farkas' lemma er et sentralt resultat i lineær algebra og konveks optimering. Det gir en karakterisering av løsbarheten til systemer av lineære ulikheter og er nært knyttet til dualitetsteori.
+Det kan brukes til å bevise eksistensen av løsninger for lineære programmeringsproblemer og til å etablere forholdet mellom primale og duale problemer.
+\begin{theorem}{Farkas' lemma}{farkas_lemma}
+	Gitt matrise \(A\in\R^{m\times n}\) og vektor \(c\in\R^n\), gjelder nøyaktig én av følgende:
+	\begin{enumerate}
+		\item Det finnes \(y\ge0\) slik at \(A^T y=c\), eller
+		\item Det finnes \(x\) slik at \(A x\le0\) og \(c^T x>0\).
+	\end{enumerate}
+\end{theorem}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=1.2]
+		% Left subfigure
+		\begin{scope}[xshift=-3cm]
+			% Cone K
+			\fill[blue!20] (0,0) -- (2,1) -- (2,-1) -- cycle;
+			\draw[thick, blue] (0,0) -- (2,1);
+			\draw[thick, blue] (0,0) -- (2,-1);
+			\draw[thick, blue, dashed] (2,-1) -- (2,1);
+			
+			% Vector g inside K
+			\draw[->, thick, red] (0,0) -- (1.5,0.2) node[right] {$g$};
+			
+			% Basis vectors
+			\draw[->, thick, blue!60] (0,0) -- (1,0.5) node[above] {$b_1$};
+			\draw[->, thick, blue!60] (0,0) -- (1,-0.5) node[below] {$b_2$};
+			\draw[->, thick, blue!60] (0,0) -- (1,0) node[right] {$b_3$};
+			
+			\node[below] at (0,-1.5) {Case 1: $g \in K$};
+		\end{scope}
+		
+		% Right subfigure
+		\begin{scope}[xshift=3cm]
+			% Cone K
+			\fill[blue!20] (0,0) -- (2,1) -- (2,-1) -- cycle;
+			\draw[thick, blue] (0,0) -- (2,1);
+			\draw[thick, blue] (0,0) -- (2,-1);
+			\draw[thick, blue, dashed] (2,-1) -- (2,1);
+			
+			% Vector g outside K
+			\draw[->, thick, red] (0,0) -- (-1,0.5) node[left] {$g$};
+			
+			% Separating hyperplane
+			\draw[thick, purple, dashed] (-1.5,-1) -- (1.5,1) node[right] {$d$};
+			
+			% Basis vectors
+			\draw[->, thick, blue!60] (0,0) -- (1,0.5) node[above] {$b_1$};
+			\draw[->, thick, blue!60] (0,0) -- (1,-0.5) node[below] {$b_2$};
+			\draw[->, thick, blue!60] (0,0) -- (1,0) node[right] {$b_3$};
+			
+			\node[below] at (0,-1.5) {Case 2: Separating hyperplan};
+		\end{scope}
+	\end{tikzpicture}
+	\caption{Farkas' Lemma: Enten er $g \in K$ (venstre) eller det finnes et separerende hyperplan (høyre).}
+	\label{fig:farkas_lemma}
+\end{figure}
+\begin{proof}
+	Anta først at det finnes \(y\ge0\) med \(A^T y=c\). Da gir
+	\[
+		c^T x = y^T (A x) \;\le\; 0
+		\quad\forall x\text{ med }A x\le0,
+	\]
+	så systemet \(Ax\le0,\;c^Tx<0\) er umulig.
+
+	Anta deretter at ingen \(x\) tilfredsstiller \(Ax\le0\) og \(c^T x<0\). Betrakt den konvekse kjeglen
+	\(\mathcal K=\{A x\mid x\in\R^n\,,\;x\ge0\}\). Siden \(c\not\in\mathcal K\), finnes det ifølge separasjonsteoremet
+	et \(y\in\R^m\) slik at
+	\(
+	y^T z \ge0
+	\) for alle \(z\in\mathcal K\), og
+	\(
+	y^T c < 0.
+	\)
+	Særlig gir \(z=A e_i\) at \((A^T y)_i\ge0\), og sammen med \(y^T c<0\) følger at
+	\(
+	A^T y = c
+	\)
+	og \(y\ge0\).
+\end{proof}
+
 \chapter{Konvekse Optimeringsproblemer}
 \label{chap:convex_optimization}
 
@@ -1262,63 +1387,151 @@ Den tillatte mengden \( \Omega \) kan defineres på flere måter:
 	\end{enumerate}
 \end{theorem}
 
-\section{Lineær Optimering (LP)}
-Lineær optimering, eller lineær programmering, er en av de mest brukte optimeringsteknikkene i praksis. Vi vurderer problemer på formen:
-\begin{mini*}
-	{x\in\R^n}{c^Tx}{}{}
-	\addConstraint{Ax}{\leq b}{}
-	\addConstraint{Ex}{= d}{}
-\end{mini*}
-hvor \( A \in \R^{m \times n} \), \( E \in \R^{p \times n} \), \( c \in \R^n \), \( b \in \R^m \), og \( d \in \R^p \).
+\section{Lineær Programmering (LP)}
+Lineær programmering (LP) er en spesialtilfelle av konveks optimering der både målfunksjonen og begrensningene er lineære.
+\begin{definition}{Generell Lineær Programmering}{lp_general}
+	La \(A\in\R^{m\times n}\), \(b\in\R^m\), \(c\in\R^n\) og \(E\in\R^{p\times n}\), \(d\in\R^p\).
+	Da er et \emph{generelt LP} definert som:
+	\begin{mini*}
+		{x\in\R^n}{c^T x}{}{}
+		\addConstraint{A x}{\le b}{}
+		\addConstraint{E x}{= d}{}
+		\addConstraint{x}{\ge0}{}
+	\end{mini*}
+	Der \(c\) er målfunksjonen, \(A\) og \(E\) er matriser som beskriver begrensningene, og \(b\) og \(d\) er vektorer som representerer høyresidene av begrensningene.
+	Variablene \(x\) er de ukjente som skal bestemmes.
+\end{definition}
 
-\subsection{Primal- og Dualproblemer i Lineær Programmering}
-For hvert lineært programmeringsproblem (primalproblem) finnes det et tilhørende dualproblem:
+\subsection{Standardform for LP}
+\begin{definition}{Standardform for LP}{lp_standard}
+	Ved å introdusere slakkvariabler $s\ge0$ kan enhver ulikhet $A x\le b$ omformes til likheter:
+	\[
+		A x + I\,s = b,\quad x\ge0,\;s\ge0.
+	\]
+	\emph{Standardformen} blir da
+	\begin{mini*}
+		{(x,s)\in\R^{n+m}}{c^T x + 0^T s}{}{}
+		\addConstraint{[\,A\;\;I\,]\,(x,s)^T}{= b}{}
+		\addConstraint{x,s}{\ge0}{}.
+	\end{mini*}
+\end{definition}
 
-\begin{maxi*}
-	{y \in \R^m, z \in \R^p}{b^Ty + d^Tz}{}{}
-	\addConstraint{A^Ty + E^Tz}{= c}{}
-	\addConstraint{y}{\geq 0}{}
-\end{maxi*}
+\subsection{Dualitet i LP}
+\begin{definition}{Dualitet i LP}{lp_duality}
+	For et LP i standardform er det \emph{dualproblemet} definert som:
+	\begin{mini*}
+		{\lambda\in\R^m}{b^T \lambda}{}{}
+		\addConstraint{A^T \lambda}{= c}{}
+		\addConstraint{\lambda}{\ge0}{}.
+	\end{mini*}
+	Dualen er også et LP, og det er alltid mulig å finne en løsning til dualen hvis primalen har en løsning.
+\end{definition}
 
-Forholdet mellom primal- og dualproblemet gir verdifull innsikt:
-\begin{itemize}
-	\item Svak dualitet: Den optimale verdien av dualproblemet er alltid mindre enn eller lik den optimale verdien av primalproblemet.
-	\item Sterk dualitet: Under milde betingelser er de optimale verdiene for primal- og dualproblemet like.
-	\item Komplementær slakkhet: Hvis \( x^* \) og \( (y^*, z^*) \) er optimale løsninger for primal- og dualproblemet, gjelder \( y_i^*(A_ix^*-b_i) = 0 \) for alle \( i \).
-\end{itemize}
+\subsection{KKT--betingelser for LP}
+
+\begin{theorem}{KKT-betingelser for LP}{kkt_lp}
+	For et lineært optimeringsproblem i standardform:
+	\begin{mini*}
+		{x\in\R^n}{c^Tx}{}{}
+		\addConstraint{Ax}{\le b}{}
+		\addConstraint{Ex}{= d}{}
+		\addConstraint{x}{\ge 0}{}
+	\end{mini*}
+	kan KKT-betingelsene forenkles til:
+	\begin{align}
+		c + A^T\lambda + E^T\nu - s &= 0 \quad\text{(Stasjonaritet)}\\
+		Ax &\le b \quad\text{(Primal gyldighet)}\\
+		Ex &= d \quad\text{(Primal gyldighet)}\\
+		x &\ge 0 \quad\text{(Primal gyldighet)}\\
+		\lambda &\ge 0 \quad\text{(Dual gyldighet)}\\
+		s &\ge 0 \quad\text{(Dual gyldighet)}\\
+		\lambda_i(b_i - (Ax)_i) &= 0, \quad\forall i \quad\text{(Kompl. slakkhet)}\\
+		x_js_j &= 0, \quad\forall j \quad\text{(Kompl. slakkhet)}
+	\end{align}
+	hvor $s$ er slakkvariablene for betingelsen $x \ge 0$.
+\end{theorem}
+
+\begin{remark}{Tolkning av KKT for LP}{kkt_lp_interpretation}
+	Disse betingelsene har en spesiell struktur for LP:
+	\begin{itemize}
+		\item Stasjonaritetsbetingelsen representerer optimalitetskriteriet for det duale problemet
+		\item Komplementær slakkhet kobler primale og duale variabler: hvis $x_j > 0$, da må $s_j = 0$ (tilsvarende dual betingelse er stram); hvis $\lambda_i > 0$, da må $(b_i - (Ax)_i) = 0$ (tilsvarende primal betingelse er stram)
+		\item For LP er KKT-betingelsene både nødvendige og tilstrekkelige for global optimalitet uten ytterligere antakelser
+	\end{itemize}
+	KKT-betingelsene danner grunnlaget for simpleksmetoden og interiørpunktsmetoder for LP.
+\end{remark}
+\begin{example}{To--variable LP}{lp_example}
+	\[
+		\min_{x_1,x_2}\;-\,x_1 - 2x_2
+		\quad\text{slik at}\quad
+		\begin{cases}
+			x_1 + x_2 \le 1, \\
+			x_1 - x_2 \ge 0, \\
+			x_1,x_2\ge0.
+		\end{cases}
+	\]
+	Grafisk løsning viser at optimum oppnås i $(x_1,x_2)=(1,0)$ med verdi $-1$. Dualmultiplikatorene finnes fra KKT--betingelsene.
+\end{example}
 
 \section{Kvadratisk Programmering (QP)}
+Kvadratiske programmer (QP) generaliserer LP ved å la målfunksjonen ha et kvadratisk ledd.
 
-\subsection{Kvadratiske Programmer med Likhetsbetingelser}
-Kvadratiske programmer med kun likhetsbetingelser har formen:
-\begin{mini*}
-	{x\in\R^n}{\frac{1}{2}x^TQx + c^Tx}{}{}
-	\addConstraint{Ax}{= b}{}
-\end{mini*}
-hvor \( Q \) er symmetrisk og positiv semidefinit.
+\begin{definition}{Generelt QP}{qp_general}
+	\[
+		\min_{x\in\R^n}\;\tfrac12\,x^T Q x + c^T x
+		\quad\text{slik at}\quad
+		\begin{cases}
+			A x \le b, \\
+			E x = d,
+		\end{cases}
+	\]
+	der $Q\in\R^{n\times n}$ er symmetrisk. Om $Q\succeq0$ er problemet konvekst.
+\end{definition}
 
-For dette problemet gir KKT-betingelsene et system av lineære likninger:
-\begin{align*}
-	Qx + c + A^T\lambda & = 0 \\
-	Ax                  & = b
-\end{align*}
+\subsection{KKT--betingelser for QP}
+Når $Q\succeq0$ og kvalifikasjonsbetingelser (f.eks.\ LICQ eller Slater) er oppfylt, finnes $(x^\star,\lambda^\star,\nu^\star)$ slik at
+\begin{align}
+	 & Qx^\star + c + A^T\lambda^\star + E^T\nu^\star = 0,                   \\
+	 & A x^\star \le b,\quad E x^\star = d,                                  \\
+	 & \lambda^\star\ge0,\quad \lambda^\star_i\,[\,b_i - (A x^\star)_i\,]=0.
+\end{align}
+Siden $Q\succeq0$ garanterer stasjonæritet + komplementær slakkhet global optimalitet.
 
-\subsection{Kvadratiske Programmer med Ulikhetsbetingelser}
-Når ulikhetsbetingelser er til stede, blir problemet:
-\begin{mini*}
-	{x\in\R^n}{\frac{1}{2}x^TQx + c^Tx}{}{}
-	\addConstraint{Ax}{\leq b}{}
-	\addConstraint{Ex}{= d}{}
-\end{mini*}
+\subsection{Løsningsstrategier}
+\begin{itemize}
+	\item \textbf{Aktiv--mengde--metoder:} Iterativt anta en sett aktive begrensninger, løs likhets--QP og oppdater settet basert på komplementær slakkhet.
+	\item \textbf{Interiørpunktmetoder:} Behandler ulikheter via barrierer, løser en sekvens av glatte systemer med Newton--metoder.
+	\item \textbf{Direkte KKT--løsning:} For små problemer kan man danne hele KKT--systemet
+	      \[
+		      \begin{pmatrix}
+			      Q & A^T & E^T \\
+			      A & 0   & 0   \\
+			      E & 0   & 0
+		      \end{pmatrix}
+		      \begin{pmatrix}x\\\lambda\\\nu\end{pmatrix}
+		      =
+		      \begin{pmatrix}-c\\b\\d\end{pmatrix}
+	      \]
+	      og løse det med faste faktoriseringer.
+\end{itemize}
 
-KKT-betingelsene inkluderer nå komplementær slakkhet:
-\begin{align*}
-	Qx + c + A^T\lambda + E^T\nu & = 0                 \\
-	Ax                           & \leq b              \\
-	Ex                           & = d                 \\
-	\lambda                      & \geq 0              \\
-	\lambda_i(A_ix - b_i)        & = 0 \quad \forall i
-\end{align*}
+\subsection{Eksempel: QP med likheter}
+\[
+	\min_x\;\tfrac12\|x\|_2^2 + c^T x
+	\quad\text{slik at}\quad
+	E x = d.
+\]
+KKT--systemet blir
+\[
+	\begin{cases}
+		x + c + E^T\nu = 0, \\
+		E x = d,
+	\end{cases}
+\]
+som løses ved blokk--faktorering eller Schur--komplement.
+
+\bigskip
+% Neste avsnitt kan diskutere numeriske detaljer, konvergensgarantier og programvarebiblioteker (f.eks.\ CVX, OSQP, Gurobi).
 
 \subsection{Aktiv Mengde-metoder}
 Aktiv mengde-metoder løser kvadratiske programmeringsproblemer ved iterativt å oppdatere et estimat av den aktive mengden av betingelser ved løsningen. Hovedtrinnene er:
@@ -1388,9 +1601,9 @@ Førsteordens betingelser bruker gradientinformasjon til å karakterisere optima
 
 Geometrisk representerer gradienten retningen av bratteste stigning for funksjonen ved punktet $x$. Den negative gradienten $-\nabla f(x)$ gir retningen av bratteste nedstigning, som er viktig for optimaliseringsalgoritmer.
 
-For et ubetinget optimaliseringsproblem er en nødvendig førsteordens betingelse for at $x^*$ skal være et lokalt minimum:
+For et ubetinget optimaliseringsproblem er en nødvendig førsteordens betingelse for at $x^\star$ skal være et lokalt minimum:
 \[
-	\nabla f(x^*) = 0
+	\nabla f(x^\star) = 0
 \]
 
 \subsection{Tillatte retninger}
@@ -1407,27 +1620,27 @@ Ved betingede optimaliseringsproblemer må vi vurdere om vi kan bevege oss i en 
 	En retning $d \in \mathbb{R}^n$ er en \textbf{nedstigningsretning} for funksjonen $f$ ved $x$ hvis $\nabla f(x)^T d < 0$.
 \end{definition}
 
-For en optimal løsning $x^*$ finnes det ingen retning som både er tillatt og en nedstigningsretning.
+For en optimal løsning $x^\star$ finnes det ingen retning som både er tillatt og en nedstigningsretning.
 
 \subsection{Nødvendige betingelser}
 
 \begin{theorem}{Førsteordens nødvendige betingelse}{first_order_necessary}
-	La $f: \mathbb{R}^n \to \mathbb{R}$ være en differensierbar funksjon og $\Omega \subset \mathbb{R}^n$ være en konveks mengde. Hvis $x^*$ er et lokalt minimum av $f$ over $\Omega$, da gjelder:
+	La $f: \mathbb{R}^n \to \mathbb{R}$ være en differensierbar funksjon og $\Omega \subset \mathbb{R}^n$ være en konveks mengde. Hvis $x^\star$ er et lokalt minimum av $f$ over $\Omega$, da gjelder:
 	\[
-		\nabla f(x^*)^T (y - x^*) \geq 0 \quad \text{for alle } y \in \Omega
+		\nabla f(x^\star)^T (y - x^\star) \geq 0 \quad \text{for alle } y \in \Omega
 	\]
 \end{theorem}
 
-Denne betingelsen betyr at gradienten ved $x^*$ ikke peker i noen retning som ville føre til tillatte punkter med lavere funksjonsverdi. Den kan også uttrykkes som:
+Denne betingelsen betyr at gradienten ved $x^\star$ ikke peker i noen retning som ville føre til tillatte punkter med lavere funksjonsverdi. Den kan også uttrykkes som:
 \[
-	-\nabla f(x^*) \in N_\Omega(x^*)
+	-\nabla f(x^\star) \in N_\Omega(x^\star)
 \]
-hvor $N_\Omega(x^*)$ er normalkjeglen til $\Omega$ ved $x^*$.
+hvor $N_\Omega(x^\star)$ er normalkjeglen til $\Omega$ ved $x^\star$.
 
 \begin{example}{Førsteordens betingelse}{first_order_example}
-	For funksjonen $f(x) = x^2$ med $\Omega = \mathbb{R}$ er $x^* = 0$ et lokalt minimum. Her er $\nabla f(0) = 0$, så førsteordens betingelse er trivielt oppfylt.
+	For funksjonen $f(x) = x^2$ med $\Omega = \mathbb{R}$ er $x^\star = 0$ et lokalt minimum. Her er $\nabla f(0) = 0$, så førsteordens betingelse er trivielt oppfylt.
 
-	For funksjonen $f(x) = x$ med $\Omega = [0, \infty)$ er $x^* = 0$ et lokalt minimum. Her er $\nabla f(0) = 1$, og betingelsen verifiseres fordi:
+	For funksjonen $f(x) = x$ med $\Omega = [0, \infty)$ er $x^\star = 0$ et lokalt minimum. Her er $\nabla f(0) = 1$, og betingelsen verifiseres fordi:
 	\[
 		\nabla f(0)^T (y - 0) = y \geq 0 \quad \text{for alle } y \in [0, \infty)
 	\]
@@ -1443,8 +1656,8 @@ hvor $N_\Omega(x^*)$ er normalkjeglen til $\Omega$ ved $x^*$.
 			\draw[thick, blue] (0,0) -- (2.5,2.5);
 
 			% Point and gradient
-			\filldraw[red] (0,0) circle (2pt) node[below left] {$x^*=0$};
-			\draw[->, thick, red] (0,0) -- (1,1) node[right] {$\nabla f(x^*)$};
+			\filldraw[red] (0,0) circle (2pt) node[below left] {$x^\star=0$};
+			\draw[->, thick, red] (0,0) -- (1,1) node[right] {$\nabla f(x^\star)$};
 
 			% Feasible region
 			\draw[thick, orange, ->] (0,0) -- (2.5,0) node[below] {$\Omega = [0,\infty)$};
@@ -1500,9 +1713,9 @@ For differensierbare funksjoner er subgradienten entydig og lik gradienten: $\pa
 	\end{figure}
 \end{example}
 
-Førsteordens nødvendige betingelse med subgradienter: Hvis $x^*$ er et lokalt minimum av $f$ over $\Omega$, da eksisterer det en subgradient $g \in \partial f(x^*)$ slik at:
+Førsteordens nødvendige betingelse med subgradienter: Hvis $x^\star$ er et lokalt minimum av $f$ over $\Omega$, da eksisterer det en subgradient $g \in \partial f(x^\star)$ slik at:
 \[
-	g^T (y - x^*) \geq 0 \quad \text{for alle } y \in \Omega
+	g^T (y - x^\star) \geq 0 \quad \text{for alle } y \in \Omega
 \]
 
 \section{Andreordens optimalitetsbetingelser}
@@ -1528,31 +1741,31 @@ Hessianen beskriver den lokale krumningen av funksjonen. For en konveks funksjon
 \subsection{Andreordens betingelser}
 
 \begin{theorem}{Andreordens nødvendige betingelse}{second_order_necessary}
-	La $f: \mathbb{R}^n \to \mathbb{R}$ være en to ganger kontinuerlig deriverbar funksjon. Hvis $x^*$ er et lokalt minimum av $f$, da:
+	La $f: \mathbb{R}^n \to \mathbb{R}$ være en to ganger kontinuerlig deriverbar funksjon. Hvis $x^\star$ er et lokalt minimum av $f$, da:
 	\begin{itemize}
-		\item $\nabla f(x^*) = 0$ (førsteordens betingelse)
-		\item $\nabla^2 f(x^*) \succeq 0$ (Hessianen er positiv semidefinitt)
+		\item $\nabla f(x^\star) = 0$ (førsteordens betingelse)
+		\item $\nabla^2 f(x^\star) \succeq 0$ (Hessianen er positiv semidefinitt)
 	\end{itemize}
 \end{theorem}
 
 \begin{theorem}{Andreordens tilstrekkelig betingelse}{second_order_sufficient}
 	La $f: \mathbb{R}^n \to \mathbb{R}$ være en to ganger kontinuerlig deriverbar funksjon. Hvis:
 	\begin{itemize}
-		\item $\nabla f(x^*) = 0$
-		\item $\nabla^2 f(x^*) \succ 0$ (Hessianen er positiv definitt)
+		\item $\nabla f(x^\star) = 0$
+		\item $\nabla^2 f(x^\star) \succ 0$ (Hessianen er positiv definitt)
 	\end{itemize}
-	da er $x^*$ et strengt lokalt minimum av $f$.
+	da er $x^\star$ et strengt lokalt minimum av $f$.
 \end{theorem}
 
 \subsection{Karakterisering av kritiske punkter}
 
-For et kritisk punkt $x^*$ (der $\nabla f(x^*) = 0$) kan vi karakterisere dets type basert på Hessianen:
+For et kritisk punkt $x^\star$ (der $\nabla f(x^\star) = 0$) kan vi karakterisere dets type basert på Hessianen:
 
 \begin{itemize}
-	\item Hvis $\nabla^2 f(x^*) \succ 0$ (alle egenverdier positive): $x^*$ er et strengt lokalt minimum
-	\item Hvis $\nabla^2 f(x^*) \prec 0$ (alle egenverdier negative): $x^*$ er et strengt lokalt maksimum
-	\item Hvis $\nabla^2 f(x^*)$ har både positive og negative egenverdier: $x^*$ er et sadelpunkt
-	\item Hvis $\nabla^2 f(x^*) \succeq 0$ med noen nullegenverdier: ytterligere analyse kreves
+	\item Hvis $\nabla^2 f(x^\star) \succ 0$ (alle egenverdier positive): $x^\star$ er et strengt lokalt minimum
+	\item Hvis $\nabla^2 f(x^\star) \prec 0$ (alle egenverdier negative): $x^\star$ er et strengt lokalt maksimum
+	\item Hvis $\nabla^2 f(x^\star)$ har både positive og negative egenverdier: $x^\star$ er et sadelpunkt
+	\item Hvis $\nabla^2 f(x^\star) \succeq 0$ med noen nullegenverdier: ytterligere analyse kreves
 \end{itemize}
 
 \begin{example}{Andreordens optimalisering}{second_order_example}
@@ -1667,18 +1880,18 @@ Ved å studere Lagrangian-funksjonen kan vi derfor få innsikt i både primal- o
 \subsection{Sadelpunkter}
 
 \begin{definition}{Sadelpunkt}{saddle_point}
-	Et punkt \( (x^*, \lambda^*, \mu^*) \) er et sadelpunkt for Lagrange-funksjonen hvis:
+	Et punkt \( (x^\star, \lambda^\star, \mu^\star) \) er et sadelpunkt for Lagrange-funksjonen hvis:
 	\[
-		\mathcal{L}(x^*, \lambda, \mu) \leq \mathcal{L}(x^*, \lambda^*, \mu^*) \leq \mathcal{L}(x, \lambda^*, \mu^*)
+		\mathcal{L}(x^\star, \lambda, \mu) \leq \mathcal{L}(x^\star, \lambda^\star, \mu^\star) \leq \mathcal{L}(x, \lambda^\star, \mu^\star)
 	\]
 	for alle \( x \in \mathbb{R}^n \), \( \lambda \geq 0 \), og \( \mu \in \mathbb{R}^p \).
 \end{definition}
 
 \begin{theorem}{Sadelpunktsetningen}{saddle_point_theorem}
-	For et konvekst optimeringsproblem er \( (x^*, \lambda^*, \mu^*) \) et sadelpunkt for Lagrange-funksjonen hvis og bare hvis:
+	For et konvekst optimeringsproblem er \( (x^\star, \lambda^\star, \mu^\star) \) et sadelpunkt for Lagrange-funksjonen hvis og bare hvis:
 	\begin{itemize}
-		\item \( x^* \) er primal optimalt
-		\item \( (\lambda^*, \mu^*) \) er dual optimalt
+		\item \( x^\star \) er primal optimalt
+		\item \( (\lambda^\star, \mu^\star) \) er dual optimalt
 		\item Sterk dualitet gjelder
 	\end{itemize}
 \end{theorem}
@@ -1703,16 +1916,16 @@ Lagrangedualitet gir en systematisk måte å utlede dualproblemer og etablere du
 \begin{definition}{Legendre-Fenchel-transformasjonen}{legendre_fenchel}
 	Legendre-Fenchel-transformasjonen (eller konveks konjugasjon) av en funksjon \( f: \mathbb{R}^n \to \mathbb{R} \cup \{+\infty\} \) er:
 	\[
-		f^*(y) = \sup_{x \in \mathbb{R}^n} \{y^Tx - f(x)\}
+		f^\star(y) = \sup_{x \in \mathbb{R}^n} \{y^Tx - f(x)\}
 	\]
 \end{definition}
 
 \begin{theorem}{Egenskaper ved Legendre-Fenchel-transformasjonen}{legendre_fenchel_properties}
 	Legendre-Fenchel-transformasjonen har flere viktige egenskaper:
 	\begin{itemize}
-		\item \( f^* \) er alltid konveks, selv om \( f \) ikke er det
-		\item Hvis \( f \) er konveks og nedre halvkontinuerlig, da gjelder \( (f^*)^* = f \)
-		\item Hvis \( f \) er strengt konveks og deriverbar, da gjelder \( \nabla f^*(y) = x \) der \( y = \nabla f(x) \)
+		\item \( f^\star \) er alltid konveks, selv om \( f \) ikke er det
+		\item Hvis \( f \) er konveks og nedre halvkontinuerlig, da gjelder \( (f^\star)^\star = f \)
+		\item Hvis \( f \) er strengt konveks og deriverbar, da gjelder \( \nabla f^\star(y) = x \) der \( y = \nabla f(x) \)
 	\end{itemize}
 \end{theorem}
 
@@ -1727,8 +1940,6 @@ Noen vanlige betingelseskvalifikasjoner er:
 \begin{itemize}
 	\item Slaters betingelse (Slater's condition)
 	\item Linear Independence Constraint Qualification (LICQ)
-	\item Manglende komplementaritet (MFCQ)
-	\item Manglende aktiv mengde (MFCQ)
 \end{itemize}
 
 \subsection{Slaters betingelse}
@@ -1767,7 +1978,7 @@ Slaters kvalifikasjon for begrensninger er en viktig betingelse i konveks optime
 	\end{enumerate}
 \end{theorem}
 
-\subsection{LICQ (Linear Independence Constraint Qualification)}
+\subsection{Linear Independence Constraint Qualification (LICQ)}
 \label{sec:LICQ}
 
 Et ikke-lineært optimeringsproblem kan skrives på følgende form:
@@ -1782,30 +1993,30 @@ Her er \(f : \mathbb{R}^n \to \mathbb{R}\) objektivfunksjonen, mens \(c_i(x)\) o
 For å sikre at standard optimalitetsbetingelser gjelder, trenger vi kvalifikasjonsbetingelser for løsningsrommet. LICQ er en av de viktigste slike betingelsene.
 
 \begin{definition}{Linear Independence Constraint Qualification (LICQ)}{licq}
-	La \( x^* \) være et tillatt punkt. Vi definerer mengden av aktive betingelser ved \(x^*\) som:
+	La \( x^\star \) være et tillatt punkt. Vi definerer mengden av aktive betingelser ved \(x^\star\) som:
 	\[
-		\mathcal{A}(x^*) = \{ i \in \mathcal{E} \cup \mathcal{I} \mid c_i(x^*) = 0 \}.
+		\mathcal{A}(x^\star) = \{ i \in \mathcal{E} \cup \mathcal{I} \mid c_i(x^\star) = 0 \}.
 	\]
-	LICQ er oppfylt ved \( x^* \) hvis gradientene til alle aktive betingelser
+	LICQ er oppfylt ved \( x^\star \) hvis gradientene til alle aktive betingelser
 	\[
-		\{\nabla c_i(x^*) : i \in \mathcal{A}(x^*)\}
+		\{\nabla c_i(x^\star) : i \in \mathcal{A}(x^\star)\}
 	\]
 	er lineært uavhengige i \( \mathbb{R}^n \). Dette betyr formelt at:
 	\[
-		\sum_{i \in \mathcal{A}(x^*)} \lambda_i \nabla c_i(x^*) = 0
+		\sum_{i \in \mathcal{A}(x^\star)} \lambda_i \nabla c_i(x^\star) = 0
 		\quad \Longrightarrow \quad
-		\lambda_i = 0 \;\text{for alle}\; i \in \mathcal{A}(x^*).
+		\lambda_i = 0 \;\text{for alle}\; i \in \mathcal{A}(x^\star).
 	\]
 \end{definition}
 
 \begin{remark}{Betydning av LICQ}{}
 	LICQ er avgjørende i optimeringsteori av flere grunner:
 	\begin{itemize}
-		\item \textbf{Eksistens av Lagrange-multiplikatorer:} Hvis \(x^*\) er et lokalt minimum og LICQ gjelder,
-		      eksisterer en unik vektor \(\lambda^*\) av multiplikatorer slik at KKT-betingelsene oppfylles:
+		\item \textbf{Eksistens av Lagrange-multiplikatorer:} Hvis \(x^\star\) er et lokalt minimum og LICQ gjelder,
+		      eksisterer en unik vektor \(\lambda^\star\) av multiplikatorer slik at KKT-betingelsene oppfylles:
 		      \[
-			      \nabla f(x^*) = \sum_{i \in \mathcal{A}(x^*)}\lambda_i^*\nabla c_i(x^*),\quad
-			      \lambda_j^* \geq 0 \text{ for aktive ulikheter}
+			      \nabla f(x^\star) = \sum_{i \in \mathcal{A}(x^\star)}\lambda_i^\star\nabla c_i(x^\star),\quad
+			      \lambda_j^\star \geq 0 \text{ for aktive ulikheter}
 		      \]
 
 		\item \textbf{Lokal regularitet:} LICQ sikrer at Jakobi-matrisen for de aktive betingelsene har full rang,
@@ -1818,14 +2029,6 @@ For å sikre at standard optimalitetsbetingelser gjelder, trenger vi kvalifikasj
 	Hvis LICQ ikke holder, kan det oppstå vanskeligheter med å finne Lagrange-multiplikatorene,
 	og KKT-betingelsene kan bli ugyldige eller gi flere løsninger.
 \end{remark}
-
-\subsubsection{Normalkjeglen}
-Under forutsetning av LICQ (Linear Independence Constraint Qualification) kan normalkjeglen uttrykkes som:
-\begin{equation*}
-	N_{\Omega}(x) = \left\{\sum_{i \in I(x)} \lambda_i \nabla g_i(x) + \sum_{j=1}^p \mu_j \nabla h_j(x) \mid \lambda_i \geq 0 \right\},
-\end{equation*}
-hvor \(I(x) = \{i \mid g_i(x) = 0\}\) er indeksen til de aktive ulikhetsbetingelsene.
-
 
 \begin{example}{LICQ med flere ulikhetsbetingelser}{}
 	Betrakt følgende optimeringsproblem:
@@ -1868,7 +2071,7 @@ hvor \(I(x) = \{i \mid g_i(x) = 0\}\) er indeksen til de aktive ulikhetsbetingel
 \end{example}
 
 \begin{remark}{LICQ -- Sammendrag}{}
-	LICQ sikrer at gradientene til de aktive betingelsene ved et punkt \(x^*\) er lineært uavhengige. Vi husker:
+	LICQ sikrer at gradientene til de aktive betingelsene ved et punkt \(x^\star\) er lineært uavhengige. Vi husker:
 
 	\paragraph{Aktive betingelser} En betingelse er aktiv hvis:
 	\[ \begin{cases}
@@ -1876,91 +2079,15 @@ hvor \(I(x) = \{i \mid g_i(x) = 0\}\) er indeksen til de aktive ulikhetsbetingel
 			c_j(x) = 0 & \text{for ulikhetsbetingelser}
 		\end{cases} \]
 
-	\paragraph{Lineær uavhengighet} Gradientene \(\{\nabla c_k(x^*)\}\) er lineært uavhengige når:
+	\paragraph{Lineær uavhengighet} Gradientene \(\{\nabla c_k(x^\star)\}\) er lineært uavhengige når:
 	\[
-		\sum_k \alpha_k \nabla c_k(x^*) = 0 \implies \alpha_k = 0 \text{ for alle } k
+		\sum_k \alpha_k \nabla c_k(x^\star) = 0 \implies \alpha_k = 0 \text{ for alle } k
 	\]
 
 	Dette er avgjørende for eksistensen av Lagrange-multiplikatorene og anvendelsen av KKT-betingelsene.
 \end{remark}
 
-\subsection{Farkas' Lemma}
-
-Farkas' lemma er et grunnleggende resultat innen konveks analyse og optimering som karakteriserer når en lineær ulikhet er en konsekvens av et system av lineære ulikheter.
-
-\begin{lemma}{Farkas' Lemma}{farkas_lemma}
-	La \( A \in \mathbb{R}^{m \times n} \) og \( c \in \mathbb{R}^n \). Da er nøyaktig én av følgende to utsagn sanne:
-	\begin{enumerate}
-		\item Det finnes en \( x \in \mathbb{R}^n \) slik at \( Ax \leq 0 \) og \( c^Tx > 0 \).
-		\item Det finnes en \( y \in \mathbb{R}^m \) slik at \( y \geq 0 \) og \( A^Ty = c \).
-	\end{enumerate}
-\end{lemma}
-
-\begin{lemma}{Farka's Lemma}{farkas_lemma}
-	Let \(A \in \mathbb{R}^{m \times n}\) and \(c \in \mathbb{R}^n\). Then, exactly one of the following statements is true:
-	\begin{enumerate}
-		\item[] \((1)\) There exists an \(x \in \mathbb{R}^n\) such that \(Ax \preceq 0\) and \(c^T x < 0\).
-		\item[] \((2)\) There exists a \(y \in \mathbb{R}^m\) such that \(A^T y + c = 0\) and \(y \succeq 0\).
-	\end{enumerate}
-\end{lemma}
-
-Farkas' lemma brukes ofte til å etablere eksistensen av Lagrange-multiplikatorer og til å utlede dualitetsresultater i optimering.
-
-\begin{proof}
-	\begin{enumerate}
-		\item[] Assume that \((1)\) holds. Then \(Ax = b\) and \(x \ge 0\). If there exists a \(y\) such that \(y^T A \ge 0\), then
-		      \[
-			      y^T b = y^T Ax = (y^T A)x \ge 0,
-		      \]
-		      which contradicts \(y^T b < 0\).
-		\item[] Assume that \((1)\) does not hold. We want to show that \((2)\) holds.
-
-		      Let
-		      \[
-			      K = \{Ax \mid x \ge 0\}.
-		      \]
-		      Since \((1)\) does not hold, \(b \notin K\). Since \(K\) is a closed convex cone, by the separating hyperplane theorem, there exists a \(y \in \mathbb{R}^m\) such that
-		      \[
-			      y^T b < y^T z \quad \text{for all } z \in K.
-		      \]
-		      Since \(0 \in K\), we have \(y^T b < 0\).
-
-		      Now, for any \(x \ge 0\), we have \(Ax \in K\), so \(y^T b < y^T Ax\).
-
-		      Let \(x = e_i\), where \(e_i\) is the \(i\)-th standard basis vector. Then \(x \ge 0\), and
-		      \[
-			      y^T A e_i = (y^T A)_i > 0.
-		      \]
-		      Thus \(y^T A \ge 0\).
-	\end{enumerate}
-
-	\begin{center}
-		\begin{tikzpicture}
-			\draw[->, thick] (-1, 0) -- (4, 0) node[right] {\( x \)};
-			\draw[->, thick] (0, -1) -- (0, 4) node[above] {\( y \)};
-
-			\fill[green!30] (0, 0) -- (3, 1) -- (3, 3) -- cycle;
-			\node at (1.5, 1.5) {\( K \)};
-
-			\node[circle, fill=red, inner sep=1.5pt, label=right:\( b \)] (b) at (2, -0.5) {};
-
-			\draw[dashed, purple] (b) -- (2, 3);
-			\draw[<->, dashed, black] (0, -0.5) -- (2, -0.5) node[midway, below, black] {\( y^Tb < 0 \)};
-			\draw[<->, dashed, black] (0, 3) -- (2, 3) node[midway, above, black] {\( y^Tz > 0 \)};
-
-			% Adding new vectors
-			\draw[->, thick, blue] (0, 0) -- (1.5, 2.5) node[above] {\( q \)};
-			\draw[->, thick, red] (0, 0) -- (-0.5, 2) node[left] {\( p \)};
-			\draw[->, thick, orange] (0, 0) -- (0.75, 1.25) node[right] {\( proj_K(p) \)};
-			\draw[dashed] (-0.5, 2) -- (0.75, 1.25);
-		\end{tikzpicture}
-	\end{center}
-
-	The figure illustrates the geometric interpretation of Farkas' Lemma. The green region \( K \) represents the cone of feasible points \( \{Ax \mid x \ge 0\} \). The point \( b \) (in red) lies outside this cone. The purple dashed line represents the separating hyperplane, which separates \( b \) from \( K \). Vector \( p \) (in red) is projected onto the cone \( K \), resulting in \( proj_K(p) \) (in orange). Vector \( q \) (in blue) lies inside the cone \( K \). The black dashed lines show that the inner product \( y^Tb \) is negative, while the inner product \( y^Tz \) is positive for points \( z \) in the cone \( K \).
-\end{proof}
-
-\section{KKT-betingelsene}
-\label{sec:kkt_conditions}
+\section{Optimalitetsbetingelser}
 \begin{center}
 	\begin{tikzpicture}[
 			node distance=0.8cm and 0.8cm,
@@ -2033,23 +2160,23 @@ Farkas' lemma brukes ofte til å etablere eksistensen av Lagrange-multiplikatore
 		% --- Common branch: KKT, Second-order, Conclusion ---
 		\node [block, below=3.5cm of convexq] (kkt) {
 			\textbf{KKT-betingelser:}\\[0.5ex]
-			1. Stasjonaritet: \( \nabla f(x^*) + \sum_i \lambda_i \nabla c_i(x^*) = 0 \)\\
-			2. Primal gyldighet: \( c_i(x^*) = 0 \) eller \( c_j(x^*) \geq 0 \)\\
+			1. Stasjonaritet: \( \nabla f(x^\star) + \sum_i \lambda_i \nabla c_i(x^\star) = 0 \)\\
+			2. Primal gyldighet: \( c_i(x^\star) = 0 \) eller \( c_j(x^\star) \geq 0 \)\\
 			3. Dual gyldighet: \( \lambda_j \geq 0 \) for \( j \in I \)\\
-			4. Komplementær slakkhet: \( \lambda_j\,c_j(x^*) = 0 \)
+			4. Komplementær slakkhet: \( \lambda_j\,c_j(x^\star) = 0 \)
 		};
 
 		\node [block, below=1.0cm of kkt] (second) {
 			\textbf{Andregrads-betingelser:}\\[0.5ex]
-			\emph{Nødvendig:} \( \nabla_{xx}^2 \mathcal{L}(x^*,\lambda^*) \succeq 0 \)\\[0.5ex]
-			\emph{Tilstrekkelig:} \( \nabla_{xx}^2 \mathcal{L}(x^*,\lambda^*) \succ 0 \)
+			\emph{Nødvendig:} \( \nabla_{xx}^2 \mathcal{L}(x^\star,\lambda^\star) \succeq 0 \)\\[0.5ex]
+			\emph{Tilstrekkelig:} \( \nabla_{xx}^2 \mathcal{L}(x^\star,\lambda^\star) \succ 0 \)
 		};
 
 		\node [startstop, below=1.0cm of second] (conclude) {
 			\textbf{Konklusjon}\\[0.5ex]
 			Hvis KKT + 2.-grads betingelser holder,\\
-			\( \;x^* \) er lokalt minimum.\\[0.5ex]
-			Under konveksitet er \( \;x^* \) globalt minimum.
+			\( \;x^\star \) er lokalt minimum.\\[0.5ex]
+			Under konveksitet er \( \;x^\star \) globalt minimum.
 		};
 
 		% -----------------
@@ -2076,86 +2203,55 @@ Farkas' lemma brukes ofte til å etablere eksistensen av Lagrange-multiplikatore
 	\end{tikzpicture}
 \end{center}
 
-Karush-Kuhn-Tucker (KKT)-betingelsene er sentrale i konveks optimering og gir nødvendige og tilstrekkelige betingelser for optimalitet når visse kvalifikasjonsbetingelser er oppfylt.
+\section{Første Ordens Nødvendige Betingelser}
+\label{sec:optimality_conditions}
+Første Ordens Nødvendige Betingelser, også kjent som \emph{Karush--Kuhn--Tucker (KKT)}-betingelsene, er en samling av betingelser som må oppfylles for at en løsning \(x^\star\) til et optimeringsproblem skal være optimal.
 
-\subsection{Generell Formulering}
-
-\begin{theorem}{KKT-betingelser}{kkt_conditions}
-	La oss betrakte optimeringsproblemer på formen:
-	\begin{mini*}
-		{x}{f(x)}{}{}
-		\addConstraint{g_i(x)}{\leq 0,\quad}{i = 1, \ldots, m}
-		\addConstraint{h_j(x)}{= 0,\quad}{j = 1, \ldots, p}
-	\end{mini*}
-
-	Hvis $x^*$ er et lokalt minimum og en passende kvalifikasjonsbetingelse (som LICQ eller Slaters betingelse) er oppfylt, så finnes det Lagrange-multiplikatorer $\lambda^* \in \mathbb{R}^m$ og $\mu^* \in \mathbb{R}^p$ slik at følgende betingelser er oppfylt:
-
-	\begin{align}
-		\nabla f(x^*) + \sum_{i=1}^m \lambda_i^* \nabla g_i(x^*) + \sum_{j=1}^p \mu_j^* \nabla h_j(x^*) & = 0 \tag{Stasjonaritet}                                              \\
-		g_i(x^*)                                                                                        & \leq 0, \quad \forall i = 1, \ldots, m \tag{Primal gjennomførbarhet} \\
-		h_j(x^*)                                                                                        & = 0, \quad \forall j = 1, \ldots, p \tag{Primal gjennomførbarhet}    \\
-		\lambda_i^*                                                                                     & \geq 0, \quad \forall i = 1, \ldots, m \tag{Dual gjennomførbarhet}   \\
-		\lambda_i^* g_i(x^*)                                                                            & = 0, \quad \forall i = 1, \ldots, m \tag{Komplementær slakkhet}
-	\end{align}
+\begin{theorem}{Første Ordens Nødvendige Betingelser}{kkt_conditions}
+  La \(f: \mathbb{R}^n \to \mathbb{R}\) være kontinuerlig differensierbar, og
+  \(g_i, h_j\) kontinuerlig differensierbare.\  
+  Anta \(x^\star\) er lokal løsning av
+  \begin{mini*}
+    {x}{f(x)}{}{}
+    \addConstraint{g_i(x)}{\leq 0,\quad}{i\in\mathcal{I}}
+    \addConstraint{h_j(x)}{=0,\quad}{j\in\mathcal{E}}
+  \end{mini*}
+  Da finnes multiplikatorer \(\lambda_i^\star\), \(\mu_j^\star\) slik at
+  \begin{align}
+    \nabla f(x^\star)
+    + \sum_{i=1}^m \lambda_i^\star\nabla g_i(x^\star)
+    + \sum_{j=1}^p \mu_j^\star\nabla h_j(x^\star)
+      &= 0  &&\text{(Stasjonaritet)} \\
+    g_i(x^\star) &\le 0,\quad \forall i     &&\text{(Primal gj.)} \\
+    h_j(x^\star) &= 0,\quad \forall j       &&\text{(Primal gj.)} \\
+    \lambda_i^\star &\ge 0,\quad \forall i  &&\text{(Dual gj.)} \\
+    \lambda_i^\star\,g_i(x^\star) &=0,\quad \forall i &&\text{(Kompl. slakkhet)}\\
+    \mu_j^\star\,h_j(x^\star) &=0,\quad \forall j      &&\text{(Kompl. slakkhet)}
+  \end{align}
 \end{theorem}
 
-
 \begin{itemize}
-	\item \textbf{Stasjonaritetsbetingelsen:} Gradienten til målfunksjonen må kunne uttrykkes som en lineær kombinasjon av gradientene til aktive begrensninger ved den optimale løsningen.
-
-	\item \textbf{Primal gjennomførbarhet:} Løsningen må tilfredsstille alle opprinnelige begrensninger i optimeringsproblemer.
-
-	\item \textbf{Dual gjennomførbarhet:} Lagrange-multiplikatorene for ulikhetsbegrensninger må være ikke-negative.
-
-	\item \textbf{Komplementær slakkhet:} For hver ulikhetsbegrensning må enten begrensningen være aktiv ($g_i(x^*) = 0$) eller den tilhørende multiplikatoren må være null ($\lambda_i^* = 0$).
+  \item \textbf{Stasjonæritet:} \(\nabla f(x^\star)\) er lineær kombinasjon av gradientene til aktive begrensninger.
+  \item \textbf{Primal gjennomførbarhet:} \(g_i(x^\star)\le0,\;h_j(x^\star)=0\).
+  \item \textbf{Dual gjennomførbarhet:} \(\lambda_i^\star\ge0\).
+  \item \textbf{Komplementær slakkhet:} \(\lambda_i^\star\,g_i(x^\star)=0\).
 \end{itemize}
 
 \subsection{KKT-betingelser for konvekse problemer}
 
-For konvekse optimeringsproblemer, der $f$ og $g_i$ er konvekse funksjoner og $h_j$ er affine funksjoner, gjelder:
+For konvekse problemer (konvekst \(f,g_i\), affine \(h_j\)) gjelder:
 
-\begin{theorem}{KKT-betingelser for Konvekse Problemer}{kkt_convex}
-	Hvis Slaters betingelse er oppfylt for et konvekst optimeringsproblem, er KKT-betingelsene både nødvendige og tilstrekkelige for global optimalitet.
-	Det vil si at $x^*$ er en global løsning hvis og bare hvis det eksisterer multiplikatorer $\lambda^*$ og $\mu^*$ som sammen med $x^*$ oppfyller KKT-betingelsene.
+\begin{theorem}{KKT-betingelser for konvekse problemer}{kkt_convex}
+  Hvis Slaters betingelse er oppfylt, er KKT-betingelsene nødvendige og tilstrekkelige for global optimalitet.
 \end{theorem}
 
 \begin{proof}{KKT-betingelser for konvekse problemer}{}
-	We have the optimality condition:
-	\[
-		\inner{\nabla f(x^\star), p} \geq 0 \, \forall p \in T_{\Omega}(x^\star)
-	\]
-	\medskip
-	\begin{align*}
-		p \in T_{\Omega}(x^\star) \iff
-		\begin{cases}
-			\inner{\nabla c_i (x^\star), p }\geq 0                             & \forall i \in \mathcal{A}_1(x^\star) \\
-			\text{or: there does not exist any } p \in \R^d \text{ such that:} &                                      \\
-			\begin{cases}
-				\inner{\nabla c_i (x^\star), p }\geq 0 & \forall i \in \mathcal{A}_1(x^\star) \\
-				\inner{A_i^T , p }\geq 0               & \forall i \in \mathcal{A}_2(x^\star) \\
-				\inner{ (C_i )^T, p } = 0              & \forall 1 \leq i \leq l              \\
-				\inner{\nabla f (x^\star), p } < 0     &
-			\end{cases}                             \\
-			(Ap)_i \geq 0                                                      & \forall i \in \mathcal{A}_2(x^\star) \\
-			Cp = 0                                                             &
-		\end{cases}
-	\end{align*}
-
-	The second alternative is Farka's Lemma does not hold \(\implies\) The first holds.
-
-	\begin{align*}
-		\nabla f(x^\star) & = \sum_{i\in \mathcal{A}_1(x^\star)} \lambda_i^\star \nabla c_i(x^\star) + \sum_{i \in \mathcal{A}_2(x^\star)} \mu_i^\star A_i^T + \sum_{i=1}^l v_i^\star C_i^T \\
-	\end{align*}
-
-	For some  \(\lambda_i^\star \geq 0, \mu_i^\star \geq 0, v_i^\star \in \R\).
-
-	Now define: \(\lambda_i^\star = 0 \) for \(i \notin \mathcal{A}_1(x^\star)\) and \(\mu_i^\star = 0\) for \(i \notin \mathcal{A}_2(x^\star)\).
-
-	Then we have:
-	\begin{align*}
-		\nabla f(x^\star) & = \sum_{i\in \mathcal{I}} \lambda_i^\star \nabla c_i(x^\star) + \sum_{1 \leq i \leq m} \mu_i^\star A_i^T + \sum_{1 \leq i \leq l} v_i^\star C_i^T = \text{(1)} \\
-	\end{align*}
-	\qed
+  Vi har
+  \[
+    \langle\nabla f(x^\star), p\rangle \ge0
+      \quad\forall p\in T_\Omega(x^\star).
+  \]
+  En alternativ formulering via Farkas’ lemma gir stasjonæritets- og komplementære slakkhets-betingelser som i forrige teorem.
 \end{proof}
 
 \subsection{Aktive Begrensninger og Tangentkjegle}
@@ -2186,9 +2282,9 @@ Dette betyr at en retning er tillatt hvis den respekterer både aktive ulikhetsb
 
 		\item \textbf{Dual gjennomførbarhet:} Multiplikatorene for ulikheter er ikke-negative, som sikrer at vi beveger oss i riktig retning langs betingelsene.
 
-		\item \textbf{Komplementær slakkhet:} En betingelse må enten være aktiv ($g_i(x^*) = 0$), eller så må den tilhørende multiplikatoren være null ($\lambda_i^* = 0$). Dette betyr at vi bare tar hensyn til aktive begrensninger; inaktive begrensninger har ingen påvirkning på optimaliteten.
+		\item \textbf{Komplementær slakkhet:} En betingelse må enten være aktiv ($g_i(x^\star) = 0$), eller så må den tilhørende multiplikatoren være null ($\lambda_i^\star = 0$). Dette betyr at vi bare tar hensyn til aktive begrensninger; inaktive begrensninger har ingen påvirkning på optimaliteten.
 
-		\item Hvis $\lambda_i^* > 0$ for en aktiv begrensning, indikerer dette at å relaksere denne begrensningen vil forbedre den optimale verdien. $\lambda_i^*$ tolkes ofte som skyggeprisen eller sensitiviteten til den optimale verdien med hensyn til endringer i begrensning $i$.
+		\item Hvis $\lambda_i^\star > 0$ for en aktiv begrensning, indikerer dette at å relaksere denne begrensningen vil forbedre den optimale verdien. $\lambda_i^\star$ tolkes ofte som skyggeprisen eller sensitiviteten til den optimale verdien med hensyn til endringer i begrensning $i$.
 	\end{itemize}
 \end{remark}
 
