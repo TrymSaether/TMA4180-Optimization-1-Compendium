@@ -2024,7 +2024,7 @@ Imidlertid er de også mer beregningsmessig krevende, spesielt når Hesse-matris
 Newtons metode er basert på en andreordens Taylor-approksimasjon av objektfunksjonen \(f\) rundt det nåværende punktet \(\symbf{x}_k\):
 
 \[
-	f(\symbf{x}_k + \symbf{p}) \approx f(\symbf{x}_k) + \nabla f(\symbf{x}_k)^T \symbf{p} + \frac{1}{2}\symbf{p}^T \nabla^2 f(\symbf{x}_k) \symbf{p}
+	f(\symbf{x}_k + \symbf{d}) \approx f(\symbf{x}_k) + \nabla f(\symbf{x}_k)^T \symbf{d} + \frac{1}{2}\symbf{p}^T \nabla^2 f(\symbf{x}_k) \symbf{d}
 \]
 
 Minimering av denne approksimeringen med hensyn til \(\symbf{p}\) gir Newtonstegligningen:
