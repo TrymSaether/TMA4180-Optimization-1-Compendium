@@ -942,30 +942,30 @@ Eksakt linjesøk er ofte beregningsmessig kostbart, særlig for høydimensjonale
 \label{subsubsec:exact_line_search_examples}
 
 \begin{example}{Eksakt linjesøk for kvadratiske funksjoner}{exact_line_search_quadratic}
-	For kvadratiske funksjoner kan vi beregne den optimale steglengden analytisk. Gitt en funksjon på formen 
-	$f(\symbf{x}) = \frac{1}{2}\symbf{x}^T\symbf{Q}\symbf{x} - \symbf{b}^T\symbf{x} + c$ med positiv definitt $\symbf{Q}$, 
+	For kvadratiske funksjoner kan vi beregne den optimale steglengden analytisk. Gitt en funksjon på formen
+	$f(\symbf{x}) = \frac{1}{2}\symbf{x}^T\symbf{Q}\symbf{x} - \symbf{b}^T\symbf{x} + c$ med positiv definitt $\symbf{Q}$,
 	er den optimale steglengden:
 
 	\begin{equation*}
 		\alpha_k = \frac{\symbf{d}_k^T(\symbf{b} - \symbf{Q}\symbf{x}_k)}{\symbf{d}_k^T\symbf{Q}\symbf{d}_k} = \frac{-\symbf{d}_k^T\nabla f(\symbf{x}_k)}{\symbf{d}_k^T\symbf{Q}\symbf{d}_k}
 	\end{equation*}
 
-	Denne formelen avhenger kun av gradienten $\nabla f(\symbf{x}_k) = \symbf{Q}\symbf{x}_k - \symbf{b}$ og 
+	Denne formelen avhenger kun av gradienten $\nabla f(\symbf{x}_k) = \symbf{Q}\symbf{x}_k - \symbf{b}$ og
 	søkeretningen $\symbf{d}_k$.
 
 	% 3D-plot
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				view={60}{30},
-				xlabel={$x_1$},
-				ylabel={$x_2$},
-				zlabel={$f(x_1,x_2)$},
-				xmin=-3, xmax=3,
-				ymin=-3, ymax=3,
-				zmin=0, zmax=30,
-				samples=30,
-				domain=-3:3,
+					view={60}{30},
+					xlabel={$x_1$},
+					ylabel={$x_2$},
+					zlabel={$f(x_1,x_2)$},
+					xmin=-3, xmax=3,
+					ymin=-3, ymax=3,
+					zmin=0, zmax=30,
+					samples=30,
+					domain=-3:3,
 				]
 				\addplot3[surf, mesh/rows=30, colormap/viridis] {2*x^2 + y^2 + 2*x*y - 4*x - 2*y + 5};
 			\end{axis}
@@ -976,7 +976,7 @@ Eksakt linjesøk er ofte beregningsmessig kostbart, særlig for høydimensjonale
 
 
 \begin{example}{Konkret beregning av eksakt linjesøk}{exact_line_search_numerical}
-	Betrakt den kvadratiske funksjonen $f(x,y) = 2x^2 + y^2 + 2xy - 4x - 2y + 5$ med startpunktet 
+	Betrakt den kvadratiske funksjonen $f(x,y) = 2x^2 + y^2 + 2xy - 4x - 2y + 5$ med startpunktet
 	$\symbf{x}_0 = (0,0)^T$ og søkeretningen $\symbf{d}_0 = (-1,-1)^T$. Vi kan finne den optimale steglengden analytisk.
 
 	Vi identifiserer først matrise- og vektorparametrene:
@@ -987,15 +987,15 @@ Eksakt linjesøk er ofte beregningsmessig kostbart, særlig for høydimensjonale
 	\]
 
 	Ved startpunktet $\symbf{x}_0 = (0,0)^T$ er gradienten $\nabla f(\symbf{x}_0) = \symbf{Q}\symbf{x}_0 - \symbf{b} = -\symbf{b} = (-4,-2)^T$.
-	
+
 	Den optimale steglengden blir:
 	\begin{align*}
-		\alpha_0 &= \frac{-\symbf{d}_0^T\nabla f(\symbf{x}_0)}{\symbf{d}_0^T\symbf{Q}\symbf{d}_0} \\
-		&= \frac{-(-1,-1)\cdot(-4,-2)^T}{(-1,-1)\begin{bmatrix} 4 & 2 \\ 2 & 2 \end{bmatrix}(-1,-1)^T} \\
-		&= \frac{6}{10} = 0.6
+		\alpha_0 & = \frac{-\symbf{d}_0^T\nabla f(\symbf{x}_0)}{\symbf{d}_0^T\symbf{Q}\symbf{d}_0}               \\
+		         & = \frac{-(-1,-1)\cdot(-4,-2)^T}{(-1,-1)\begin{bmatrix} 4 & 2 \\ 2 & 2 \end{bmatrix}(-1,-1)^T} \\
+		         & = \frac{6}{10} = 0.6
 	\end{align*}
 
-	Det neste punktet i optimeringsprosessen blir dermed 
+	Det neste punktet i optimeringsprosessen blir dermed
 	$\symbf{x}_1 = \symbf{x}_0 + \alpha_0 \symbf{d}_0 = (0,0) + 0.6 \cdot (-1,-1) = (-0.6, -0.6)$.
 \end{example}
 
@@ -1055,7 +1055,7 @@ Armijo-betingelsen sikrer en tilstrekkelig reduksjon, men garanterer ikke at ste
 
 \subsubsection{Krumningsbetingelse}
 \label{subsubsec:curvature_condition}
-Krumningsbetingelsen (\emph{curvature condition}) er en tilleggsbetingelse som sikrer at steglengden ikke er for kort. 
+Krumningsbetingelsen (\emph{curvature condition}) er en tilleggsbetingelse som sikrer at steglengden ikke er for kort.
 Den krever at gradienten langs søkeretningen har blitt mindre negativ, noe som indikerer at vi har beveget oss forbi en region med bratt nedstigning.
 
 \begin{definition}{Curvature condition}{curvature_condition}
@@ -1109,7 +1109,7 @@ Den andre betingelsen i de sterke Wolfe-betingelsene sikrer at gradienten langs 
 
 En alternativ tilnærming til Wolfe-betingelsene er Goldstein-betingelsene, som danner et intervall rundt den lineære approksimasjonen:
 \[
-f(\symbf{x}_k + \alpha\symbf{d}_k) \approx f(\symbf{x}_k) + \alpha\nabla f(\symbf{x}_k)^T\symbf{d}_k
+	f(\symbf{x}_k + \alpha\symbf{d}_k) \approx f(\symbf{x}_k) + \alpha\nabla f(\symbf{x}_k)^T\symbf{d}_k
 \]
 
 \begin{definition}{Goldstein-betingelsene}{goldstein_conditions}
@@ -1136,21 +1136,21 @@ Disse betingelsene sikrer at steglengden \(\alpha\) gir tilstrekkelig reduksjon 
 	Goldstein-Wolfe-betingelsene krever at Armijo- og Goldstein-betingelsene begge er oppfylt:
 	\begin{enumerate}
 		\item Armijo-betingelsen:
-			\[
-				f(\symbf{x} + \alpha \symbf{d})
-				\;\le\;
-				f(\symbf{x})
-				\;+\;
-				c_1\,\alpha\,\nabla f(\symbf{x})^T \symbf{d}.
-			\]
+		      \[
+			      f(\symbf{x} + \alpha \symbf{d})
+			      \;\le\;
+			      f(\symbf{x})
+			      \;+\;
+			      c_1\,\alpha\,\nabla f(\symbf{x})^T \symbf{d}.
+		      \]
 		\item Goldstein-betingelsen:
-			\[
-				f(\symbf{x}) + (1-c)\,\alpha\,\nabla f(\symbf{x})^T \symbf{d}
-				\;\le\;
-				f(\symbf{x} + \alpha \symbf{d})
-				\;\le\;
-				f(\symbf{x}) + c\,\alpha\,\nabla f(\symbf{x})^T \symbf{d}.
-			\]
+		      \[
+			      f(\symbf{x}) + (1-c)\,\alpha\,\nabla f(\symbf{x})^T \symbf{d}
+			      \;\le\;
+			      f(\symbf{x} + \alpha \symbf{d})
+			      \;\le\;
+			      f(\symbf{x}) + c\,\alpha\,\nabla f(\symbf{x})^T \symbf{d}.
+		      \]
 	\end{enumerate}
 	Disse betingelsene sikrer at steglengden \(\alpha\) gir tilstrekkelig reduksjon i objektfunksjonen, samtidig som den opprettholder en viss krumning.
 \end{definition}
@@ -1158,12 +1158,12 @@ Disse betingelsene sikrer at steglengden \(\alpha\) gir tilstrekkelig reduksjon 
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[
-			xlabel={$\alpha$},
-			ylabel={$f(\symbf{x}_k + \alpha \symbf{d}_k)$},
-			xmin=0, xmax=2,
-			ymin=0, ymax=5,
-			samples=50,
-			domain=0:2,
+				xlabel={$\alpha$},
+				ylabel={$f(\symbf{x}_k + \alpha \symbf{d}_k)$},
+				xmin=0, xmax=2,
+				ymin=0, ymax=5,
+				samples=50,
+				domain=0:2,
 			]
 			\addplot[blue, thick] {2*x^2 - 4*x + 3};
 			\addplot[red, dashed] {1.5 - 0.5*x};
@@ -1642,17 +1642,17 @@ Valg av linjesøkmetode påvirker ytelsen til gradient descent på flere måter:
 	\centering
 	\begin{tabular}{|l|c|c|c|}
 		\hline
-		\textbf{Linjesøkmetode} & \textbf{Beregningskostnad} & \textbf{Robusthet} & \textbf{Egnet for} \\
+		\textbf{Linjesøkmetode} & \textbf{Beregningskostnad} & \textbf{Robusthet} & \textbf{Egnet for}                      \\
 		\hline
-		Eksakt & Høy & Moderat & Enkle funksjoner, kvadratiske problemer \\
+		Eksakt                  & Høy                        & Moderat            & Enkle funksjoner, kvadratiske problemer \\
 		\hline
-		Backtracking & Lav & God & Generelle problemer, rask prototyping \\
+		Backtracking            & Lav                        & God                & Generelle problemer, rask prototyping   \\
 		\hline
-		Wolfe & Middels & Meget god & Kvasi-Newton metoder \\
+		Wolfe                   & Middels                    & Meget god          & Kvasi-Newton metoder                    \\
 		\hline
-		Strong Wolfe & Middels-høy & Meget god & Konjugerte gradient metoder \\
+		Strong Wolfe            & Middels-høy                & Meget god          & Konjugerte gradient metoder             \\
 		\hline
-		Goldstein & Middels & God & Newton-baserte metoder \\
+		Goldstein               & Middels                    & God                & Newton-baserte metoder                  \\
 		\hline
 	\end{tabular}
 	\caption{Sammenligning av linjesøkmetoder for gradient descent}
@@ -1783,53 +1783,53 @@ Dette sikrer at hver ny retning er konjugert med hensyn til de tidligere retning
 
 \begin{example}{Konjugerte gradientmetoder}{cg_example}
 	Anta at vi har en kvadratisk funksjon \(f(\symbf{x})\) med Hesse-matrise \(A\). Ved å bruke konjugerte gradientmetoder kan vi iterativt oppdatere løsningen \(\symbf{x}_k\) ved å velge konjugerte retninger \(\symbf{p}_k\) og bestemme skrittlengden \(\alpha_k\) ved linjesøk.
-		\[
-			\symbf{x}_{k+1} = \symbf{x}_k + \alpha_k \symbf{p}_k
-		\]
+	\[
+		\symbf{x}_{k+1} = \symbf{x}_k + \alpha_k \symbf{p}_k
+	\]
 
-		Den første retningen \(\symbf{p}_0\) er valgt som den negative gradienten \(-\nabla f(\symbf{x}_0)\), og den andre retningen \(\symbf{p}_1\) er konjugert til \(\symbf{p}_0\) med hensyn til Hesse-matrisen \(A\).
-		\[
-			\symbf{p}_1 = -\nabla f(\symbf{x}_1) + \beta_1 \symbf{p}_0
-		\]
-		Deretter oppdateres løsningen \(\symbf{x}_1\) ved å bruke den første retningen \(\symbf{p}_0\), og den andre retningen \(\symbf{p}_1\) brukes til å oppdatere løsningen \(\symbf{x}_2\).
+	Den første retningen \(\symbf{p}_0\) er valgt som den negative gradienten \(-\nabla f(\symbf{x}_0)\), og den andre retningen \(\symbf{p}_1\) er konjugert til \(\symbf{p}_0\) med hensyn til Hesse-matrisen \(A\).
+	\[
+		\symbf{p}_1 = -\nabla f(\symbf{x}_1) + \beta_1 \symbf{p}_0
+	\]
+	Deretter oppdateres løsningen \(\symbf{x}_1\) ved å bruke den første retningen \(\symbf{p}_0\), og den andre retningen \(\symbf{p}_1\) brukes til å oppdatere løsningen \(\symbf{x}_2\).
 
-		Vi gjentar dette til konvergenskriteriene er oppfylt, dvs. når gradienten \(\nabla f(\symbf{x}_k)\) er tilstrekkelig liten.
-		\[
-			\|\nabla f(\symbf{x}_k)\| \approx 0
-		\]
+	Vi gjentar dette til konvergenskriteriene er oppfylt, dvs. når gradienten \(\nabla f(\symbf{x}_k)\) er tilstrekkelig liten.
+	\[
+		\|\nabla f(\symbf{x}_k)\| \approx 0
+	\]
 
-		\begin{figure}[H]
-			\centering
-			\begin{tikzpicture}[scale=1.5]
-				% Contour plot av en elliptisk kvadratisk funksjon
-				\draw[blue!20] (0,0) ellipse (2 and 1);
-				\draw[blue!40] (0,0) ellipse (1.5 and 0.75);
-				\draw[blue!60] (0,0) ellipse (1 and 0.5);
-				\draw[blue!80] (0,0) ellipse (0.5 and 0.25);
-				
-				% Startpunktet
-				\node[circle, fill=red, inner sep=1.5pt] (x0) at (1.8,0.6) {};
-				\node[above right] at (x0) {$\symbf{x}_0$};
-				
-				% Første gradient og retning
-				\draw[->, thick, green!50!black] (1.8,0.6) -- (0.9,0.3) node[midway, above] {$\symbf{p}_0$};
-				
-				% Første iterasjon
-				\node[circle, fill=red, inner sep=1.5pt] (x1) at (0.9,0.3) {};
-				\node[above right] at (x1) {$\symbf{x}_1$};
-				
-				% Andre retning (konjugert til første)
-				\draw[->, thick, purple] (0.9,0.3) -- (0,0) node[midway, below] {$\symbf{p}_1$};
-				
-				% Minimum
-				\node[circle, fill=blue, inner sep=1.5pt] at (0,0) {};
-				\node at (0,-0.25) {$\symbf{x}^*$};
-			\end{tikzpicture}
-			\caption{Konjugerte gradientmetoder: Konturplot av en kvadratisk funksjon med konjugerte retninger. Merk hvordan den første retningen $\symbf{p}_0$ følger den negative gradienten, mens den andre retningen $\symbf{p}_1$ er konjugert til $\symbf{p}_0$ og leder direkte til minimumet.}
-			\label{fig:cg_example}
-		\end{figure}
-		
-		I dette eksempelet når algoritmen minimumet på bare to iterasjoner fordi retningene er konjugerte med hensyn på Hesse-matrisen. For en kvadratisk funksjon i $n$ dimensjoner vil konjugert gradient konvergere i maksimalt $n$ iterasjoner.
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.5]
+			% Contour plot av en elliptisk kvadratisk funksjon
+			\draw[blue!20] (0,0) ellipse (2 and 1);
+			\draw[blue!40] (0,0) ellipse (1.5 and 0.75);
+			\draw[blue!60] (0,0) ellipse (1 and 0.5);
+			\draw[blue!80] (0,0) ellipse (0.5 and 0.25);
+
+			% Startpunktet
+			\node[circle, fill=red, inner sep=1.5pt] (x0) at (1.8,0.6) {};
+			\node[above right] at (x0) {$\symbf{x}_0$};
+
+			% Første gradient og retning
+			\draw[->, thick, green!50!black] (1.8,0.6) -- (0.9,0.3) node[midway, above] {$\symbf{p}_0$};
+
+			% Første iterasjon
+			\node[circle, fill=red, inner sep=1.5pt] (x1) at (0.9,0.3) {};
+			\node[above right] at (x1) {$\symbf{x}_1$};
+
+			% Andre retning (konjugert til første)
+			\draw[->, thick, purple] (0.9,0.3) -- (0,0) node[midway, below] {$\symbf{p}_1$};
+
+			% Minimum
+			\node[circle, fill=blue, inner sep=1.5pt] at (0,0) {};
+			\node at (0,-0.25) {$\symbf{x}^*$};
+		\end{tikzpicture}
+		\caption{Konjugerte gradientmetoder: Konturplot av en kvadratisk funksjon med konjugerte retninger. Merk hvordan den første retningen $\symbf{p}_0$ følger den negative gradienten, mens den andre retningen $\symbf{p}_1$ er konjugert til $\symbf{p}_0$ og leder direkte til minimumet.}
+		\label{fig:cg_example}
+	\end{figure}
+
+	I dette eksempelet når algoritmen minimumet på bare to iterasjoner fordi retningene er konjugerte med hensyn på Hesse-matrisen. For en kvadratisk funksjon i $n$ dimensjoner vil konjugert gradient konvergere i maksimalt $n$ iterasjoner.
 
 \end{example}
 

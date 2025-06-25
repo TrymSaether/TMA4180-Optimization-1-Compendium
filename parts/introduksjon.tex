@@ -123,9 +123,9 @@ En kompakt mengde er en mengde som er både lukket og begrenset. Dette betyr at 
 \begin{definition}{Kompakt mengde}{compact_set}
 	En mengde \(A \subset \R^n\) er kompakt hvis og bare hvis den er både lukket (\emph{closed})~\ref{def:closed_set} og begrenset (\emph{bounded})~\ref{def:bounded_set}.
 	og begrenset\ref{def:bounded_set}.
-		\[
-			A \text{ er kompakt} \Leftrightarrow A \text{ er lukket og begrenset}
-		\]
+	\[
+		A \text{ er kompakt} \Leftrightarrow A \text{ er lukket og begrenset}
+	\]
 \end{definition}
 
 \subsection{Begrenset mengde}
@@ -290,7 +290,7 @@ Det innebærer at når vi vurderer hvilke retninger vi kan søke i, ser vi bort 
 	\end{tikzpicture}
 
 	\vspace{0.5ex}
-	\small Blå piler: kritiske retninger. 
+	\small Blå piler: kritiske retninger.
 	Grå stiplet pil: utelukket retning. Grønn pil: $\nabla f(x^*)$.
 \end{center}
 
@@ -321,6 +321,34 @@ En funksjon er veldefinert hvis den gir en entydig verdi for hver input--verdi.
 
 	En operator eller en transformasjon er veldefinert hvis den tilfredsstiller de samme kravene: hver innverdi gir nøyaktig én utverdi, og like innverdier gir like utverdier.
 \end{definition}
+
+\subsection{Affine funksjoner}
+\begin{definition}{Affin funksjon}{affine_function}
+	En funksjon $f: \R^n \to \R^m$ er affin hvis den kan skrives på formen:
+	\[
+		f(\mathbf{x}) = A\mathbf{x} + \mathbf{b}
+	\]
+	hvor $A \in \R^{m \times n}$ og $\mathbf{b} \in \R^m$.
+\end{definition}
+
+\begin{remark}{Egenskaper ved affine funksjoner}{affine_properties}
+	\begin{enumerate}
+		\item En affin funksjon er summen av en lineær funksjon $L(\mathbf{x}) = A\mathbf{x}$ og en konstant vektor $\mathbf{b}$.
+		\item Affine funksjoner bevarer konvekse kombinasjoner:
+			  \[
+				  f(\lambda \mathbf{x} + (1-\lambda)\mathbf{y}) = \lambda f(\mathbf{x}) + (1-\lambda)f(\mathbf{y}), \quad \forall \lambda \in \R
+			  \]
+		\item En affin funksjon er både konveks og konkav.
+	\end{enumerate}
+\end{remark}
+
+\begin{example}{Eksempler på affine funksjoner}{affine_examples}
+	\begin{itemize}
+		\item $f(x) = 3x + 2$
+		\item $f(\mathbf{x}) = \mathbf{c}^T\mathbf{x} + d$ (en lineær funksjon med skalar forskyvning)
+		\item $f(x,y) = 2x - 3y + 4$
+	\end{itemize}
+\end{example}
 
 \subsection{Nedre semi-kontinuerlige funksjoner}
 En nedre semikontinuerlig funksjon (\emph{lower semi-continuous function (lsc)}) er en funksjon som ikke har plutselige "hopp nedover".
@@ -429,11 +457,11 @@ Tenk på infimum som den \enquote{laveste støtten} eller \enquote{gulvet} under
 	\end{itemize}
 \end{definition}
 Tenk på supremum som \enquote{taket} eller \enquote{den laveste hindringen} over mengden.
-Det er den minste verdien som fungerer som en øvre grense for alle elementer i mengden. 
+Det er den minste verdien som fungerer som en øvre grense for alle elementer i mengden.
 
 
 
-\begin{remark}{Supremum huskeregel}{}	
+\begin{remark}{Supremum huskeregel}{}
 	\enquote{SUP-remum er den minste verdien SUpra (over) mengden} (tenk på \enquote{sup} som i \enquote{super} eller \enquote{ovenfor}).
 	Som et fysisk bilde: hvis elementene i mengden er hoppende baller, er supremum det laveste taket som ingen ball kan hoppe høyere enn.
 \end{remark}
@@ -888,8 +916,6 @@ For en konveks funksjon \(f\) er det stasjonære punktet \(\mathbf{x}^\star\) og
 	For \( f(x) = x^2 + 2x \), som er kontinuerlig og koersiv, finnes et globalt minimum i \( x^* = -1 \) der \( f(-1) = -1 \).
 \end{example}
 \begin{example}{Eksistens og optimalitet}{}
-
 	For \( f(x) = x^2 \), har vi \( \nabla f(x) = 2x \). I \( x^* = 0 \) er \( \nabla f(0) = 0 \) og \( \nabla^2 f(x) = 2 > 0 \), som oppfyller SOSC.
-
 \end{example}
 

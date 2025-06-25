@@ -168,5 +168,52 @@ Algoritmisk oppdateres \(\lambda\) og \(r\) etter hvert subproblem:
     r^{(k+1)} \ge r^{(k)}.
 \]
 
+\section{Pareto}
+\label{sec:pareto}
+
+I multiobjektiv optimalisering ønsker man å minimere (eller maksimere) flere mål samtidig:
+\[
+    \min_{x\in\mathbb{R}^n} \;F(x)
+    \quad\text{med}\quad
+    F(x) = \bigl(f_1(x),f_2(x),\dots,f_k(x)\bigr).
+\]
+Ofte finnes det ingen entydig løsning som er best for alle delmål, og man ser etter Pareto--optimale løsninger.
+
+\begin{definition}{Pareto--dominans}{pareto_dominance}
+La \(x,y\in\mathbb R^n\). Vi sier at \(x\) \emph{dominerer} \(y\) (skriver \(x \prec y\)) hvis
+\[
+    f_i(x) \le f_i(y)\quad\forall\,i=1,\dots,k,
+    \quad
+    \exists\,j:\;f_j(x) < f_j(y).
+\]
+\end{definition}
+
+\begin{definition}{Pareto--optimalitet}{pareto_optimality}
+Et punkt \(x^*\) er Pareto--optimalt hvis det ikke finnes noe \(y\) slik at \(y \prec x^*\). Mængden av alle Pareto--optimale punkter kalles Pareto--mængden, og bildet av denne i målfunksjonsrommet kalles Pareto--fronten:
+\[
+    \mathcal P = \{x\in\mathbb R^n : \nexists\,y\text{ med }y\prec x\},
+    \quad
+    \mathcal{PF} = F(\mathcal P).
+\]
+\end{definition}
+
+\subsection{Vektet Sum Metoden}
+Vektet sum metoden er en enkel tilnærming for å håndtere flere mål ved å kombinere dem til ett mål. Dette gjøres ved å tilordne vekter til hvert mål og minimere den vektede summen:
+\begin{definition}{Vektet Sum Metode}{weighted_sum_method}
+    Betrakt problemet
+    \[
+        \min_{x\in\mathbb{R}^n} \;F(x)
+        \quad\text{med}\quad
+        F(x) = \bigl(f_1(x),f_2(x),\dots,f_k(x)\bigr).
+    \]
+    Den vektede sum metoden løser:
+    \[
+        \min_{x\in\mathbb{R}^n} \;\sum_{i=1}^k w_i f_i(x)
+        \quad\text{med}\quad
+        w_i > 0,\;i=1,\dots,k.
+    \]
+    Her er \(w_i\) vektene som bestemmer hvor mye hvert mål bidrar til den totale kostnaden.
+    Vektene kan justeres for å utforske forskjellige deler av Pareto-fronten.
+\end{definition}
 
 

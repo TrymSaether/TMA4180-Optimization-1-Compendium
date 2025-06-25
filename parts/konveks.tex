@@ -50,6 +50,8 @@ Disse restriksjonene definerer området, \( \Omega \), der løsningen må ligge.
 	\end{equation*}
 \end{example}
 
+
+
 \subsection{Typer Betingelser}
 
 \subsubsection{Likhetsbetingelser}
@@ -1289,18 +1291,18 @@ Det kan brukes til å bevise eksistensen av løsninger for lineære programmerin
 			\draw[thick, blue] (0,0) -- (2,1);
 			\draw[thick, blue] (0,0) -- (2,-1);
 			\draw[thick, blue, dashed] (2,-1) -- (2,1);
-			
+
 			% Vector g inside K
 			\draw[->, thick, red] (0,0) -- (1.5,0.2) node[right] {$g$};
-			
+
 			% Basis vectors
 			\draw[->, thick, blue!60] (0,0) -- (1,0.5) node[above] {$b_1$};
 			\draw[->, thick, blue!60] (0,0) -- (1,-0.5) node[below] {$b_2$};
 			\draw[->, thick, blue!60] (0,0) -- (1,0) node[right] {$b_3$};
-			
+
 			\node[below] at (0,-1.5) {Case 1: $g \in K$};
 		\end{scope}
-		
+
 		% Right subfigure
 		\begin{scope}[xshift=3cm]
 			% Cone K
@@ -1308,18 +1310,18 @@ Det kan brukes til å bevise eksistensen av løsninger for lineære programmerin
 			\draw[thick, blue] (0,0) -- (2,1);
 			\draw[thick, blue] (0,0) -- (2,-1);
 			\draw[thick, blue, dashed] (2,-1) -- (2,1);
-			
+
 			% Vector g outside K
 			\draw[->, thick, red] (0,0) -- (-1,0.5) node[left] {$g$};
-			
+
 			% Separating hyperplane
 			\draw[thick, purple, dashed] (-1.5,-1) -- (1.5,1) node[right] {$d$};
-			
+
 			% Basis vectors
 			\draw[->, thick, blue!60] (0,0) -- (1,0.5) node[above] {$b_1$};
 			\draw[->, thick, blue!60] (0,0) -- (1,-0.5) node[below] {$b_2$};
 			\draw[->, thick, blue!60] (0,0) -- (1,0) node[right] {$b_3$};
-			
+
 			\node[below] at (0,-1.5) {Case 2: Separating hyperplan};
 		\end{scope}
 	\end{tikzpicture}
@@ -1388,199 +1390,147 @@ Den tillatte mengden \( \Omega \) kan defineres på flere måter:
 \end{theorem}
 
 \section{Lineær Programmering (LP)}
-Lineær programmering (LP) er en spesialtilfelle av konveks optimering der både målfunksjonen og begrensningene er lineære.
+Lineær programmering (LP) er et spesialtilfelle av konveks optimering der både målfunksjon og alle begrensninger er lineære.
+
 \begin{definition}{Generell Lineær Programmering}{lp_general}
-	La \(A\in\R^{m\times n}\), \(b\in\R^m\), \(c\in\R^n\) og \(E\in\R^{p\times n}\), \(d\in\R^p\).
-	Da er et \emph{generelt LP} definert som:
-	\begin{mini*}
-		{x\in\R^n}{c^T x}{}{}
-		\addConstraint{A x}{\le b}{}
-		\addConstraint{E x}{= d}{}
-		\addConstraint{x}{\ge0}{}
-	\end{mini*}
-	Der \(c\) er målfunksjonen, \(A\) og \(E\) er matriser som beskriver begrensningene, og \(b\) og \(d\) er vektorer som representerer høyresidene av begrensningene.
-	Variablene \(x\) er de ukjente som skal bestemmes.
+	La $A\in\R^{m\times n}$, $b\in\R^m$, $c\in\R^n$, $E\in\R^{p\times n}$ og $d\in\R^p$. Et \emph{generelt LP} kan formuleres som
+	\[
+		\min_{x\in\R^n} c^T x
+		\quad\text{s.t.}\quad
+		A x \le b,\quad
+		E x = d,\quad
+		x \ge0.
+	\]
 \end{definition}
 
+\begin{example}{LP med ulikheter}{lp_example}
+\[
+	\min_{x_1,x_2} \; 3x_1 + 2x_2
+	\quad\text{s.t.}\quad
+	\begin{cases}
+		x_1 + 2x_2 \ge 4,\\
+		2x_1 +  x_2 \ge 5,\\
+		x_1,\,x_2 \ge 0.
+	\end{cases}
+\]
+Ved å introdusere overskudds-- og slakkvariabler omformes ulikhetene til likheter, og man kan løse problemet grafisk eller med simplex--metoden.
+\end{example}
 \subsection{Standardform for LP}
+Ved å legge til slakkvariabler $s\ge0$ til ulikhetene $A x\le b$ får vi likheten
+\[
+	A x + s = b,\quad x\ge0,\;s\ge0.
+\]
 \begin{definition}{Standardform for LP}{lp_standard}
-	Ved å introdusere slakkvariabler $s\ge0$ kan enhver ulikhet $A x\le b$ omformes til likheter:
+	Standardformen blir
 	\[
-		A x + I\,s = b,\quad x\ge0,\;s\ge0.
+		\min_{(x,s)\in\R^{n+m}} c^T x
+		\quad\text{s.t.}\quad
+		[A\;\;I]\,(x,s)^T = b,\quad
+		x\ge0,\;s\ge0.
 	\]
-	\emph{Standardformen} blir da
-	\begin{mini*}
-		{(x,s)\in\R^{n+m}}{c^T x + 0^T s}{}{}
-		\addConstraint{[\,A\;\;I\,]\,(x,s)^T}{= b}{}
-		\addConstraint{x,s}{\ge0}{}.
-	\end{mini*}
 \end{definition}
 
 \subsection{Dualitet i LP}
-\begin{definition}{Dualitet i LP}{lp_duality}
-	For et LP i standardform er det \emph{dualproblemet} definert som:
-	\begin{mini*}
-		{\lambda\in\R^m}{b^T \lambda}{}{}
-		\addConstraint{A^T \lambda}{= c}{}
-		\addConstraint{\lambda}{\ge0}{}.
-	\end{mini*}
-	Dualen er også et LP, og det er alltid mulig å finne en løsning til dualen hvis primalen har en løsning.
-\end{definition}
+Dualproblemet til et LP i standardform
+\[
+	\min_{x\ge0}\;c^T x
+	\quad\text{s.t.}\quad
+	A x = b
+\]
+er
+\[
+	\max_{\lambda}\;b^T\lambda
+	\quad\text{s.t.}\quad
+	A^T\lambda \le c,
+\]
+der $\lambda\in\R^m$ kalles \emph{dualvariable}.
 
 \subsection{KKT--betingelser for LP}
+For LP i standardform følger uten ekstra kvalifikasjoner:
+\begin{align*}
+	&A x = b,\quad x\ge0 &&\text{(primal gjennomførbarhet)}\\
+	&A^T\lambda + \mu = c,\quad \mu\ge0 &&\text{(stasjonaritet + dual gj.)}\\
+	&x_j\,\mu_j = 0\quad\forall j &&\text{(komplementær slakkhet)}
+\end{align*}
+Her er $\mu\in\R^n$ multiplikatorer for $x\ge0$.
 
-\begin{theorem}{KKT-betingelser for LP}{kkt_lp}
-	For et lineært optimeringsproblem i standardform:
-	\begin{mini*}
-		{x\in\R^n}{c^Tx}{}{}
-		\addConstraint{Ax}{\le b}{}
-		\addConstraint{Ex}{= d}{}
-		\addConstraint{x}{\ge 0}{}
-	\end{mini*}
-	kan KKT-betingelsene forenkles til:
-	\begin{align}
-		c + A^T\lambda + E^T\nu - s &= 0 \quad\text{(Stasjonaritet)}\\
-		Ax &\le b \quad\text{(Primal gyldighet)}\\
-		Ex &= d \quad\text{(Primal gyldighet)}\\
-		x &\ge 0 \quad\text{(Primal gyldighet)}\\
-		\lambda &\ge 0 \quad\text{(Dual gyldighet)}\\
-		s &\ge 0 \quad\text{(Dual gyldighet)}\\
-		\lambda_i(b_i - (Ax)_i) &= 0, \quad\forall i \quad\text{(Kompl. slakkhet)}\\
-		x_js_j &= 0, \quad\forall j \quad\text{(Kompl. slakkhet)}
-	\end{align}
-	hvor $s$ er slakkvariablene for betingelsen $x \ge 0$.
-\end{theorem}
-
-\begin{remark}{Tolkning av KKT for LP}{kkt_lp_interpretation}
-	Disse betingelsene har en spesiell struktur for LP:
-	\begin{itemize}
-		\item Stasjonaritetsbetingelsen representerer optimalitetskriteriet for det duale problemet
-		\item Komplementær slakkhet kobler primale og duale variabler: hvis $x_j > 0$, da må $s_j = 0$ (tilsvarende dual betingelse er stram); hvis $\lambda_i > 0$, da må $(b_i - (Ax)_i) = 0$ (tilsvarende primal betingelse er stram)
-		\item For LP er KKT-betingelsene både nødvendige og tilstrekkelige for global optimalitet uten ytterligere antakelser
-	\end{itemize}
-	KKT-betingelsene danner grunnlaget for simpleksmetoden og interiørpunktsmetoder for LP.
-\end{remark}
-\begin{example}{To--variable LP}{lp_example}
-	\[
-		\min_{x_1,x_2}\;-\,x_1 - 2x_2
-		\quad\text{slik at}\quad
-		\begin{cases}
-			x_1 + x_2 \le 1, \\
-			x_1 - x_2 \ge 0, \\
-			x_1,x_2\ge0.
-		\end{cases}
-	\]
-	Grafisk løsning viser at optimum oppnås i $(x_1,x_2)=(1,0)$ med verdi $-1$. Dualmultiplikatorene finnes fra KKT--betingelsene.
-\end{example}
-
-\section{Kvadratisk Programmering (QP)}
-Kvadratiske programmer (QP) generaliserer LP ved å la målfunksjonen ha et kvadratisk ledd.
-
-\begin{definition}{Generelt QP}{qp_general}
-	\[
-		\min_{x\in\R^n}\;\tfrac12\,x^T Q x + c^T x
-		\quad\text{slik at}\quad
-		\begin{cases}
-			A x \le b, \\
-			E x = d,
-		\end{cases}
-	\]
-	der $Q\in\R^{n\times n}$ er symmetrisk. Om $Q\succeq0$ er problemet konvekst.
-\end{definition}
-
-\subsection{KKT--betingelser for QP}
-Når $Q\succeq0$ og kvalifikasjonsbetingelser (f.eks.\ LICQ eller Slater) er oppfylt, finnes $(x^\star,\lambda^\star,\nu^\star)$ slik at
-\begin{align}
-	 & Qx^\star + c + A^T\lambda^\star + E^T\nu^\star = 0,                   \\
-	 & A x^\star \le b,\quad E x^\star = d,                                  \\
-	 & \lambda^\star\ge0,\quad \lambda^\star_i\,[\,b_i - (A x^\star)_i\,]=0.
-\end{align}
-Siden $Q\succeq0$ garanterer stasjonæritet + komplementær slakkhet global optimalitet.
-
-\subsection{Løsningsstrategier}
+\begin{remark}{Tolkning}{}
 \begin{itemize}
-	\item \textbf{Aktiv--mengde--metoder:} Iterativt anta en sett aktive begrensninger, løs likhets--QP og oppdater settet basert på komplementær slakkhet.
-	\item \textbf{Interiørpunktmetoder:} Behandler ulikheter via barrierer, løser en sekvens av glatte systemer med Newton--metoder.
-	\item \textbf{Direkte KKT--løsning:} For små problemer kan man danne hele KKT--systemet
-	      \[
-		      \begin{pmatrix}
-			      Q & A^T & E^T \\
-			      A & 0   & 0   \\
-			      E & 0   & 0
-		      \end{pmatrix}
-		      \begin{pmatrix}x\\\lambda\\\nu\end{pmatrix}
-		      =
-		      \begin{pmatrix}-c\\b\\d\end{pmatrix}
-	      \]
-	      og løse det med faste faktoriseringer.
+	\item Stasjonaritet $A^T\lambda+\mu=c$ sier at gradienten av $c^T x$ matches en kombinasjon av begrensningene.
+	\item Komplementær slakkhet $x_j\mu_j=0$ betyr at enten $x_j=0$ (inaktiv) eller $\mu_j=0$ (ingen marginalkostnad).
+	\item For LP er disse betingelsene både nødvendige og tilstrekkelige for optimalitet.
 \end{itemize}
+\end{remark}
 
-\subsection{Eksempel: QP med likheter}
+\begin{example}{To variabel LP}{two_variable_lp}
 \[
-	\min_x\;\tfrac12\|x\|_2^2 + c^T x
-	\quad\text{slik at}\quad
-	E x = d.
-\]
-KKT--systemet blir
-\[
+	\min_{x_1,x_2}\;-x_1 - 2x_2
+	\quad\text{s.t.}\quad
 	\begin{cases}
-		x + c + E^T\nu = 0, \\
-		E x = d,
+		x_1 + x_2 \le 1,\\
+		x_1 - x_2 \ge 0,\\
+		x_1,x_2\ge0.
 	\end{cases}
 \]
-som løses ved blokk--faktorering eller Schur--komplement.
+Grafisk viser at den optimale løsningen er $(x_1,x_2)=(1,0)$ med verdi $-1$.
+\end{example}
+\section{Kvadratisk Programmering (QP)}
+Kvadratiske programmer (QP) har en kvadratisk målfunksjon og lineære begrensninger.
 
-\bigskip
-% Neste avsnitt kan diskutere numeriske detaljer, konvergensgarantier og programvarebiblioteker (f.eks.\ CVX, OSQP, Gurobi).
-
-\subsection{Aktiv Mengde-metoder}
-Aktiv mengde-metoder løser kvadratiske programmeringsproblemer ved iterativt å oppdatere et estimat av den aktive mengden av betingelser ved løsningen. Hovedtrinnene er:
-
-\begin{algorithm}[H]
-	\caption{Aktiv Mengde-metode for QP}
-	Finn et initialt tillatt punkt \( x_0 \)\;
-	Identifiser de initialt aktive betingelsene \( \mathcal{A}_0 \)\;
-	\For{\( k = 0, 1, 2, \ldots \)}{
-		Løs QP med likhetsbetingelser ved å bruke betingelsene i \( \mathcal{A}_k \)\;
-		Beregn Lagrange-multiplikatorene \( \lambda_i \) for aktive betingelser\;
-		\eIf{alle \( \lambda_i \geq 0 \)}{
-			Finn betingelsen med mest negativ \( \lambda_i \)\;
-			Fjern denne betingelsen fra \( \mathcal{A}_k \)\;
-		}{
-			Finn stegretningsvektor \( p_k \)\;
-			Beregn steglengde til nærmeste inaktive betingelse\;
-			Oppdater \( x_{k+1} = x_k + \alpha_k p_k \)\;
-			Oppdater \( \mathcal{A}_{k+1} \) med ny aktiv betingelse\;
-		}
-		\If{ingen betingelser å legge til eller fjerne}{
-			\Return \( x_k \)\;
-		}
-	}
-\end{algorithm}
-
-\begin{definition}{Lineært optimeringsproblem}{linear_programming}
-	Et lineært optimeringsproblem er et optimeringsproblem på formen
-	\begin{mini*}
-		{x\in\R^n}{c^Tx}{}{}
-		\addConstraint{Ax}{\leq b,}{}
-		\addConstraint{Dx}{= e,}{}
-	\end{mini*}
-	hvor \(c \in \R^n\) er en kostnadsvektor, \(A \in \R^{m \times n}\) er en matrise med ulikhetsbetingelser, \(D \in \R^{p \times n}\) er en matrise med likhetsbetingelser, og \(b \in \R^m\) og \(e \in \R^p\) er vektorer med høyre sideverdier.
+\begin{definition}{Generelt QP}{qp_general}
+\[
+	\min_{x\in\R^n}\;\tfrac12\,x^T Q x + c^T x
+	\quad\text{s.t.}\quad
+	A x \le b,\quad
+	E x = d,
+\]
+der $Q=Q^T\in\R^{n\times n}$. Hvis $Q\succeq0$ er problemet konvekst.
 \end{definition}
 
-\begin{example}{Lineær funksjon}{linear_function}
-	La \(f(\symbf{x}) = c^T\symbf{x} + d\) være en lineær funksjon, hvor \(c\) er en vektor normal til en hyperplan og \(d\) er en konstant.
-	Da er \(f(\symbf{x}) = 0\) en lineær likning som definerer en hyperplan i \(\R^n\).
-\end{example}
+\subsection{Lagrange--funksjon og dualproblem}
+Med multiplikatorer $\lambda\ge0$ og $\nu$ defineres
+\[
+	\mathcal L(x,\lambda,\nu)
+		= \tfrac12\,x^T Q x + c^T x + \lambda^T(Ax-b) + \nu^T(Ex-d).
+\]
+Stasjonaritet $\nabla_x\mathcal L=0$ gir
+\[
+	Qx + c + A^T\lambda + E^T\nu = 0
+	\quad\Longrightarrow\quad
+	x = -Q^{-1}(c + A^T\lambda + E^T\nu),
+\]
+forutsatt $Q\succ0$. Dualfunksjonen
+\[
+	g(\lambda,\nu)
+	= \inf_{x}\mathcal L(x,\lambda,\nu)
+\]
+leder til
+\[
+	\max_{\lambda\ge0,\nu}\;g(\lambda,\nu).
+\]
+Under $Q\succeq0$ og Slaters betingelse gjelder sterk dualitet.
 
-\begin{example}{Lineær regresjon}{linear_regression}
-	La \(X \in \R^{n \times m}\) være en matrise med observasjoner og \(y \in \R^n\) være en vektor med målinger.
-	Lineær regresjon er et eksempel på et lineært program hvor vi ønsker å finne en vektor \(w \in \R^m\) som minimerer kvadratfeilen
-	\begin{equation*}
-		\min_{w \in \R^m} \norm{Xw - y}_2^2.
-	\end{equation*}
-\end{example}
+\subsection{KKT--betingelser for QP}
+Når $Q\succeq0$ og kvalifikasjonsbetingelser er oppfylt, finnes $(x^\star,\lambda^\star,\nu^\star)$ slik at
+\begin{align*}
+	&Qx^\star + c + A^T\lambda^\star + E^T\nu^\star = 0,\\
+	&A x^\star \le b,\quad E x^\star = d,\\
+	&\lambda^\star\ge0,\quad \lambda_i^\star\,[\,b_i - (A x^\star)_i\,]=0.
+\end{align*}
+Disse er nødvendige og under konveksitet også tilstrekkelige for global optimalitet.
 
+\begin{example}{Primal og dual QP}{}
+\[
+	\min_{x_1,x_2}\;\tfrac12(x_1^2 + x_2^2)
+	\quad\text{s.t.}\quad
+	\begin{cases}
+		x_1 + 2x_2 \le 1,\\
+		x_1 - x_2 \ge 0,\\
+		x_1,x_2\ge0.
+	\end{cases}
+\]
+Den optimale løsningen er $(x_1,x_2)=(0.5,0.25)$ med verdi $0.15625$. Dualmaksimering bekrefter samme verdi.
+\end{example}
 \chapter{Optimalitetsbetingelser}
 \label{chap:optimality_conditions}
 
@@ -2208,33 +2158,33 @@ For å sikre at standard optimalitetsbetingelser gjelder, trenger vi kvalifikasj
 Første Ordens Nødvendige Betingelser, også kjent som \emph{Karush--Kuhn--Tucker (KKT)}-betingelsene, er en samling av betingelser som må oppfylles for at en løsning \(x^\star\) til et optimeringsproblem skal være optimal.
 
 \begin{theorem}{Første Ordens Nødvendige Betingelser}{kkt_conditions}
-  La \(f: \mathbb{R}^n \to \mathbb{R}\) være kontinuerlig differensierbar, og
-  \(g_i, h_j\) kontinuerlig differensierbare.\  
-  Anta \(x^\star\) er lokal løsning av
-  \begin{mini*}
-    {x}{f(x)}{}{}
-    \addConstraint{g_i(x)}{\leq 0,\quad}{i\in\mathcal{I}}
-    \addConstraint{h_j(x)}{=0,\quad}{j\in\mathcal{E}}
-  \end{mini*}
-  Da finnes multiplikatorer \(\lambda_i^\star\), \(\mu_j^\star\) slik at
-  \begin{align}
-    \nabla f(x^\star)
-    + \sum_{i=1}^m \lambda_i^\star\nabla g_i(x^\star)
-    + \sum_{j=1}^p \mu_j^\star\nabla h_j(x^\star)
-      &= 0  &&\text{(Stasjonaritet)} \\
-    g_i(x^\star) &\le 0,\quad \forall i     &&\text{(Primal gj.)} \\
-    h_j(x^\star) &= 0,\quad \forall j       &&\text{(Primal gj.)} \\
-    \lambda_i^\star &\ge 0,\quad \forall i  &&\text{(Dual gj.)} \\
-    \lambda_i^\star\,g_i(x^\star) &=0,\quad \forall i &&\text{(Kompl. slakkhet)}\\
-    \mu_j^\star\,h_j(x^\star) &=0,\quad \forall j      &&\text{(Kompl. slakkhet)}
-  \end{align}
+	La \(f: \mathbb{R}^n \to \mathbb{R}\) være kontinuerlig differensierbar, og
+	\(g_i, h_j\) kontinuerlig differensierbare.\
+	Anta \(x^\star\) er lokal løsning av
+	\begin{mini*}
+		{x}{f(x)}{}{}
+		\addConstraint{g_i(x)}{\leq 0,\quad}{i\in\mathcal{I}}
+		\addConstraint{h_j(x)}{=0,\quad}{j\in\mathcal{E}}
+	\end{mini*}
+	Da finnes multiplikatorer \(\lambda_i^\star\), \(\mu_j^\star\) slik at
+	\begin{align}
+		\nabla f(x^\star)
+		+ \sum_{i=1}^m \lambda_i^\star\nabla g_i(x^\star)
+		+ \sum_{j=1}^p \mu_j^\star\nabla h_j(x^\star)
+		                              & = 0                   &  & \text{(Stasjonaritet)}   \\
+		g_i(x^\star)                  & \le 0,\quad \forall i &  & \text{(Primal gj.)}      \\
+		h_j(x^\star)                  & = 0,\quad \forall j   &  & \text{(Primal gj.)}      \\
+		\lambda_i^\star               & \ge 0,\quad \forall i &  & \text{(Dual gj.)}        \\
+		\lambda_i^\star\,g_i(x^\star) & =0,\quad \forall i    &  & \text{(Kompl. slakkhet)} \\
+		\mu_j^\star\,h_j(x^\star)     & =0,\quad \forall j    &  & \text{(Kompl. slakkhet)}
+	\end{align}
 \end{theorem}
 
 \begin{itemize}
-  \item \textbf{Stasjonæritet:} \(\nabla f(x^\star)\) er lineær kombinasjon av gradientene til aktive begrensninger.
-  \item \textbf{Primal gjennomførbarhet:} \(g_i(x^\star)\le0,\;h_j(x^\star)=0\).
-  \item \textbf{Dual gjennomførbarhet:} \(\lambda_i^\star\ge0\).
-  \item \textbf{Komplementær slakkhet:} \(\lambda_i^\star\,g_i(x^\star)=0\).
+	\item \textbf{Stasjonæritet:} \(\nabla f(x^\star)\) er lineær kombinasjon av gradientene til aktive begrensninger.
+	\item \textbf{Primal gjennomførbarhet:} \(g_i(x^\star)\le0,\;h_j(x^\star)=0\).
+	\item \textbf{Dual gjennomførbarhet:} \(\lambda_i^\star\ge0\).
+	\item \textbf{Komplementær slakkhet:} \(\lambda_i^\star\,g_i(x^\star)=0\).
 \end{itemize}
 
 \subsection{KKT-betingelser for konvekse problemer}
@@ -2242,16 +2192,16 @@ Første Ordens Nødvendige Betingelser, også kjent som \emph{Karush--Kuhn--Tuck
 For konvekse problemer (konvekst \(f,g_i\), affine \(h_j\)) gjelder:
 
 \begin{theorem}{KKT-betingelser for konvekse problemer}{kkt_convex}
-  Hvis Slaters betingelse er oppfylt, er KKT-betingelsene nødvendige og tilstrekkelige for global optimalitet.
+	Hvis Slaters betingelse er oppfylt, er KKT-betingelsene nødvendige og tilstrekkelige for global optimalitet.
 \end{theorem}
 
 \begin{proof}{KKT-betingelser for konvekse problemer}{}
-  Vi har
-  \[
-    \langle\nabla f(x^\star), p\rangle \ge0
-      \quad\forall p\in T_\Omega(x^\star).
-  \]
-  En alternativ formulering via Farkas’ lemma gir stasjonæritets- og komplementære slakkhets-betingelser som i forrige teorem.
+	Vi har
+	\[
+		\langle\nabla f(x^\star), p\rangle \ge0
+		\quad\forall p\in T_\Omega(x^\star).
+	\]
+	En alternativ formulering via Farkas’ lemma gir stasjonæritets- og komplementære slakkhets-betingelser som i forrige teorem.
 \end{proof}
 
 \subsection{Aktive Begrensninger og Tangentkjegle}
@@ -2328,3 +2278,27 @@ Den projiserte gradientmetoden har konvergensgarantier som ligner på gradientme
 
 Denne metoden er spesielt nyttig når projeksjoner på den tillatte mengden kan beregnes effektivt, som i tilfelle av bokser, kuler eller polyedre.
 
+\section{Aktiv Sett Metode}
+Aktiv mengde-metoder løser kvadratiske programmeringsproblemer ved iterativt å oppdatere et estimat av den aktive mengden av betingelser ved løsningen. Hovedtrinnene er:
+
+\begin{algorithm}[H]
+	\caption{Aktiv Mengde-metode for QP}
+	Finn et initialt tillatt punkt \( x_0 \)\;
+	Identifiser de initialt aktive betingelsene \( \mathcal{A}_0 \)\;
+	\For{\( k = 0, 1, 2, \ldots \)}{
+		Løs QP med likhetsbetingelser ved å bruke betingelsene i \( \mathcal{A}_k \)\;
+		Beregn Lagrange-multiplikatorene \( \lambda_i \) for aktive betingelser\;
+		\eIf{alle \( \lambda_i \geq 0 \)}{
+			Finn betingelsen med mest negativ \( \lambda_i \)\;
+			Fjern denne betingelsen fra \( \mathcal{A}_k \)\;
+		}{
+			Finn stegretningsvektor \( p_k \)\;
+			Beregn steglengde til nærmeste inaktive betingelse\;
+			Oppdater \( x_{k+1} = x_k + \alpha_k p_k \)\;
+			Oppdater \( \mathcal{A}_{k+1} \) med ny aktiv betingelse\;
+		}
+		\If{ingen betingelser å legge til eller fjerne}{
+			\Return \( x_k \)\;
+		}
+	}
+\end{algorithm}
