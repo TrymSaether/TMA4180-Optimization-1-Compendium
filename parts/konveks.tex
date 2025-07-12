@@ -690,27 +690,6 @@ Dette er en generalisering av punktvis maksimum til potensielt uendelig mange fu
 \paragraph{Sammensetning med Affin Funksjon}
 Hvis \( f \) er konveks og \( g(x) = f(Ax + b) \) hvor \( A \) er en matrise og \( b \) er en vektor, da er \( g \) konveks.
 
-\begin{example}{}{}
-	Hvis $f(x) = x^2$ er konveks på $\mathbb{R}$ og $g(x) = f(3x+1) = (3x+1)^2$, da er $g$ også konveks.
-
-	\begin{figure}[H]
-		\centering
-		\begin{tikzpicture}[scale=1.0]
-			% Original function f(x) = x^2
-			\draw[domain=-2:2, smooth, thick, blue] plot (\x, {(\x)^2}) node[right] {$f(x) = x^2$};
-
-			% Transformed function g(x) = f(3x+1) = (3x+1)^2
-			\draw[domain=-1:1, smooth, thick, red] plot (\x, {(3*\x+1)^2}) node[right] {$g(x) = (3x+1)^2$};
-
-			% Axes
-			\draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
-			\draw[->] (0,0) -- (0,6) node[above] {$y$};
-		\end{tikzpicture}
-		\caption{Konveksitet bevares under affin transformasjon}
-		\label{fig:composition_affine}
-	\end{figure}
-\end{example}
-
 \paragraph{Minimering over Noen Variabler}
 Hvis \( f(x,y) \) er felles konveks i \( (x,y) \), da er \( g(x) = \inf_y f(x,y) \) konveks i \( x \).
 
@@ -720,7 +699,7 @@ Dette resultatet er sentralt i dualitetsteori og Legendre transformasjoner.
 Hvis $f: \mathbb{R}^n \to \mathbb{R}$ er konveks, da er perspektivfunksjonen
 $g(x,t) = t \cdot f(x/t)$, definert for $t > 0$, også konveks.
 
-\begin{example}{}{}
+\begin{example}{Perspektivfunksjon av Relativ Entropi}{perspective_function_example}
 	Relativt entropi $g(x,y) = x\log(x/y)$ er konveks for $x,y > 0$ fordi den er perspektivfunksjonen av $f(z) = z\log z$.
 	\begin{figure}[H]
 		\centering
@@ -1404,16 +1383,16 @@ Lineær programmering (LP) er et spesialtilfelle av konveks optimering der både
 \end{definition}
 
 \begin{example}{LP med ulikheter}{lp_example}
-\[
-	\min_{x_1,x_2} \; 3x_1 + 2x_2
-	\quad\text{s.t.}\quad
-	\begin{cases}
-		x_1 + 2x_2 \ge 4,\\
-		2x_1 +  x_2 \ge 5,\\
-		x_1,\,x_2 \ge 0.
-	\end{cases}
-\]
-Ved å introdusere overskudds-- og slakkvariabler omformes ulikhetene til likheter, og man kan løse problemet grafisk eller med simplex--metoden.
+	\[
+		\min_{x_1,x_2} \; 3x_1 + 2x_2
+		\quad\text{s.t.}\quad
+		\begin{cases}
+			x_1 + 2x_2 \ge 4,  \\
+			2x_1 +  x_2 \ge 5, \\
+			x_1,\,x_2 \ge 0.
+		\end{cases}
+	\]
+	Ved å introdusere overskudds-- og slakkvariabler omformes ulikhetene til likheter, og man kan løse problemet grafisk eller med simplex--metoden.
 \end{example}
 \subsection{Standardform for LP}
 Ved å legge til slakkvariabler $s\ge0$ til ulikhetene $A x\le b$ får vi likheten
@@ -1448,36 +1427,36 @@ der $\lambda\in\R^m$ kalles \emph{dualvariable}.
 \subsection{KKT--betingelser for LP}
 For LP i standardform følger uten ekstra kvalifikasjoner:
 \begin{align*}
-	&A x = b,\quad x\ge0 &&\text{(primal gjennomførbarhet)}\\
-	&A^T\lambda + \mu = c,\quad \mu\ge0 &&\text{(stasjonaritet + dual gj.)}\\
-	&x_j\,\mu_j = 0\quad\forall j &&\text{(komplementær slakkhet)}
+	 & A x = b,\quad x\ge0                &  & \text{(primal gjennomførbarhet)}  \\
+	 & A^T\lambda + \mu = c,\quad \mu\ge0 &  & \text{(stasjonaritet + dual gj.)} \\
+	 & x_j\,\mu_j = 0\quad\forall j       &  & \text{(komplementær slakkhet)}
 \end{align*}
 Her er $\mu\in\R^n$ multiplikatorer for $x\ge0$.
 
 \begin{remark}{Tolkning}{}
-\begin{itemize}
-	\item Stasjonaritet $A^T\lambda+\mu=c$ sier at gradienten av $c^T x$ matches en kombinasjon av begrensningene.
-	\item Komplementær slakkhet $x_j\mu_j=0$ betyr at enten $x_j=0$ (inaktiv) eller $\mu_j=0$ (ingen marginalkostnad).
-	\item For LP er disse betingelsene både nødvendige og tilstrekkelige for optimalitet.
-\end{itemize}
+	\begin{itemize}
+		\item Stasjonaritet $A^T\lambda+\mu=c$ sier at gradienten av $c^T x$ matches en kombinasjon av begrensningene.
+		\item Komplementær slakkhet $x_j\mu_j=0$ betyr at enten $x_j=0$ (inaktiv) eller $\mu_j=0$ (ingen marginalkostnad).
+		\item For LP er disse betingelsene både nødvendige og tilstrekkelige for optimalitet.
+	\end{itemize}
 \end{remark}
 
 \begin{example}{To variabel LP}{two_variable_lp}
-\[
-	\min_{x_1,x_2}\;-x_1 - 2x_2
-	\quad\text{s.t.}\quad
-	\begin{cases}
-		x_1 + x_2 \le 1,\\
-		x_1 - x_2 \ge 0,\\
-		x_1,x_2\ge0.
-	\end{cases}
-\]
-Grafisk viser at den optimale løsningen er $(x_1,x_2)=(1,0)$ med verdi $-1$.
+	\[
+		\min_{x_1,x_2}\;-x_1 - 2x_2
+		\quad\text{s.t.}\quad
+		\begin{cases}
+			x_1 + x_2 \le 1, \\
+			x_1 - x_2 \ge 0, \\
+			x_1,x_2\ge0.
+		\end{cases}
+	\]
+	Grafisk viser at den optimale løsningen er $(x_1,x_2)=(1,0)$ med verdi $-1$.
 \end{example}
+
 \section{Kvadratisk Programmering (QP)}
 Kvadratiske programmer (QP) har en kvadratisk målfunksjon og lineære begrensninger.
-
-\begin{definition}{Generelt QP}{qp_general}
+En generell QP kan skrives som:
 \[
 	\min_{x\in\R^n}\;\tfrac12\,x^T Q x + c^T x
 	\quad\text{s.t.}\quad
@@ -1485,13 +1464,12 @@ Kvadratiske programmer (QP) har en kvadratisk målfunksjon og lineære begrensni
 	E x = d,
 \]
 der $Q=Q^T\in\R^{n\times n}$. Hvis $Q\succeq0$ er problemet konvekst.
-\end{definition}
 
-\subsection{Lagrange--funksjon og dualproblem}
+\subsection{Dualitet i QP}
 Med multiplikatorer $\lambda\ge0$ og $\nu$ defineres
 \[
 	\mathcal L(x,\lambda,\nu)
-		= \tfrac12\,x^T Q x + c^T x + \lambda^T(Ax-b) + \nu^T(Ex-d).
+	= \tfrac12\,x^T Q x + c^T x + \lambda^T(Ax-b) + \nu^T(Ex-d).
 \]
 Stasjonaritet $\nabla_x\mathcal L=0$ gir
 \[
@@ -1510,27 +1488,159 @@ leder til
 \]
 Under $Q\succeq0$ og Slaters betingelse gjelder sterk dualitet.
 
-\subsection{KKT--betingelser for QP}
+\subsection{KKT--betingelser for kvadratisk programmering}
 Når $Q\succeq0$ og kvalifikasjonsbetingelser er oppfylt, finnes $(x^\star,\lambda^\star,\nu^\star)$ slik at
 \begin{align*}
-	&Qx^\star + c + A^T\lambda^\star + E^T\nu^\star = 0,\\
-	&A x^\star \le b,\quad E x^\star = d,\\
-	&\lambda^\star\ge0,\quad \lambda_i^\star\,[\,b_i - (A x^\star)_i\,]=0.
+	 & Qx^\star + c + A^T\lambda^\star + E^T\nu^\star = 0,                   \\
+	 & A x^\star \le b,\quad E x^\star = d,                                  \\
+	 & \lambda^\star\ge0,\quad \lambda_i^\star\,[\,b_i - (A x^\star)_i\,]=0.
 \end{align*}
 Disse er nødvendige og under konveksitet også tilstrekkelige for global optimalitet.
 
 \begin{example}{Primal og dual QP}{}
-\[
-	\min_{x_1,x_2}\;\tfrac12(x_1^2 + x_2^2)
-	\quad\text{s.t.}\quad
-	\begin{cases}
-		x_1 + 2x_2 \le 1,\\
-		x_1 - x_2 \ge 0,\\
-		x_1,x_2\ge0.
-	\end{cases}
-\]
-Den optimale løsningen er $(x_1,x_2)=(0.5,0.25)$ med verdi $0.15625$. Dualmaksimering bekrefter samme verdi.
+	\[
+		\min_{x_1,x_2}\;\tfrac12(x_1^2 + x_2^2)
+		\quad\text{s.t.}\quad
+		\begin{cases}
+			x_1 + 2x_2 \le 1, \\
+			x_1 - x_2 \ge 0,  \\
+			x_1,x_2\ge0.
+		\end{cases}
+	\]
+	Den optimale løsningen er $(x_1,x_2)=(0.5,0.25)$ med verdi $0.15625$. Dualmaksimering bekrefter samme verdi.
 \end{example}
+
+\subsection{Support Vector Machines (SVM)}
+Support Vector Machines (SVM) er et sentralt eksempel på kvadratisk programmering i maskinlæring. SVM søker å finne det hyperplanet som best separerer to klasser med størst margin.
+
+\subsubsection{Hard-margin SVM}
+\begin{definition}{Hard-margin SVM}{svm_hard_margin}
+	Gitt treningsdata $\{(\symbf{x}_i, y_i)\}_{i=1}^N$ med $\symbf{x}_i \in \mathbb{R}^n$, $y_i \in \{-1,1\}$, er SVM-optimaliseringsproblemet:
+	\begin{mini*}
+		{\symbf{w}, b}{\frac{1}{2}\|\symbf{w}\|_2^2}{}{}
+		{\label{eq:svm_hard_margin}}{}
+		\addConstraint{y_i(\symbf{w}^\top \symbf{x}_i + b) \ge 1}
+	\end{mini*}
+	\begin{description}
+		\item[$\symbf{w} \in \mathbb{R}^n$] er vektoren som definerer hyperplanet \eqref{eq:svm_hard_margin}.
+		\item[$b$] forskyver hyperplanet i rommet.
+		\item[$\symbf{x}_i \in \mathbb{R}^n$] er datapunktene vi ønsker å klassifisere og skille.
+		\item[$y_i \in \{-1, 1\}$] er klassifiseringen for hvert datapunkt.
+	\end{description}
+\end{definition}
+
+\begin{figure}[htbp]
+	\centering
+	\includestandalone[width=0.6\textwidth]{figures/hard-svm}
+	\caption{Hard-margin SVM: Målet er å finne hyperplanet som skiller de to klassene med størst mulig margin.}
+	\label{fig:hard_margin_svm}
+\end{figure}
+
+Dette er et konvekst QP-problem: målfunksjonen er kvadratisk og begrensningene er lineære.
+
+
+\subsubsection{Soft-margin SVM}
+Soft-margin SVM tillater at noen datapunkter kan ligge på feil side av marginen ved å introdusere slakkvariabler $\xi_i \ge 0$ for hvert datapunkt. Dette gjør modellen robust mot støy og ikke-separerbare data.
+
+\begin{definition}{Soft-margin SVM}{svm_soft_margin}
+	Gitt treningsdata $\{(\symbf{x}_i, y_i)\}_{i=1}^N$ med $\symbf{x}_i \in \mathbb{R}^n$, $y_i \in \{-1,1\}$, er soft-margin SVM formulert som:
+	\begin{mini*}
+		{\symbf{w}, b, \xi}{\frac{1}{2}\|\symbf{w}\|_2^2 + C\sum_{i=1}^N \xi_i}{}{}
+		\addConstraint{y_i(\symbf{w}^\top \symbf{x}_i + b) \ge 1 - \xi_i,}{\quad i=1,\ldots,N}
+		\addConstraint{\xi_i \ge 0,}{\quad i=1,\ldots,N}
+	\end{mini*}
+	Her er $C > 0$ en reguleringsparameter som styrer avveiningen mellom marginbredde og feilklassifisering.
+\end{definition}
+\begin{figure}[htbp]
+	\centering
+	\includestandalone[width=0.6\textwidth]{figures/soft-svm}
+	\caption{Soft-margin SVM: Tillater feilklassifisering ved å introdusere slakkvariabler $\xi_i$, noe som gir en mer robust modell.}
+	\label{fig:soft_margin_svm}
+\end{figure}
+
+\paragraph{Intuisjon}
+Slakkvariablene $\xi_i$ måler hvor mye hvert datapunkt bryter marginbetingelsen. Hvis $\xi_i = 0$, ligger punktet på riktig side av marginen; hvis $0 < \xi_i < 1$, ligger det innenfor marginen, og hvis $\xi_i > 1$, er det feilklassifisert.
+
+\paragraph{Dualformulering}
+Dualproblemet for soft-margin SVM er:
+\[
+	\max_{\alpha} \sum_{i=1}^N \alpha_i - \frac{1}{2}\sum_{i,j=1}^N \alpha_i \alpha_j y_i y_j \symbf{x}_i^\top \symbf{x}_j
+\]
+\[
+	\text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^N \alpha_i y_i = 0
+\]
+Her er $\alpha_i$ Lagrange-multiplikatorene.
+
+\paragraph{KKT-betingelser for soft-margin SVM}
+For optimalitet gjelder:
+\begin{align*}
+	 & y_i(\symbf{w}^\top \symbf{x}_i + b) \ge 1 - \xi_i,\quad \xi_i \ge 0,\quad \alpha_i \ge 0,\quad \mu_i \ge 0 \\
+	 & \alpha_i [y_i(\symbf{w}^\top \symbf{x}_i + b) - 1 + \xi_i] = 0,\quad \mu_i \xi_i = 0                       \\
+	 & 0 \leq \alpha_i \leq C
+\end{align*}
+hvor $\mu_i$ er multiplikatorer for $\xi_i \ge 0$.
+
+
+\paragraph{Geometrisk tolkning}
+Soft-margin SVM tillater at noen datapunkter ligger på feil side av marginen, men straffer dette i målfunksjonen. Parameteren $C$ bestemmer hvor strengt feilklassifisering straffes: stor $C$ gir smal margin og få feil, liten $C$ gir bred margin og flere feil.
+
+\begin{definition}{Soft-margin SVM}{svm_soft_margin}
+	For ikke-separerbare data introduseres slakkvariabler $\xi_i \ge 0$:
+	\[
+		\min_{w, b, \xi} \;\; \frac{1}{2}\|w\|_2^2 + C\sum_{i=1}^N \xi_i
+		\quad\text{s.t.}\quad
+		y_i(w^T x_i + b) \ge 1 - \xi_i,\quad \xi_i \ge 0
+	\]
+	Her er $C > 0$ en reguleringsparameter.
+\end{definition}
+
+\paragraph{Dualformulering}
+Dualproblemet for hard-margin SVM er:
+\[
+	\max_{\alpha \ge 0} \;\; \sum_{i=1}^N \alpha_i - \frac{1}{2}\sum_{i,j=1}^N \alpha_i \alpha_j y_i y_j x_i^T x_j
+	\quad\text{s.t.}\quad
+	\sum_{i=1}^N \alpha_i y_i = 0
+\]
+Her er $\alpha_i$ Lagrange-multiplikatorene.
+
+\paragraph{KKT-betingelser for SVM}
+For optimalitet gjelder:
+\begin{align*}
+	 & y_i(w^T x_i + b) - 1 + \xi_i \ge 0,\quad \xi_i \ge 0,\quad \alpha_i \ge 0,\quad \mu_i \ge 0 \\
+	 & \alpha_i [y_i(w^T x_i + b) - 1 + \xi_i] = 0,\quad \mu_i \xi_i = 0
+\end{align*}
+hvor $\mu_i$ er multiplikatorer for $\xi_i \ge 0$.
+
+\paragraph{Geometrisk tolkning}
+SVM finner det hyperplanet som maksimerer marginen mellom klassene. De punktene som ligger på marginen (med $\alpha_i > 0$) kalles \emph{support vectors}.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=1.0]
+		% Draw data points
+		\foreach \x/\y in {0.5/2, 1/1, 1.5/2.5, 2/1.2, 2.5/2.2}
+		\filldraw[blue] (\x,\y) circle (2pt);
+		\foreach \x/\y in {3/3, 3.5/2.5, 4/3.2, 4.5/2.8, 5/3.5}
+		\filldraw[red] (\x,\y) circle (2pt);
+
+		% Draw separating hyperplane
+		\draw[thick, black] (0.5,1.5) -- (5.2,3.7) node[right] {Separasjonsplan};
+
+		% Draw margins
+		\draw[dashed, gray] (0.5,1.1) -- (5.2,3.3);
+		\draw[dashed, gray] (0.5,1.9) -- (5.2,4.1);
+
+		% Support vectors
+		\filldraw[black] (1.5,2.5) circle (2.5pt);
+		\filldraw[black] (3,3) circle (2.5pt);
+
+		\node at (2.5,0.7) {Margin};
+	\end{tikzpicture}
+	\caption{SVM: Separasjonsplan og margin. De svarte punktene er support vectors.}
+	\label{fig:svm}
+\end{figure}
+
+
 \chapter{Optimalitetsbetingelser}
 \label{chap:optimality_conditions}
 
@@ -1997,7 +2107,7 @@ For å sikre at standard optimalitetsbetingelser gjelder, trenger vi kvalifikasj
 	\end{align*}
 
 	\begin{tikzpicture}
-		% Feasible region 
+		% Feasible region
 		\fill[blue!20] (0, -2) -- (0, 3) -- (3, 1) -- cycle;
 		\fill[white] (1, 0) circle(1cm);
 
@@ -2277,28 +2387,3 @@ Den projiserte gradientmetoden har konvergensgarantier som ligner på gradientme
 \end{algorithm}
 
 Denne metoden er spesielt nyttig når projeksjoner på den tillatte mengden kan beregnes effektivt, som i tilfelle av bokser, kuler eller polyedre.
-
-\section{Aktiv Sett Metode}
-Aktiv mengde-metoder løser kvadratiske programmeringsproblemer ved iterativt å oppdatere et estimat av den aktive mengden av betingelser ved løsningen. Hovedtrinnene er:
-
-\begin{algorithm}[H]
-	\caption{Aktiv Mengde-metode for QP}
-	Finn et initialt tillatt punkt \( x_0 \)\;
-	Identifiser de initialt aktive betingelsene \( \mathcal{A}_0 \)\;
-	\For{\( k = 0, 1, 2, \ldots \)}{
-		Løs QP med likhetsbetingelser ved å bruke betingelsene i \( \mathcal{A}_k \)\;
-		Beregn Lagrange-multiplikatorene \( \lambda_i \) for aktive betingelser\;
-		\eIf{alle \( \lambda_i \geq 0 \)}{
-			Finn betingelsen med mest negativ \( \lambda_i \)\;
-			Fjern denne betingelsen fra \( \mathcal{A}_k \)\;
-		}{
-			Finn stegretningsvektor \( p_k \)\;
-			Beregn steglengde til nærmeste inaktive betingelse\;
-			Oppdater \( x_{k+1} = x_k + \alpha_k p_k \)\;
-			Oppdater \( \mathcal{A}_{k+1} \) med ny aktiv betingelse\;
-		}
-		\If{ingen betingelser å legge til eller fjerne}{
-			\Return \( x_k \)\;
-		}
-	}
-\end{algorithm}

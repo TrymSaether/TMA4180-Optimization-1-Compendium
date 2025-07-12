@@ -1,0 +1,65 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+
+\begin{document}
+\begin{tikzpicture}[
+    % styles
+    class1/.style={blue, fill=blue!20, draw=blue, circle, minimum size=6pt},
+    class2/.style={red,  fill=red!20,  draw=red,  circle, minimum size=6pt},
+    supvec/.style={thick, draw=black, circle},
+    slack/.style={->, thick, green!50!black},
+    >=stealth
+]
+
+  % Axes
+  \draw[->] (-0.5,0) -- (6,0) node[right,font=\footnotesize] {$x_1$};
+  \draw[->] (0,-0.5) -- (0,5) node[above,font=\footnotesize] {$x_2$};
+
+  % Class 1 (positive, y=+1)
+  \foreach \x/\y in {1/4, 2/3, 3/4, 4/3.5} {
+    \node[class1] at (\x,\y) {};
+  }
+
+  % Class 2 (negative, y=-1)
+  \foreach \x/\y in {1/0.5, 2/1, 3/0.5, 4/0.8} {
+    \node[class2] at (\x,\y) {};
+  }
+
+  % Support vectors on margins
+  \node[class2] (sv1) at (2,1) {};
+  \node[supvec] at (sv1) {};
+  \node[above right=2pt,font=\footnotesize] at (sv1) {$\text{sv}_1$};
+
+  \node[class1] (sv2) at (2,3) {};
+  \node[supvec] at (sv2) {};
+  \node[above left=2pt,font=\footnotesize] at (sv2) {$\text{sv}_2$};
+
+  % Slack‐violating points
+  \node[class1] (p2) at (4,2.2) {};
+  \draw[slack] (4,3) -- (p2) node[midway,right,font=\footnotesize, black] {$\xi_2$};
+
+  \node[class2] (p1) at (4,1.8) {};
+  \draw[slack] (4,1) -- (p1) node[midway,right,font=\footnotesize, black] {$\xi_1$};
+
+  % Misclassified point
+  \node[class2] (mis) at (3,2.5) {};
+  \node[supvec, dashed] at (mis) {};
+  \node[above right=2pt,font=\footnotesize] at (mis) {miscl.};
+
+  % Decision boundary and margins
+  \draw[thick] (-0.5,2) -- (5.5,2)
+    node[right,font=\footnotesize] {$\mathbf{w}^\top \mathbf{x} + b = 0$};
+  \draw[dashed] (-0.5,3) -- (5.5,3)
+    node[right,font=\footnotesize] {$\mathbf{w}^\top \mathbf{x} + b = 1$};
+  \draw[dashed] (-0.5,1) -- (5.5,1)
+    node[right,font=\footnotesize] {$\mathbf{w}^\top \mathbf{x} + b = -1$};
+
+  % Normal vector and margin width
+  \draw[->, thick] (0,2) -- (0,3)
+    node[right,font=\footnotesize] {$\mathbf{w}$};
+  \draw[<->, thick, orange] (5,1) -- (5,3)
+    node[midway,above left,font=\footnotesize, black] {$\tfrac{2}{\|\mathbf{w}\|}$};
+
+\end{tikzpicture}
+\end{document}

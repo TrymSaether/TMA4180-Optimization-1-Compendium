@@ -2024,7 +2024,7 @@ Imidlertid er de også mer beregningsmessig krevende, spesielt når Hesse-matris
 Newtons metode er basert på en andreordens Taylor-approksimasjon av objektfunksjonen \(f\) rundt det nåværende punktet \(\symbf{x}_k\):
 
 \[
-	f(\symbf{x}_k + \symbf{d}) \approx f(\symbf{x}_k) + \nabla f(\symbf{x}_k)^T \symbf{d} + \frac{1}{2}\symbf{p}^T \nabla^2 f(\symbf{x}_k) \symbf{d}
+	f(\symbf{x}_k + \symbf{p}) \approx f(\symbf{x}_k) + \nabla f(\symbf{x}_k)^T \symbf{p} + \frac{1}{2}\symbf{p}^T \nabla^2 f(\symbf{x}_k) \symbf{p}
 \]
 
 Minimering av denne approksimeringen med hensyn til \(\symbf{p}\) gir Newtonstegligningen:
@@ -2042,7 +2042,7 @@ Løsningen av denne ligningen gir Newtonretningen:
 Dette leder til oppdateringsformelen:
 
 \[
-	\mathbf{x}_{k+1} = \mathbf{x}_k - [\nabla^2 f(\mathbf{x}_k)]^{-1} \nabla f(\mathbf{x}_k) = \mathbf{x}_k + \alpha_k \mathbf{d}_k
+	\symbf{x}_{k+1} = \symbf{x}_k - [\nabla^2 f(\symbf{x}_k)]^{-1} \nabla f(\symbf{x}_k) = \symbf{x}_k + \alpha_k \symbf{d}_k
 \]
 
 hvor \(\alpha_k\) er steglengden, som vanligvis er satt til 1 i det "rene" Newtonsteget, men kan justeres ved hjelp av linjesøk eller tillitsregion-metoder for å sikre konvergens.
