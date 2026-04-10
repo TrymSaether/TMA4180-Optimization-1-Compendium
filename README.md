@@ -1,4 +1,4 @@
-*# TMA4180 Optimization Notes
+# TMA4180 Optimization Notes
 
 LaTeX notes and materials for the TMA4180 Optimization course. This repository contains comprehensive course notes with custom styling, mathematical definitions, and algorithm visualizations in both Norwegian and English.
 
